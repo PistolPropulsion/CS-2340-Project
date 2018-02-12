@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import edu.gatech.pistolpropulsion.homesforall.R;
 
@@ -31,6 +32,8 @@ public class LoginActivity extends Activity {
                 editPass = (EditText) findViewById(R.id.editPass);
                 if ((editUser.getText().toString().equals("user"))&&(editPass.getText().toString().equals("pass"))) {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                } else {
+                    Toast.makeText(getApplicationContext(), "Wrong Username or Password", Toast.LENGTH_SHORT).show();
                 }
             }
         });
