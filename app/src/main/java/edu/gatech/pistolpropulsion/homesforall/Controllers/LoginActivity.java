@@ -11,19 +11,24 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 
 public class LoginActivity extends Activity {
 
+    private TextView enter;
+    private TextView cancel;
+    private EditText editUser;
+    private EditText editPass;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        TextView enter = (TextView) findViewById(R.id.enter_textView);
-        TextView cancel = (TextView) findViewById(R.id.cancel_textView);
+        enter = (TextView) findViewById(R.id.enter_textView);
+        cancel = (TextView) findViewById(R.id.cancel_textView);
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EditText editUser = (EditText) findViewById(R.id.editUser);
-                EditText editPass = (EditText) findViewById(R.id.editPass);
+                editUser = (EditText) findViewById(R.id.editUser);
+                editPass = (EditText) findViewById(R.id.editPass);
                 if ((editUser.getText().toString().equals("user"))&&(editPass.getText().toString().equals("pass"))) {
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                 }
