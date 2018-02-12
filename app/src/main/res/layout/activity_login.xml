@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="edu.gatech.pistolpropulsion.homesforall.LoginActivity">
+    android:background="@drawable/gradient_background"
+    tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.LoginActivity">
 
     <EditText
         android:id="@+id/editUser"
@@ -96,4 +97,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
 </android.support.constraint.ConstraintLayout>
