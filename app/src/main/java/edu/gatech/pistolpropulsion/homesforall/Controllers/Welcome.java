@@ -1,11 +1,12 @@
-package edu.gatech.pistolpropulsion.homesforall;
+package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+
+import edu.gatech.pistolpropulsion.homesforall.R;
 
 public class Welcome extends AppCompatActivity {
 
