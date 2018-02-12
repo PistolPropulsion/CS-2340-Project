@@ -1,6 +1,5 @@
 package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
-import android.support.v7.app.AppCompatActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+
         logout = (TextView) findViewById(R.id.logout_textView);
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -27,5 +28,10 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, Welcome.class));
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        //do nothing
     }
 }
