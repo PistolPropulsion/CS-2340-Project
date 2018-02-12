@@ -12,10 +12,10 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 
 public class LoginActivity extends Activity {
 
-    private TextView enter;
-    private TextView cancel;
     private EditText editUser;
     private EditText editPass;
+    private TextView enter;
+    private TextView cancel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
