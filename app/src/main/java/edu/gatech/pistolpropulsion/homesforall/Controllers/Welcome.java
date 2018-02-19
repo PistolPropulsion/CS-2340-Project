@@ -10,6 +10,9 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 
 public class Welcome extends Activity {
 
+    TextView loginView;
+    TextView register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,12 +20,20 @@ public class Welcome extends Activity {
 
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
 
-        TextView loginView = (TextView) findViewById(R.id.login_textView);
+        loginView = (TextView) findViewById(R.id.login_textView);
+        register = (TextView) findViewById(R.id.register_textView);
 
         loginView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(Welcome.this, LoginActivity.class));
+            }
+        });
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Welcome.this, RegisterActivity.class));
             }
         });
 
