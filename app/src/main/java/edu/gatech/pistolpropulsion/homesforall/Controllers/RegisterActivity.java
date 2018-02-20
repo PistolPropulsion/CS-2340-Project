@@ -57,32 +57,31 @@ public class RegisterActivity extends Activity {
             public void onClick(View v) {
                 editUser = (EditText) findViewById(R.id.editUser);
                 editPass = (EditText) findViewById(R.id.editPass);
-                final String user = editUser.getText().toString();
+                final String username = editUser.getText().toString();
                 final String pass = editPass.getText().toString();
                 final int type = userSpinner.getSelectedItemPosition();
-                mAuth.createUserWithEmailAndPassword(user, pass)
+                mAuth.createUserWithEmailAndPassword(username, pass)
                         .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
-                                    String userModded = user;
-                                    userModded = userModded.replaceAll("@", "");
-                                    userModded = userModded.replaceAll(".", "");
-
-                                    if(type == 2) {
-                                        Administrator userObject = new Administrator(user, pass);
-                                        mDatabase.child("administrators").child(userModded).setValue(userObject);
-                                    } else if (type == 1) {
-                                        StoreEmployee userObject = new StoreEmployee(user, pass);
-                                        mDatabase.child("storeEmployees").child(userModded).setValue(userObject);
-                                    } else {
-                                        User userObject = new User(user, pass);
-                                        mDatabase.child("users").child(userModded).setValue(userObject);
-                                    }
+                                    final String userKey = username.replaceAll(".", "");
 
                                     Log.d(TAG, "createUserWithEmail:success");
                                     FirebaseUser user = mAuth.getCurrentUser();
+
+                                    if(type == 2) {
+                                        Administrator userObject = new Administrator(username, pass);
+                                        mDatabase.child("users").child("administrators").child(user.getUid()).setValue(userObject);
+                                    } else if (type == 1) {
+                                        StoreEmployee userObject = new StoreEmployee(username, pass);
+                                        mDatabase.child("users").child("storeEmployees").child(user.getUid()).setValue(userObject);
+                                    } else {
+                                        User userObject = new User(username, pass);
+                                        mDatabase.child("users").child("standardUsers").child(user.getUid()).setValue(userObject);
+                                    }
+
                                     Toast.makeText(getApplicationContext(), "You can now login with this user.",
                                             Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
