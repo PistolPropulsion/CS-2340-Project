@@ -22,4 +22,10 @@ public class User {
         this.isVeteran = isVeteran;
         this.name = name;
     }
+
+    public String getName() { return name; }
+    public String getEmail() { return email; }
+    public Boolean getLocked() { return locked; }
+    public Boolean getVeteran() { return isVeteran; }
+
 }
