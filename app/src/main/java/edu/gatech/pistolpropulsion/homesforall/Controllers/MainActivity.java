@@ -15,6 +15,7 @@ import android.widget.TextView;
 import java.io.InputStreamReader;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
+import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.Models.ShelterManager;
 import edu.gatech.pistolpropulsion.homesforall.R;
 
@@ -58,18 +59,15 @@ public class MainActivity extends Activity {
 //                }
 
                 ShelterManager shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
-//                Shelter[] shelterArray = shelterManager.getShelterArray();
+                Shelter[] shelterArray = shelterManager.getShelterArray();
 //                String[] namesArray = shelterManager.getNamesArray();
 //                for(int i = 0; i < 13; i++) {
 //                    System.out.println(namesArray[i]);
 //                }
                 mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
-
-
-                ArrayAdapter<String> namesAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                        android.R.layout.simple_list_item_1,
-                        shelterManager.getNamesArray());
+//
+                RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterManager.getShelterArray());
                 recyclerView.setAdapter(namesAdapter);
             }
         });
@@ -79,8 +77,9 @@ public class MainActivity extends Activity {
     public void onBackPressed() {
         //do nothing
     }
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
-        private String[] mDataset;
+
+    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
+        private Shelter[] mDataset;
 
         // Provide a reference to the views for each data item
         // Complex data items may need more than one view per item, and
@@ -95,17 +94,17 @@ public class MainActivity extends Activity {
         }
 
         // Provide a suitable constructor (depends on the kind of dataset)
-        public MyAdapter(String[] myDataset) {
+        public RecyclerViewAdapter(Shelter[] myDataset) {
             mDataset = myDataset;
         }
 
         // Create new views (invoked by the layout manager)
         @Override
-        public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                       int viewType) {
+        public RecyclerViewAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                                 int viewType) {
             // create a new view
             TextView v = (TextView) LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.my_text_view, parent, false);
+                    .inflate(R.layout.activity_listitem, parent, false);
             ViewHolder vh = new ViewHolder(v);
             return vh;
         }
@@ -115,7 +114,7 @@ public class MainActivity extends Activity {
         public void onBindViewHolder(ViewHolder holder, int position) {
             // - get element from your dataset at this position
             // - replace the contents of the view with that element
-            holder.mTextView.setText(mDataset[position]);
+            holder.mTextView.setText(mDataset[position].getName());
 
         }
 
