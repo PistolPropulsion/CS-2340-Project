@@ -49,6 +49,7 @@ public class LoginActivity extends Activity {
             public void onClick(View v) {
                 editUser = (EditText) findViewById(R.id.editUser);
                 editPass = (EditText) findViewById(R.id.editPass);
+                //just for testing lol
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //                mAuth.signInWithEmailAndPassword(editUser.getText().toString(), editPass.getText().toString())
 //                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
