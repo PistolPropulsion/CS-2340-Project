@@ -1,9 +1,5 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
-/**
- * Created by Yuan Zhang on 2/11/2018.
- */
-
 public class User {
     private String email; //also username
     private String name;
