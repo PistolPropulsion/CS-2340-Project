@@ -2,59 +2,32 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
 
 public class ShelterManager {
     private Shelter[] shelterArray;
-    private String[] namesArray;
+    private int count;
 
     public ShelterManager(int count) {
-        namesArray = new String[count];
         shelterArray = new Shelter[count];
+        this.count = count;
     }
 
     public ShelterManager(String[][] data, int count) {
         this(count);
-        String key = "", name = "", cap = "",
-                restrictions = "", longitude = "",
-                lat = "", address = "",
-                notes = "", phone = "";
         for(int i = 0; i < count; i++) {
-            for(int j = 0; j < 9; j++) {
-//                switch(j) {
-//                    case 1:
-//                        key = data[i][j];
-//                        break;
-//                    case 2:
-//                        name = data[i][j];
-//                        break;
-//                    case 3:
-//                        cap = data[i][j];
-//                        break;
-//                    case 4:
-//                        restrictions = data[i][j];
-//                        break;
-//                    case 5:
-//                        longitude = data[i][j];
-//                        break;
-//                    case 6:
-//                        lat = data[i][j];
-//                        break;
-//                    case 7:
-//                        address = data[i][j];
-//                        break;
-//                    case 8:
-//                        notes = data[i][j];
-//                        break;
-//                    case 9:
-//                        phone = data[i][j];
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            }
-//            shelterArray[i] = new Shelter(key, name, cap, restrictions, longitude, lat, address, notes, phone);
+            Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4],
+                    data[i][5], data[i][6], data[i][7], data[i][8]);
+            shelterArray[i] = newShelter;
         }
     }
 
+    private String[] makeNamesArray(int count) {
+        String [] names = new String[count];
+        for(int i = 0; i < count; i++){
+            names[i] = shelterArray[i].getName();
+        }
+        return names;
+    }
+
     public String[] getNamesArray() {
-        return this.namesArray;
+        return makeNamesArray(count);
     }
 
     public Shelter[] getShelterArray() {

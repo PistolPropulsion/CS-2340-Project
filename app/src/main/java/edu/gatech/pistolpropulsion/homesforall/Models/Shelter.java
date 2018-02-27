@@ -4,15 +4,15 @@ public class Shelter {
     private String name;
     private String capacity;
     private String restrictions;
-    private double longitude;
-    private double latitude;
+    private String longitude;
+    private String latitude;
     private String address;
     private String specialNotes;
-    private int phone;
-    private int key;
+    private String phone;
+    private String key;
 
-    public Shelter(String name, String capacity, String restrictions, double longitude, double latitude,
-                   String address, String specialNotes, int phone, int key) {
+    public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
+                   String address, String specialNotes, String phone) {
         this.name = name;
         this.capacity = capacity;
         this.restrictions = restrictions;
@@ -24,11 +24,11 @@ public class Shelter {
         this.key = key;
     }
 
-    public int getKey() {
+    public String getKey() {
         return key;
     }
 
-    public int getPhone() {
+    public String getPhone() {
         return phone;
     }
 
@@ -40,11 +40,11 @@ public class Shelter {
         return address;
     }
 
-    public double getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public double getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
@@ -58,5 +58,13 @@ public class Shelter {
 
     public String getName() {
         return name;
+    }
+
+    public String toString(){
+        return this.key + " " + this.name + " "
+                + this.capacity + " " + this.restrictions + " "
+                + this.longitude + " " + this.latitude + " "
+                + this.address + " " + this.specialNotes + " "
+                + this.phone;
     }
 }
