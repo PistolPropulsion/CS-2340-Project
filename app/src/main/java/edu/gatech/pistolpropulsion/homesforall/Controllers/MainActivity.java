@@ -19,6 +19,7 @@ import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.Models.ShelterManager;
 import edu.gatech.pistolpropulsion.homesforall.R;
+import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 import edu.gatech.pistolpropulsion.homesforall.View.RecyclerViewAdapter;
 
 public class MainActivity extends Activity {
@@ -69,6 +70,19 @@ public class MainActivity extends Activity {
 //                }
                 mLayoutManager = new LinearLayoutManager(getApplicationContext());
                 recyclerView.setLayoutManager(mLayoutManager);
+
+                recyclerView.addOnItemTouchListener(
+                        new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                startActivity(new Intent(MainActivity.this, ShelterDetailsActivity.class));
+                            }
+
+                            public void onLongItemClick(View view, int position) {
+
+                            }
+                        })
+                );
 //
                 RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterManager.getShelterArray());
                 recyclerView.setAdapter(namesAdapter);
