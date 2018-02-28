@@ -60,41 +60,47 @@ public class RegisterActivity extends Activity {
                 final String username = editUser.getText().toString();
                 final String pass = editPass.getText().toString();
                 final int type = userSpinner.getSelectedItemPosition();
-                mAuth.createUserWithEmailAndPassword(username, pass)
-                        .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    final String userKey = username.replaceAll(".", "");
+                try {
+                    mAuth.createUserWithEmailAndPassword(username, pass)
+                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        // Sign in success, update UI with the signed-in user's information
+                                        final String userKey = username.replaceAll(".", "");
 
-                                    Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                                        Log.d(TAG, "createUserWithEmail:success");
+                                        FirebaseUser user = mAuth.getCurrentUser();
 
-                                    if(type == 2) {
-                                        Administrator userObject = new Administrator(username, pass);
-                                        mDatabase.child("users").child("administrators").child(user.getUid()).setValue(userObject);
-                                    } else if (type == 1) {
-                                        StoreEmployee userObject = new StoreEmployee(username, pass);
-                                        mDatabase.child("users").child("storeEmployees").child(user.getUid()).setValue(userObject);
+                                        if (type == 2) {
+                                            Administrator userObject = new Administrator(username, pass);
+                                            mDatabase.child("users").child("administrators").child(user.getUid()).setValue(userObject);
+                                        } else if (type == 1) {
+                                            StoreEmployee userObject = new StoreEmployee(username, pass);
+                                            mDatabase.child("users").child("storeEmployees").child(user.getUid()).setValue(userObject);
+                                        } else {
+                                            User userObject = new User(username, pass);
+                                            mDatabase.child("users").child("standardUsers").child(user.getUid()).setValue(userObject);
+                                        }
+
+                                        Toast.makeText(getApplicationContext(), "You can now login with this user.",
+                                                Toast.LENGTH_SHORT).show();
+                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
                                     } else {
-                                        User userObject = new User(username, pass);
-                                        mDatabase.child("users").child("standardUsers").child(user.getUid()).setValue(userObject);
+                                        // If sign in fails, display a message to the user.
+                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
+                                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                                Toast.LENGTH_SHORT).show();
                                     }
 
-                                    Toast.makeText(getApplicationContext(), "You can now login with this user.",
-                                            Toast.LENGTH_SHORT).show();
-                                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(getApplicationContext(), "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                                    // ...
                                 }
-
-                                // ...
-                            }
-                        });
+                            });
+                } catch (IllegalArgumentException e) {
+                    Log.w(TAG, "signInWithEmail:failure", e);
+                    Toast.makeText(getApplicationContext(), "Please enter all fields.",
+                            Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
