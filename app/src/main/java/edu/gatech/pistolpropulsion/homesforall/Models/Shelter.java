@@ -1,6 +1,8 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
-public class Shelter {
+import java.io.Serializable;
+
+public class Shelter implements Serializable{
     private String name;
     private String capacity;
     private String restrictions;

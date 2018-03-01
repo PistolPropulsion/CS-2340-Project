@@ -23,7 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controllers.LoginActivity" />
-        <activity android:name=".Controllers.MainActivity" />
+        <activity android:name=".Controllers.MainActivity"
+            android:theme="@style/NoActionBar" />
+        <activity android:name=".Controllers.ShelterDetailsActivity" />
         <activity android:name=".Controllers.RegisterActivity"></activity>
     </application>
 
