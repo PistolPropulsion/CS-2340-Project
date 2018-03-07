@@ -3,8 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/CS-2340-Project.iml" filepath="$PROJECT_DIR$/CS-2340-Project.iml" />
-      <module fileurl="file://D:\School\Spring2018\cs2340\Clones\HomesForAll\CS-2340-Project.iml" filepath="D:\School\Spring2018\cs2340\Clones\HomesForAll\CS-2340-Project.iml" />
-      <module fileurl="file://D:\Users\Yuan Zhang\Documents\School\Spring 18\CS 2340\CS-2340-Project\HomesForAll.iml" filepath="D:\Users\Yuan Zhang\Documents\School\Spring 18\CS 2340\CS-2340-Project\HomesForAll.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

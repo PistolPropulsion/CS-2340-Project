@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.io.InputStreamReader;
 
@@ -19,8 +21,8 @@ import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.Models.ShelterManager;
 import edu.gatech.pistolpropulsion.homesforall.R;
-import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 import edu.gatech.pistolpropulsion.homesforall.View.RecyclerViewAdapter;
+import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 
 public class MainActivity extends Activity {
 
@@ -28,6 +30,8 @@ public class MainActivity extends Activity {
     private Button refresh;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
+    private ShelterManager shelterManager;
+    private Shelter[] shelterArray;
 
 
     @SuppressLint("WrongViewCast")
@@ -62,32 +66,39 @@ public class MainActivity extends Activity {
 //                    System.out.println();
 //                }
 
-                ShelterManager shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
-                Shelter[] shelterArray = shelterManager.getShelterArray();
+                shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
+                loadShelters();
+            }
+        });
+
+        recyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                    @Override public void onItemClick(View view, int position) {
+                        Shelter item = shelterArray[position];
+
+                        Intent myIntent = new Intent(MainActivity.this, ShelterDetailsActivity.class);
+                        myIntent.putExtra("name", item);
+                        startActivity(myIntent);
+                    }
+
+                    @Override public void onLongItemClick(View view, int position) {
+                        // do whatever
+                    }
+                })
+        );
+    }
+
+    public void loadShelters(){
+        shelterArray = shelterManager.getShelterArray();
 //                String[] namesArray = shelterManager.getNamesArray();
 //                for(int i = 0; i < 13; i++) {
 //                    System.out.println(namesArray[i]);
 //                }
-                mLayoutManager = new LinearLayoutManager(getApplicationContext());
-                recyclerView.setLayoutManager(mLayoutManager);
-
-                recyclerView.addOnItemTouchListener(
-                        new RecyclerItemClickListener(getApplicationContext(), recyclerView, new RecyclerItemClickListener.OnItemClickListener() {
-                            @Override
-                            public void onItemClick(View view, int position) {
-                                startActivity(new Intent(MainActivity.this, ShelterDetailsActivity.class));
-                            }
-
-                            public void onLongItemClick(View view, int position) {
-
-                            }
-                        })
-                );
+        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        recyclerView.setLayoutManager(mLayoutManager);
 //
-                RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterManager.getShelterArray());
-                recyclerView.setAdapter(namesAdapter);
-            }
-        });
+        RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterManager.getShelterArray());
+        recyclerView.setAdapter(namesAdapter);
     }
 
     @Override
