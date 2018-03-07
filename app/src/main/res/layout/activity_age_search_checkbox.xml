@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/gradient_background"
+
+    tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.MainActivity">
+
+    <CheckBox
+        android:id="@+id/newborn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Newborn"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="96dp" />
+
+    <CheckBox
+        android:id="@+id/five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Child"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="175dp" />
+
+    <CheckBox
+        android:id="@+id/eighteen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Teen"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="245dp" />
+
+    <CheckBox
+        android:id="@+id/adult"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Adult"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="313dp" />
+
+    <CheckBox
+        android:id="@+id/senior"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Senior"
+        tools:layout_editor_absoluteX="157dp"
+        tools:layout_editor_absoluteY="380dp" />
+</android.support.constraint.ConstraintLayout>

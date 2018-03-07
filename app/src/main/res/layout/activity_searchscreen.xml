@@ -26,7 +26,7 @@
         app:layout_constraintVertical_bias="0.904"
         tools:clickable="true" />
 
-    <Spinner
+    <AppCompatSpinner
         android:id="@+id/attribute1_spinner"
         android:layout_width="195dp"
         android:layout_height="56dp"
@@ -40,7 +40,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.399" />
 
-    <Spinner
+    <AppCompatSpinner
         android:id="@+id/attribute2_spinner"
         android:layout_width="195dp"
         android:layout_height="56dp"
@@ -54,7 +54,7 @@
         app:layout_constraintTop_toBottomOf="@+id/attribute1_spinner"
         app:layout_constraintVertical_bias="0.181" />
 
-    <Spinner
+    <AppCompatSpinner
         android:id="@+id/attribute3_spinner"
         android:layout_width="195dp"
         android:layout_height="56dp"
