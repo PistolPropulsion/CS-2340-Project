@@ -1,5 +1,7 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
+import java.util.ArrayList;
+
 public class ShelterManager {
     private Shelter[] shelterArray;
     private int count;
@@ -32,5 +34,38 @@ public class ShelterManager {
 
     public Shelter[] getShelterArray() {
         return this.shelterArray;
+    }
+
+    public ArrayList<Shelter> search(String search, ArrayList<String> options) {
+        ArrayList<Shelter> returnShelterList = new ArrayList<>();
+        for (int i = 0; i < shelterArray.length; i++) {
+            switch(search) {
+                case "Age":
+                    for(int j = 0; j < options.size(); j++) {
+                        if (shelterArray[i].getRestrictions().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].getSpecialNotes().toLowerCase().contains(options.get(j).toLowerCase())) {
+                            returnShelterList.add(shelterArray[i]);
+                        }
+                    }
+                    break;
+                case "Gender":
+                    for(int j = 0; j < options.size(); j++) {
+                        if (shelterArray[i].getRestrictions().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].getSpecialNotes().toLowerCase().contains(options.get(j).toLowerCase())) {
+                            returnShelterList.add(shelterArray[i]);
+                        }
+                    }
+                    break;
+                case "Other":
+                    for(int j = 0; j < options.size(); j++) {
+                        if (shelterArray[i].getRestrictions().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].getSpecialNotes().toLowerCase().contains(options.get(j).toLowerCase())) {
+                            returnShelterList.add(shelterArray[i]);
+                        }
+                    }
+                    break;
+            }
+        }
+        return returnShelterList;
     }
 }
