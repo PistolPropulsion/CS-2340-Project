@@ -2,8 +2,10 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -18,6 +20,9 @@ import android.widget.Toast;
 
 
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
@@ -35,6 +40,10 @@ public class MainActivity extends Activity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
+    private boolean originalLoad = false;
+    private String search;
+    private ArrayList<String> selectedItems=new ArrayList<>();
+
 
 
     @SuppressLint("WrongViewCast")
@@ -62,25 +71,125 @@ public class MainActivity extends Activity {
 //                }
 
         shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
-        loadShelters();
+        loadShelters(shelterManager.getShelterArray());
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, Welcome.class));
+//                for(String i: selectedItems) {
+//                    System.out.println(i);
+//                }
+//                System.out.println("Hell this is annoying");
+                System.out.println(search);
+
+                if(selectedItems.isEmpty()) {
+                    loadShelters(shelterManager.getShelterArray());
+                } else {
+                    loadShelters(shelterManager.search(search, selectedItems));
+                }
+
             }
         });
 
         filter_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                switch(filter_spinner.getSelectedItem().toString()){
-                    case "Age":
+                selectedItems = new ArrayList<>();
+                AlertDialog dialog;
+                String select = filter_spinner.getSelectedItem().toString().toLowerCase();
+                switch(select) {
+                    case "age":
+                        final String[] ageItems = {" NEWBORN "," CHILD "," YOUNG ADULT "," ADULT ", " SENIOR "};// arraylist to keep the selected items
+                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
+                                .setTitle("SELECT AGE")
+                                .setMultiChoiceItems(ageItems, null, new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                        if (isChecked) {
+                                            // If the user checked the item, add it to the selected items
+                                            selectedItems.add(ageItems[indexSelected]);
+                                        } else if (selectedItems.contains(ageItems[indexSelected])) {
+                                            // Else, if the item is already in the array, remove it
+                                            selectedItems.remove(ageItems[Integer.valueOf(indexSelected)]);
+                                        }
+                                    }
+                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on OK
+                                        //  You can write the code  to save the selected item here
+                                    }
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on Cancel
+                                    }
+                                }).create();
+                        dialog.show();
+                        search = "age";
                         break;
-                    case "Gender":
+                    case "gender":
+                        search = "gender";
+                        final String[] genderItems = {" MEN ", " WOMEN/CHILDREN ", " OTHER "};// arraylist to keep the selected items
+                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
+                                .setTitle("SELECT GENDER")
+                                .setMultiChoiceItems(genderItems, null, new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                        if (isChecked) {
+                                            // If the user checked the item, add it to the selected items
+                                            selectedItems.add(genderItems[indexSelected]);
+                                        } else if (selectedItems.contains(genderItems[indexSelected])) {
+                                            // Else, if the item is already in the array, remove it
+                                            selectedItems.remove(genderItems[Integer.valueOf(indexSelected)]);
+                                        }
+                                    }
+                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on OK
+                                        //  You can write the code  to save the selected item here
+                                    }
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on Cancel
+                                    }
+                                }).create();
+                        dialog.show();
+                        search = "gender";
                         break;
-                    case "Other":
+                    case "name":
+                        final String[] nameItems = shelterManager.getNamesArray();// arraylist to keep the selected items
+                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
+                                .setTitle("SELECT AGE")
+                                .setMultiChoiceItems(nameItems, null, new DialogInterface.OnMultiChoiceClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
+                                        if (isChecked) {
+                                            // If the user checked the item, add it to the selected items
+                                            selectedItems.add(nameItems[indexSelected]);
+                                        } else if (selectedItems.contains(nameItems[indexSelected])) {
+                                            // Else, if the item is already in the array, remove it
+                                            selectedItems.remove(nameItems[Integer.valueOf(indexSelected)]);
+                                        }
+                                    }
+                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on OK
+                                        //  You can write the code  to save the selected item here
+                                    }
+                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int id) {
+                                        //  Your code when user clicked on Cancel
+                                    }
+                                }).create();
+                        dialog.show();
+                        search = "name";
                         break;
                 }
+
             }
         });
 
@@ -101,8 +210,8 @@ public class MainActivity extends Activity {
         );
     }
 
-    public void loadShelters(){
-        shelterArray = shelterManager.getShelterArray();
+    public void loadShelters(Shelter[] array){
+        shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();
 //                for(int i = 0; i < 13; i++) {
 //                    System.out.println(namesArray[i]);
@@ -110,7 +219,7 @@ public class MainActivity extends Activity {
         mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 //
-        RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterManager.getShelterArray());
+        RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterArray);
         recyclerView.setAdapter(namesAdapter);
     }
 
