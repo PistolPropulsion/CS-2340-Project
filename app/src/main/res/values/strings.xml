@@ -22,6 +22,6 @@
     <string-array name="filter_array">
         <item>Age</item>
         <item>Gender</item>
-        <item>Other</item>
+        <item>Name</item>
     </string-array>
 </resources>

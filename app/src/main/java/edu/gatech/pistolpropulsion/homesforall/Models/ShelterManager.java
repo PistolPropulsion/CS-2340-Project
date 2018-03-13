@@ -45,24 +45,27 @@ public class ShelterManager {
             switch(search.toLowerCase()) {
                 case "age":
                     for(int j = 0; j < options.size(); j++) {
-                        if (shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone")) {
+                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
+                                && returnShelterList.contains(shelterArray[i]) == false) {
                             returnShelterList.add(shelterArray[i]);
                         }
                     }
                     break;
                 case "gender":
                     for(int j = 0; j < options.size(); j++) {
-                        if (shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone")) {
+                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
+                                && returnShelterList.contains(shelterArray[i]) == false) {
                             returnShelterList.add(shelterArray[i]);
                         }
                     }
                     break;
                 case "name":
                     for(int j = 0; j < options.size(); j++) {
-                        if (shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone")) {
+                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
+                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
+                                && returnShelterList.contains(shelterArray[i]) == false) {
                             returnShelterList.add(shelterArray[i]);
                         }
                     }
