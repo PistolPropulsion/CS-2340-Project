@@ -1,12 +1,13 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Yuan Zhang on 3/13/2018.
  */
 
-public class Category {
+public class Category implements Serializable {
     private ArrayList<String> list;
     private String[] searchItems = {" MEN ", " WOMEN ", " NEWBORN ", " CHILD ", " YOUNG ADULT "};;
 
