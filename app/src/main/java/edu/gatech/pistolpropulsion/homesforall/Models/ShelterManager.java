@@ -56,4 +56,18 @@ public class ShelterManager {
         System.out.println(searchList.size());
         return searchList.toArray(new Shelter[searchList.size()]);
     }
+
+    public Shelter[] searchName(ArrayList<String> options) {
+        ArrayList<Shelter> searchList = new ArrayList<>();
+        for(int i = 0; i < shelterArray.length; i++){
+            for(int j = 0; j < options.size(); j++) {
+                if (shelterArray[i].getName().toLowerCase().contains(options.get(j).toLowerCase())) {
+                    if (!searchList.contains(shelterArray[i])) {
+                        searchList.add(shelterArray[i]);
+                    }
+                }
+            }
+        }
+        return searchList.toArray(new Shelter[searchList.size()]);
+    }
 }
