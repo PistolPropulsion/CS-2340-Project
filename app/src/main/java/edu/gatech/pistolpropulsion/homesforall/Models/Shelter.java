@@ -1,6 +1,7 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class Shelter implements Serializable{
     private String name;
@@ -12,6 +13,7 @@ public class Shelter implements Serializable{
     private String specialNotes;
     private String phone;
     private String key;
+    private Category search;
 
     public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
                    String address, String specialNotes, String phone) {
@@ -24,6 +26,13 @@ public class Shelter implements Serializable{
         this.specialNotes = specialNotes;
         this.phone = phone;
         this.key = key;
+        search = new Category();
+        search.addItems(restrictions);
+        search.addItems(specialNotes);
+        search.addName(name);
+        for(String item: search.getList()) {
+            System.out.println(name + " " + item);
+        }
     }
 
     public String getKey() {
@@ -68,5 +77,19 @@ public class Shelter implements Serializable{
                 + this.longitude + " " + this.latitude + " "
                 + this.address + " " + this.specialNotes + " "
                 + this.phone;
+    }
+
+    public ArrayList<String> getCategories() {
+        return this.search.getList();
+    }
+
+    public boolean canAccommodate(String str) {
+        System.out.println(str);
+        for(int i = 0; i < search.getList().size(); i++){
+            System.out.println(search.getList().get(i));
+            if(search.getList().get(i).equals(str))
+                return true;
+        }
+        return false;
     }
 }

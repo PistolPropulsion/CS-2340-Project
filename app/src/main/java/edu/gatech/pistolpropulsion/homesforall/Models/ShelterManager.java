@@ -36,45 +36,24 @@ public class ShelterManager {
         return this.shelterArray;
     }
 
-    public Shelter[] search(String search, ArrayList<String> options) {
-        ArrayList<Shelter> returnShelterList = new ArrayList<>();
-        for(String i: options) {
-            System.out.println(i);
+    public Shelter[] search(ArrayList<String> options) {
+        for (String items: options){
+            System.out.println(items);
         }
-        for (int i = 0; i < shelterArray.length; i++) {
-            switch(search.toLowerCase()) {
-                case "age":
-                    for(int j = 0; j < options.size(); j++) {
-                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
-                                && returnShelterList.contains(shelterArray[i]) == false) {
-                            returnShelterList.add(shelterArray[i]);
-                        }
+        ArrayList<Shelter> searchList = new ArrayList<>();
+        for(int i = 0; i < shelterArray.length; i++){
+            for(int j = 0; j < options.size(); j++) {
+                if (shelterArray[i].canAccommodate(options.get(j))) {
+                    if (!searchList.contains(shelterArray[i])) {
+                        searchList.add(shelterArray[i]);
                     }
-                    break;
-                case "gender":
-                    for(int j = 0; j < options.size(); j++) {
-                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
-                                && returnShelterList.contains(shelterArray[i]) == false) {
-                            returnShelterList.add(shelterArray[i]);
-                        }
-                    }
-                    break;
-                case "name":
-                    for(int j = 0; j < options.size(); j++) {
-                        if ((shelterArray[i].toString().toLowerCase().contains(options.get(j).toLowerCase())
-                                || shelterArray[i].toString().toLowerCase().contains("anyone"))
-                                && returnShelterList.contains(shelterArray[i]) == false) {
-                            returnShelterList.add(shelterArray[i]);
-                        }
-                    }
-                    break;
+                }
             }
         }
-        for(Shelter i: returnShelterList){
-            System.out.println(i.getName());
+        for(Shelter item: searchList){
+            System.out.println(item.getName());
         }
-        return returnShelterList.toArray(new Shelter[returnShelterList.size()]);
+        System.out.println(searchList.size());
+        return searchList.toArray(new Shelter[searchList.size()]);
     }
 }

@@ -85,9 +85,8 @@ public class MainActivity extends Activity {
                 if(selectedItems.isEmpty()) {
                     loadShelters(shelterManager.getShelterArray());
                 } else {
-                    loadShelters(shelterManager.search(search, selectedItems));
+                    loadShelters(shelterManager.search(selectedItems));
                 }
-
             }
         });
 
@@ -98,7 +97,7 @@ public class MainActivity extends Activity {
                 String select = filter_spinner.getSelectedItem().toString().toLowerCase();
                 switch(select) {
                     case "age":
-                        final String[] ageItems = {" NEWBORN "," CHILD "," YOUNG ADULT "," ADULT ", " SENIOR "};// arraylist to keep the selected items
+                        final String[] ageItems = {" NEWBORN "," CHILD "," YOUNG ADULT "};// arraylist to keep the selected items
                         dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
                                 .setTitle("SELECT AGE")
                                 .setMultiChoiceItems(ageItems, null, new DialogInterface.OnMultiChoiceClickListener() {
@@ -129,7 +128,7 @@ public class MainActivity extends Activity {
                         break;
                     case "gender":
                         search = "gender";
-                        final String[] genderItems = {" MEN ", " WOMEN/CHILDREN ", " OTHER "};// arraylist to keep the selected items
+                        final String[] genderItems = {" MEN ", " WOMEN "};// arraylist to keep the selected items
                         dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
                                 .setTitle("SELECT GENDER")
                                 .setMultiChoiceItems(genderItems, null, new DialogInterface.OnMultiChoiceClickListener() {
@@ -161,7 +160,7 @@ public class MainActivity extends Activity {
                     case "name":
                         final String[] nameItems = shelterManager.getNamesArray();// arraylist to keep the selected items
                         dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
-                                .setTitle("SELECT AGE")
+                                .setTitle("SELECT SHELTER")
                                 .setMultiChoiceItems(nameItems, null, new DialogInterface.OnMultiChoiceClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
