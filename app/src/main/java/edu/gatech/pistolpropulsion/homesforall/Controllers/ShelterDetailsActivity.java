@@ -69,7 +69,11 @@ public class ShelterDetailsActivity extends Activity {
         if (requestCode == REQUEST_CALL) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 startActivity(callShelterIntent);
+            } else {
+                Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
             }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
 }
