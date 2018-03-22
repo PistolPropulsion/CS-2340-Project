@@ -8,21 +8,14 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
@@ -54,10 +47,10 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        logout = (TextView) findViewById(R.id.logout_textView);
-        filter_spinner = (Spinner) findViewById(R.id.filter_spinner);
-        filter_button = (Button) findViewById(R.id.filter_button);
-        recyclerView = (RecyclerView) findViewById(R.id.shelterList);
+        logout = (TextView) findViewById(R.id.textView_main_logout);
+        filter_spinner = (Spinner) findViewById(R.id.spinner_main_filter);
+        filter_button = (Button) findViewById(R.id.button_main_filter);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_main_shelterList);
 
         InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
         DataReader reader = new DataReader(csvfile);

@@ -10,7 +10,7 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.MainActivity">
 
     <TextView
-        android:id="@+id/logout_textView"
+        android:id="@+id/textView_main_logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -25,7 +25,7 @@
         app:layout_constraintVertical_bias="0.015" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/shelterList"
+        android:id="@+id/recyclerView_main_shelterList"
         android:layout_width="361dp"
         android:layout_height="489dp"
         android:layout_marginBottom="50dp"
@@ -36,7 +36,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/filter_spinner"
+        android:id="@+id/spinner_main_filter"
         android:layout_width="156dp"
         android:layout_height="42dp"
         android:layout_marginBottom="8dp"
@@ -44,15 +44,15 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:entries="@array/filter_array"
-        app:layout_constraintBottom_toTopOf="@+id/shelterList"
-        app:layout_constraintEnd_toStartOf="@+id/logout_textView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_main_shelterList"
+        app:layout_constraintEnd_toStartOf="@+id/textView_main_logout"
         app:layout_constraintHorizontal_bias="0.098"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.115" />
 
     <Button
-        android:id="@+id/filter_button"
+        android:id="@+id/button_main_filter"
         android:layout_width="85dp"
         android:layout_height="41dp"
         android:layout_marginBottom="8dp"
@@ -60,10 +60,10 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Filter"
-        app:layout_constraintBottom_toTopOf="@+id/shelterList"
-        app:layout_constraintEnd_toStartOf="@+id/logout_textView"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView_main_shelterList"
+        app:layout_constraintEnd_toStartOf="@+id/textView_main_logout"
         app:layout_constraintHorizontal_bias="0.483"
-        app:layout_constraintStart_toEndOf="@+id/filter_spinner"
+        app:layout_constraintStart_toEndOf="@+id/spinner_main_filter"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.129" />
 

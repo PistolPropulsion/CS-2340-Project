@@ -33,12 +33,12 @@ public class ShelterDetailsActivity extends Activity {
         setContentView(R.layout.activity_shelter_details);
 
         currentShelter = (Shelter) getIntent().getSerializableExtra("name");
-        nameDisplay = (TextView) findViewById(R.id.name_textview);
-        addressDisplay = (TextView) findViewById(R.id.address_textview);
-        phoneDisplay = (TextView) findViewById(R.id.phone_textview);
-        capacityDisplay = (TextView) findViewById(R.id.capacity_textview);
-        notesDisplay = (TextView) findViewById(R.id.special_textview);
-        restrictDisplay = (TextView) findViewById(R.id.restrict_textview);
+        nameDisplay = (TextView) findViewById(R.id.textview_shelterDetails_nameHeader);
+        addressDisplay = (TextView) findViewById(R.id.textview_shelterDetails_address);
+        phoneDisplay = (TextView) findViewById(R.id.textview_shelterDetails_phone);
+        capacityDisplay = (TextView) findViewById(R.id.textview_shelterDetails_capacity);
+        notesDisplay = (TextView) findViewById(R.id.textview_shelterDetails_special);
+        restrictDisplay = (TextView) findViewById(R.id.textview_shelterDetails_restrict);
 
         nameDisplay.setText(currentShelter.getName());
         addressDisplay.setText("Address: " + currentShelter.getAddress());

@@ -10,7 +10,7 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.RegisterActivity">
 
     <EditText
-        android:id="@+id/editUser"
+        android:id="@+id/editText_login_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="365dp"
@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editPass"
+        android:id="@+id/editText_login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/textView_login_loginHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -42,13 +42,13 @@
         android:text="Register"
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/editUser"
+        app:layout_constraintBottom_toTopOf="@+id/editText_login_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/enter_textView"
+        android:id="@+id/textView_login_enterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
@@ -62,7 +62,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/textView_login_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="373dp"
@@ -74,7 +74,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/textView_login_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="308dp"
@@ -86,7 +86,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/cancel_textView"
+        android:id="@+id/textView_login_cancelButton"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
