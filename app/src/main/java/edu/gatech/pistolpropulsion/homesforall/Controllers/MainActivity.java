@@ -9,22 +9,21 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.InputType;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
@@ -35,7 +34,8 @@ import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 
 public class MainActivity extends Activity {
 
-    private TextView logout;
+    private TextView refresh;
+    private Button logout;
     private Spinner filter_spinner;
     private Button filter_button;
     private RecyclerView recyclerView;
@@ -45,6 +45,7 @@ public class MainActivity extends Activity {
     private boolean nameSearch = false;
     private String search;
     private ArrayList<String> selectedItems=new ArrayList<>();
+    private DatabaseReference mDatabase;
 
 
 
@@ -56,10 +57,11 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        logout = (TextView) findViewById(R.id.textView_main_logout);
-        filter_spinner = (Spinner) findViewById(R.id.spinner_main_filter);
-        filter_button = (Button) findViewById(R.id.button_main_filter);
-        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_main_shelterList);
+        refresh = (TextView) findViewById(R.id.refresh_textView);
+        filter_spinner = (Spinner) findViewById(R.id.filter_spinner);
+        filter_button = (Button) findViewById(R.id.filter_button);
+        recyclerView = (RecyclerView) findViewById(R.id.shelterList);
+        logout = (Button) findViewById(R.id.logout_btn);
 
         InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
         DataReader reader = new DataReader(csvfile);
@@ -72,10 +74,19 @@ public class MainActivity extends Activity {
 //                    System.out.println();
 //                }
 
+
         shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
         loadShelters(shelterManager.getShelterArray());
 
         logout.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, Welcome.class));
+            }
+        });
+
+        refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                for(String i: selectedItems) {

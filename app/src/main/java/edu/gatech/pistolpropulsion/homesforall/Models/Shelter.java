@@ -13,7 +13,11 @@ public class Shelter implements Serializable{
     private String specialNotes;
     private String phone;
     private String key;
+    private String vacancy;
     private Category search;
+
+    public Shelter() {
+    }
 
     public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
                    String address, String specialNotes, String phone) {
@@ -26,6 +30,8 @@ public class Shelter implements Serializable{
         this.specialNotes = specialNotes;
         this.phone = phone;
         this.key = key;
+        vacancy = capacity;
+
         search = new Category();
         search.addItems(restrictions);
         search.addItems(specialNotes);
@@ -33,6 +39,10 @@ public class Shelter implements Serializable{
         for(String item: search.getList()) {
             System.out.println(name + " " + item);
         }
+    }
+
+    public void reserveSpots(int spots) {
+
     }
 
     public String getKey() {
@@ -91,5 +101,57 @@ public class Shelter implements Serializable{
                 return true;
         }
         return false;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public void setSpecialNotes(String specialNotes) {
+        this.specialNotes = specialNotes;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
+
+    public Category getSearch() {
+        return search;
+    }
+
+    public void setSearch(Category search) {
+        this.search = search;
+    }
+
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
+    }
+
+    public String getVacancy() {
+        return vacancy;
+    }
+
+    public void setVacancy(String vacancy) {
+        this.vacancy = vacancy;
     }
 }

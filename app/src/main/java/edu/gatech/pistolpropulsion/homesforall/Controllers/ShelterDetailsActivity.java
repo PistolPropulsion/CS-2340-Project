@@ -2,12 +2,17 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +32,8 @@ public class ShelterDetailsActivity extends Activity {
     private TextView capacityDisplay;
     private TextView notesDisplay;
     private TextView restrictDisplay;
+    private Button reserveButton;
+    private TextView vacancyDisplay;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +46,8 @@ public class ShelterDetailsActivity extends Activity {
         capacityDisplay = (TextView) findViewById(R.id.textview_shelterDetails_capacity);
         notesDisplay = (TextView) findViewById(R.id.textview_shelterDetails_special);
         restrictDisplay = (TextView) findViewById(R.id.textview_shelterDetails_restrict);
+        reserveButton = (Button) findViewById(R.id.reserve_button);
+        vacancyDisplay = (TextView) findViewById(R.id.vacancies);
 
         nameDisplay.setText(currentShelter.getName());
         addressDisplay.setText("Address: " + currentShelter.getAddress());
@@ -46,7 +55,33 @@ public class ShelterDetailsActivity extends Activity {
         capacityDisplay.setText("Capacity: " + currentShelter.getCapacity());
         notesDisplay.setText("Special Notes: " + currentShelter.getSpecialNotes());
         restrictDisplay.setText("Restrictions: " + currentShelter.getRestrictions());
+        vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
 
+        reserveButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                final String items[] = {" 1 ", " 2 ", " 3 "};
+                AlertDialog dialog = new AlertDialog.Builder(ShelterDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
+                        .setTitle("SELECT SPOTS")
+                        .setSingleChoiceItems(items, 0, null)
+                        .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                ListView lw = ((AlertDialog) dialog).getListView();
+                                String item = (String) lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                                currentShelter.reserveSpots(Integer.parseInt(item));
+                                //maybe database stuff as well
+                            }
+                        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int id) {
+                                //  Your code when user clicked on Cancel
+                            }
+                        }).create();
+                dialog.show();
+            }
+        });
 
         phoneDisplay.setOnClickListener((v) -> {
             callShelterIntent = new Intent(Intent.ACTION_CALL);

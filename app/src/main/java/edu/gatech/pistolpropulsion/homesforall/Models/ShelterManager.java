@@ -1,14 +1,27 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.Map;
 
 public class ShelterManager {
     private Shelter[] shelterArray;
     private int count;
+    private DatabaseReference mDatabase;
 
     public ShelterManager(int count) {
         shelterArray = new Shelter[count];
         this.count = count;
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+    }
+
+    public ShelterManager(Map<String, String> shelters) {
+        System.out.println("1ABCDEFG");
+        for (Map.Entry<String, String> entry : shelters.entrySet()) {
+            System.out.println(entry.getValue());
+        }
     }
 
     public ShelterManager(String[][] data, int count) {
@@ -17,6 +30,7 @@ public class ShelterManager {
             Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4],
                     data[i][5], data[i][6], data[i][7], data[i][8]);
             shelterArray[i] = newShelter;
+            mDatabase.child("shelters").setValue(newShelter);
         }
     }
 
