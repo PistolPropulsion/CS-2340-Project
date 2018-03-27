@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +42,7 @@ public class MainActivity extends Activity {
     private RecyclerView.LayoutManager mLayoutManager;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
-    private boolean originalLoad = false;
+    private boolean nameSearch = false;
     private String search;
     private ArrayList<String> selectedItems=new ArrayList<>();
 
@@ -84,6 +86,8 @@ public class MainActivity extends Activity {
 
                 if(selectedItems.isEmpty()) {
                     loadShelters(shelterManager.getShelterArray());
+                } else if(nameSearch) {
+                    loadShelters(shelterManager.searchName(selectedItems));
                 } else {
                     loadShelters(shelterManager.search(selectedItems));
                 }
@@ -97,6 +101,7 @@ public class MainActivity extends Activity {
                 String select = filter_spinner.getSelectedItem().toString().toLowerCase();
                 switch(select) {
                     case "age":
+                        nameSearch = false;
                         final String[] ageItems = {" NEWBORN "," CHILD "," YOUNG ADULT "};// arraylist to keep the selected items
                         dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
                                 .setTitle("SELECT AGE")
@@ -127,6 +132,7 @@ public class MainActivity extends Activity {
                         search = "age";
                         break;
                     case "gender":
+                        nameSearch = false;
                         search = "gender";
                         final String[] genderItems = {" MEN ", " WOMEN "};// arraylist to keep the selected items
                         dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
@@ -158,25 +164,16 @@ public class MainActivity extends Activity {
                         search = "gender";
                         break;
                     case "name":
-                        final String[] nameItems = shelterManager.getNamesArray();// arraylist to keep the selected items
-                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
+                        nameSearch = true;
+                        final EditText input = new EditText(getApplicationContext());
+                        input.setInputType(InputType.TYPE_CLASS_TEXT);
+                       dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
                                 .setTitle("SELECT SHELTER")
-                                .setMultiChoiceItems(nameItems, null, new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                                        if (isChecked) {
-                                            // If the user checked the item, add it to the selected items
-                                            selectedItems.add(nameItems[indexSelected]);
-                                        } else if (selectedItems.contains(nameItems[indexSelected])) {
-                                            // Else, if the item is already in the array, remove it
-                                            selectedItems.remove(nameItems[Integer.valueOf(indexSelected)]);
-                                        }
-                                    }
-                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                                .setView(input)
+                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                                     @Override
                                     public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on OK
-                                        //  You can write the code  to save the selected item here
+                                        selectedItems.add(input.getText().toString());
                                     }
                                 }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                                     @Override
