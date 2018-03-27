@@ -16,9 +16,6 @@ public class Shelter implements Serializable{
     private String vacancy;
     private Category search;
 
-    public Shelter() {
-    }
-
     public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
                    String address, String specialNotes, String phone) {
         this.name = name;
