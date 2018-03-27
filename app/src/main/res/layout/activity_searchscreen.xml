@@ -10,7 +10,7 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.SearchScreenActivity">
 
     <Button
-        android:id="@+id/search_button"
+        android:id="@+id/button_searchScreen_search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -34,7 +34,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintBottom_toTopOf="@+id/button_searchScreen_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -48,7 +48,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintBottom_toTopOf="@+id/button_searchScreen_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/attribute1_spinner"
@@ -62,14 +62,14 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/search_button"
+        app:layout_constraintBottom_toTopOf="@+id/button_searchScreen_search"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/attribute2_spinner"
         app:layout_constraintVertical_bias="0.362" />
 
     <EditText
-        android:id="@+id/search_title"
+        android:id="@+id/editText_searchScreen_searchTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/age_text"
+        android:id="@+id/textView_searchScreen_age"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="AGE"
@@ -93,7 +93,7 @@
         tools:layout_editor_absoluteX="108dp" />
 
     <TextView
-        android:id="@+id/gender_text"
+        android:id="@+id/textView_searchScreen_gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="GENDER"
@@ -101,7 +101,7 @@
         tools:layout_editor_absoluteX="108dp" />
 
     <TextView
-        android:id="@+id/restriction_text"
+        android:id="@+id/textView_searchScreen_restriction"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="RESTRICTIONS"

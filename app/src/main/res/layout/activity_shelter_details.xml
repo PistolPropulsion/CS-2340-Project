@@ -10,7 +10,7 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.Welcome">
 
     <TextView
-        android:id="@+id/address_textview"
+        android:id="@+id/textview_shelterDetails_address"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name_textview"
+        android:id="@+id/textview_shelterDetails_nameHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -43,7 +43,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/phone_textview"
+        android:id="@+id/textview_shelterDetails_phone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -56,11 +56,11 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/address_textview"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_address"
         app:layout_constraintVertical_bias="0.083" />
 
     <TextView
-        android:id="@+id/capacity_textview"
+        android:id="@+id/textview_shelterDetails_capacity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
@@ -72,11 +72,11 @@
         android:text="Capacity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/phone_textview"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_phone"
         app:layout_constraintVertical_bias="0.105" />
 
     <TextView
-        android:id="@+id/special_textview"
+        android:id="@+id/textview_shelterDetails_special"
         android:layout_width="296dp"
         android:layout_height="89dp"
         android:layout_marginBottom="156dp"
@@ -91,7 +91,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/restrict_textview"
+        android:id="@+id/textview_shelterDetails_restrict"
         android:layout_width="297dp"
         android:layout_height="98dp"
         android:layout_marginBottom="44dp"

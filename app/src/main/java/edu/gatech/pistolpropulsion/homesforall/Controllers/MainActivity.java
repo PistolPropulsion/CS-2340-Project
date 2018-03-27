@@ -56,10 +56,10 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        logout = (TextView) findViewById(R.id.logout_textView);
-        filter_spinner = (Spinner) findViewById(R.id.filter_spinner);
-        filter_button = (Button) findViewById(R.id.filter_button);
-        recyclerView = (RecyclerView) findViewById(R.id.shelterList);
+        logout = (TextView) findViewById(R.id.textView_main_logout);
+        filter_spinner = (Spinner) findViewById(R.id.spinner_main_filter);
+        filter_button = (Button) findViewById(R.id.button_main_filter);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView_main_shelterList);
 
         InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
         DataReader reader = new DataReader(csvfile);

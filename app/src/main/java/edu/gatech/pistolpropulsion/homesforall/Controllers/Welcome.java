@@ -20,8 +20,8 @@ public class Welcome extends Activity {
 
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
 
-        loginView = (TextView) findViewById(R.id.login_textView);
-        register = (TextView) findViewById(R.id.register_textView);
+        loginView = (TextView) findViewById(R.id.textView_welcome_loginButton);
+        register = (TextView) findViewById(R.id.textView_welcome_registerButton);
 
         loginView.setOnClickListener(new View.OnClickListener() {
             @Override

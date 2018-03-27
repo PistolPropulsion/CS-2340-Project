@@ -3,23 +3,13 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.*;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
-import org.w3c.dom.Text;
 
 import edu.gatech.pistolpropulsion.homesforall.R;
-
-import static android.content.ContentValues.TAG;
 
 public class LoginActivity extends Activity {
 
@@ -37,9 +27,9 @@ public class LoginActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        enter = (TextView) findViewById(R.id.enter_textView);
-        cancel = (TextView) findViewById(R.id.cancel_textView);
-        register = (TextView) findViewById(R.id.register_textView);
+        enter = (TextView) findViewById(R.id.textView_login_enterButton);
+        cancel = (TextView) findViewById(R.id.textView_login_cancelButton);
+        register = (TextView) findViewById(R.id.textView_welcome_registerButton);
         mAuth = FirebaseAuth.getInstance();
 
 
@@ -47,8 +37,8 @@ public class LoginActivity extends Activity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editUser = (EditText) findViewById(R.id.editUser);
-                editPass = (EditText) findViewById(R.id.editPass);
+                editUser = (EditText) findViewById(R.id.editText_login_username);
+                editPass = (EditText) findViewById(R.id.editText_login_password);
                 //just for testing lol
                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 //                mAuth.signInWithEmailAndPassword(editUser.getText().toString(), editPass.getText().toString())
