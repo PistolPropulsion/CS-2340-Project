@@ -11,29 +11,27 @@
 
     <TextView
         android:id="@+id/textview_shelterDetails_address"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="336dp"
+        android:layout_height="26dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
         android:clickable="false"
         android:onClick="onClick"
-        android:text="Address"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_nameHeader" />
 
     <TextView
         android:id="@+id/textview_shelterDetails_nameHeader"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
-        android:text="Name"
+        android:layout_width="315dp"
+        android:layout_height="73dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
         android:textAlignment="center"
         android:textAppearance="@android:style/TextAppearance.Material.Display3"
         android:textColor="@android:color/white"
@@ -44,24 +42,37 @@
 
     <TextView
         android:id="@+id/textview_shelterDetails_phone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="319dp"
+        android:layout_height="29dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="40dp"
         android:clickable="false"
-        android:text="Phone"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_address"
-        app:layout_constraintVertical_bias="0.083" />
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_address" />
 
     <TextView
         android:id="@+id/textview_shelterDetails_capacity"
-        android:layout_width="wrap_content"
+        android:layout_width="332dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:textAppearance="@android:style/TextAppearance.Material.Headline"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.492"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_phone" />
+
+    <TextView
+        android:id="@+id/textview_shelterDetails_special"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
@@ -69,38 +80,45 @@
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        android:text="Capacity"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_phone"
-        app:layout_constraintVertical_bias="0.105" />
-
-    <TextView
-        android:id="@+id/textview_shelterDetails_special"
-        android:layout_width="296dp"
-        android:layout_height="89dp"
-        android:layout_marginBottom="156dp"
-        android:layout_marginEnd="50dp"
-        android:layout_marginStart="50dp"
-        android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_capacity" />
 
     <TextView
         android:id="@+id/textview_shelterDetails_restrict"
-        android:layout_width="297dp"
-        android:layout_height="98dp"
-        android:layout_marginBottom="44dp"
+        android:layout_width="291dp"
+        android:layout_height="39dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="50dp"
         android:layout_marginStart="50dp"
+        android:layout_marginTop="36dp"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/vacancies"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_special"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/reserve_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="76dp"
+        android:text="RESERVE SPOT"
         app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="144dp" />
+
+    <TextView
+        android:id="@+id/vacancies"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="28dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/reserve_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
