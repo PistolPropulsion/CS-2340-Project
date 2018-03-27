@@ -248,17 +248,14 @@ public class MainActivity extends Activity {
                     }
                 })
         );
-
-        System.out.println("After");
     }
 
     public void loadShelters(Shelter[] array){
 
-        // THIS WAS FOR CORRECTLY UPLOADING TO SERVER
+        // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
         //for (Shelter s : array) {
         //    myRef.child(s.getKey()).setValue(s);
         //}
-
 
         shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();
