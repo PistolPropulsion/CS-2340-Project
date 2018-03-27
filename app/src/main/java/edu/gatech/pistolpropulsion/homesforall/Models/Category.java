@@ -15,6 +15,8 @@ public class Category implements Serializable {
         list = new ArrayList<>();
     }
 
+    public Category(ArrayList<String> l) { list = l; }
+
     public void addItems(String str){
         String rest = str.replaceAll("/", ",");
         String[] restrictions = rest.split(",");
