@@ -41,13 +41,13 @@ public class Shelter implements Serializable{
         }
     }
 
-    public void reserveSpots(int spots) {
-
+    public Shelter() {
+        this("none", "empty", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
     }
 
-    public String getKey() {
-        return key;
-    }
+    public void reserveSpots(int spots) {}
+
+    public String getKey() { return key; }
 
     public String getPhone() {
         return phone;
@@ -81,16 +81,52 @@ public class Shelter implements Serializable{
         return name;
     }
 
+    public ArrayList<String> getSearch() {
+        return this.search.getList();
+    }
+
+    public String getVacancy() {
+        return vacancy;
+    }
+
+
+
+    public void setKey(String key) { this.key = key; }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setSpecialNotes(String specialNotes) { this.specialNotes = specialNotes; }
+
+    public void setAddress(String address) { this.address = address; }
+
+    public void setLatitude(String latitude) { latitude = latitude; }
+
+    public void setLongitude(String longitude) { this.longitude = longitude; }
+
+    public void setRestrictions(String restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public void setCapacity(String capacity) { this.capacity = capacity; }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setSearch(ArrayList<String> search) { this.search =  new Category(search); }
+
+    public void setVacancy(String vacancy) {
+        this.vacancy = vacancy;
+    }
+
+
+
     public String toString(){
         return this.key + " " + this.name + " "
                 + this.capacity + " " + this.restrictions + " "
                 + this.longitude + " " + this.latitude + " "
                 + this.address + " " + this.specialNotes + " "
                 + this.phone;
-    }
-
-    public ArrayList<String> getCategories() {
-        return this.search.getList();
     }
 
     public boolean canAccommodate(String str) {
@@ -103,55 +139,4 @@ public class Shelter implements Serializable{
         return false;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRestrictions(String restrictions) {
-        this.restrictions = restrictions;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setSpecialNotes(String specialNotes) {
-        this.specialNotes = specialNotes;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public Category getSearch() {
-        return search;
-    }
-
-    public void setSearch(Category search) {
-        this.search = search;
-    }
-
-    public void setCapacity(String capacity) {
-        this.capacity = capacity;
-    }
-
-    public String getVacancy() {
-        return vacancy;
-    }
-
-    public void setVacancy(String vacancy) {
-        this.vacancy = vacancy;
-    }
 }

@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStreamReader;
@@ -45,7 +47,8 @@ public class MainActivity extends Activity {
     private boolean nameSearch = false;
     private String search;
     private ArrayList<String> selectedItems=new ArrayList<>();
-    private DatabaseReference mDatabase;
+    private FirebaseDatabase database;
+    private DatabaseReference myRef;
 
 
 
@@ -63,7 +66,11 @@ public class MainActivity extends Activity {
         recyclerView = (RecyclerView) findViewById(R.id.shelterList);
         logout = (Button) findViewById(R.id.logout_btn);
 
-        InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
+        database = FirebaseDatabase.getInstance();
+        myRef = database.getReference().child("shelters");
+        shelterManager = new ShelterManager();
+
+        /*InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
         DataReader reader = new DataReader(csvfile);
         reader.read();
 
@@ -76,7 +83,37 @@ public class MainActivity extends Activity {
 
 
         shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
-        loadShelters(shelterManager.getShelterArray());
+        loadShelters(shelterManager.getShelterArray());*/
+
+        final ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
+
+        myRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                GenericTypeIndicator<ArrayList<Shelter>> t = new GenericTypeIndicator<ArrayList<Shelter>>() {};
+                ArrayList<Shelter> fetch = dataSnapshot.getValue(t);
+
+                shelterList.clear();
+
+                for (Shelter s : fetch) {
+                    if (s != null) {
+                        shelterList.add(s);
+                    }
+                }
+
+                shelterArray = new Shelter[shelterList.size()];
+                shelterArray = shelterList.toArray(shelterArray);
+
+                loadShelters(shelterArray);
+                shelterManager.setShelterArray(shelterArray);
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
 
@@ -96,7 +133,7 @@ public class MainActivity extends Activity {
                 System.out.println(search);
 
                 if(selectedItems.isEmpty()) {
-                    loadShelters(shelterManager.getShelterArray());
+                    loadShelters(shelterArray);
                 } else if(nameSearch) {
                     loadShelters(shelterManager.searchName(selectedItems));
                 } else {
@@ -218,6 +255,12 @@ public class MainActivity extends Activity {
     }
 
     public void loadShelters(Shelter[] array){
+
+        // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
+        //for (Shelter s : array) {
+        //    myRef.child(s.getKey()).setValue(s);
+        //}
+
         shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();
 //                for(int i = 0; i < 13; i++) {

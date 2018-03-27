@@ -34,6 +34,10 @@ public class ShelterManager {
         }
     }
 
+    public ShelterManager() {
+        this(null, 0);
+    }
+
     private String[] makeNamesArray(int count) {
         String [] names = new String[count];
         for(int i = 0; i < count; i++){
@@ -48,6 +52,11 @@ public class ShelterManager {
 
     public Shelter[] getShelterArray() {
         return this.shelterArray;
+    }
+
+    public void setShelterArray(Shelter[] array) {
+        this.shelterArray = array;
+        count = array.length;
     }
 
     public Shelter[] search(ArrayList<String> options) {
