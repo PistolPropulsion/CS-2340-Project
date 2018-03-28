@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Homes For All</string>
+    <string name="app_name">Sheltr</string>
     <string name="title_activity_login">Login</string>
 
     <!-- Strings related to login -->
