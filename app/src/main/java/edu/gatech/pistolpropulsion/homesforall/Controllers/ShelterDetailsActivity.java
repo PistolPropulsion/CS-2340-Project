@@ -17,8 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.R;
@@ -62,6 +68,18 @@ public class ShelterDetailsActivity extends Activity {
         vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
 
         mData = FirebaseDatabase.getInstance().getReference().child("shelters");
+
+        mData.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
+
         reserveButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -78,6 +96,7 @@ public class ShelterDetailsActivity extends Activity {
                                 currentShelter.reserveSpots(Integer.parseInt(item));
                                 mData.child(currentShelter.getKey()).setValue(currentShelter);
                                 //maybe database stuff as well
+                                Toast.makeText(getApplicationContext(), "Rooms Reserved", Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
