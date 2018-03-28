@@ -86,7 +86,7 @@ public class ShelterDetailsActivity extends Activity {
             public void onClick(View view) {
                 final String items[] = {"1", "2", "3"};
                 AlertDialog dialog = new AlertDialog.Builder(ShelterDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
-                        .setTitle("SELECT SPOTS")
+                        .setTitle("SELECT ROOMS")
                         .setSingleChoiceItems(items, 0, null)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
