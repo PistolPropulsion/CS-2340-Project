@@ -70,20 +70,20 @@ public class MainActivity extends Activity {
         myRef = database.getReference().child("shelters");
         shelterManager = new ShelterManager();
 
-        /*InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
-        DataReader reader = new DataReader(csvfile);
-        reader.read();
-
+//        InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
+//        DataReader reader = new DataReader(csvfile);
+//        reader.read();
+//
 //                System.out.println(reader.getCount());
 //                for(int i = 0; i < reader.getCount(); i++) {
 //                    for (int j = 0; j < 9; j++)
 //                        System.out.print(reader.getContent()[i][j]);
 //                    System.out.println();
 //                }
-
-
-        shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
-        loadShelters(shelterManager.getShelterArray());*/
+//
+//
+//        shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
+//        loadShelters(shelterManager.getShelterArray());
 
         final ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
 
@@ -257,9 +257,9 @@ public class MainActivity extends Activity {
     public void loadShelters(Shelter[] array){
 
         // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
-        //for (Shelter s : array) {
-        //    myRef.child(s.getKey()).setValue(s);
-        //}
+        for (Shelter s : array) {
+            myRef.child(s.getKey()).setValue(s);
+        }
 
         shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();

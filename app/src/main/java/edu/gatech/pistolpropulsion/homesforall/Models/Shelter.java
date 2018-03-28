@@ -1,11 +1,14 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Shelter implements Serializable{
     private String name;
-    private String capacity;
+    private int capacity;
     private String restrictions;
     private String longitude;
     private String latitude;
@@ -13,13 +16,12 @@ public class Shelter implements Serializable{
     private String specialNotes;
     private String phone;
     private String key;
-    private String vacancy;
+    private int vacancy;
     private Category search;
 
     public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
                    String address, String specialNotes, String phone) {
         this.name = name;
-        this.capacity = capacity;
         this.restrictions = restrictions;
         this.longitude = longitude;
         this.latitude = latitude;
@@ -27,7 +29,17 @@ public class Shelter implements Serializable{
         this.specialNotes = specialNotes;
         this.phone = phone;
         this.key = key;
-        vacancy = capacity;
+
+        String[] array = capacity.split(",");
+        int sum = 0;
+        for (int i = 0; i < array.length; i++) {
+            try {
+                sum += Integer.parseInt(array[i].replaceAll("[\\D]", ""));
+            } catch (Exception e) {
+            }
+        }
+        this.capacity = sum;
+        vacancy = this.capacity;
 
         search = new Category();
         search.addItems(restrictions);
@@ -42,7 +54,9 @@ public class Shelter implements Serializable{
         this("none", "empty", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A", "N/A");
     }
 
-    public void reserveSpots(int spots) {}
+    public void reserveSpots(int spots) {
+        this.vacancy -= spots;
+    }
 
     public String getKey() { return key; }
 
@@ -70,8 +84,8 @@ public class Shelter implements Serializable{
         return restrictions;
     }
 
-    public String getCapacity() {
-        return capacity;
+    public int getCapacity() {
+        return this.capacity;
     }
 
     public String getName() {
@@ -82,10 +96,9 @@ public class Shelter implements Serializable{
         return this.search.getList();
     }
 
-    public String getVacancy() {
+    public int getVacancy() {
         return vacancy;
     }
-
 
 
     public void setKey(String key) { this.key = key; }
@@ -106,17 +119,15 @@ public class Shelter implements Serializable{
         this.restrictions = restrictions;
     }
 
-    public void setCapacity(String capacity) { this.capacity = capacity; }
+    public void setCapacity(int capacity) { this.capacity = capacity; }
 
     public void setName(String name) { this.name = name; }
 
     public void setSearch(ArrayList<String> search) { this.search =  new Category(search); }
 
-    public void setVacancy(String vacancy) {
+    public void setVacancy(int vacancy) {
         this.vacancy = vacancy;
     }
-
-
 
     public String toString(){
         return this.key + " " + this.name + " "

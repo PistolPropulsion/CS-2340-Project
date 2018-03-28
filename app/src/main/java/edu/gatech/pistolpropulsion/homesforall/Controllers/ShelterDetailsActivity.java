@@ -17,6 +17,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.R;
 
@@ -34,6 +37,7 @@ public class ShelterDetailsActivity extends Activity {
     private TextView restrictDisplay;
     private Button reserveButton;
     private TextView vacancyDisplay;
+    private DatabaseReference mData;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,11 +61,12 @@ public class ShelterDetailsActivity extends Activity {
         restrictDisplay.setText("Restrictions: " + currentShelter.getRestrictions());
         vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
 
+        mData = FirebaseDatabase.getInstance().getReference().child("shelters");
         reserveButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-                final String items[] = {" 1 ", " 2 ", " 3 "};
+                final String items[] = {"1", "2", "3"};
                 AlertDialog dialog = new AlertDialog.Builder(ShelterDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
                         .setTitle("SELECT SPOTS")
                         .setSingleChoiceItems(items, 0, null)
@@ -71,6 +76,7 @@ public class ShelterDetailsActivity extends Activity {
                                 ListView lw = ((AlertDialog) dialog).getListView();
                                 String item = (String) lw.getAdapter().getItem(lw.getCheckedItemPosition());
                                 currentShelter.reserveSpots(Integer.parseInt(item));
+                                mData.child(currentShelter.getKey()).setValue(currentShelter);
                                 //maybe database stuff as well
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
