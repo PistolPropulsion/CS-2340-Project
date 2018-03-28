@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -119,6 +120,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, Welcome.class));
             }
         });
