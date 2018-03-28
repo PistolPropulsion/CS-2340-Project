@@ -9,9 +9,12 @@ import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -39,15 +42,26 @@ public class MainActivity extends Activity {
 
     private TextView refresh;
     private Button logout;
-    private Spinner filter_spinner;
-    private Button filter_button;
+    private CheckBox name_checkBox;
+    private EditText name_editText;
+    private CheckBox age_checkBox;
+    private CheckBox age_newborn;
+    private CheckBox age_child;
+    private CheckBox age_youngAdult;
+    private CheckBox gender_checkBox;
+    private CheckBox gender_male;
+    private CheckBox gender_female;
+    private TextView done_textView;
+    private TextView filter;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
+    private Shelter[] fetchedShelterArray;
     private boolean nameSearch = false;
     private String search;
     private ArrayList<String> selectedItems=new ArrayList<>();
+    private ArrayList<String> selectedName = new ArrayList<>();
     private FirebaseDatabase database;
     private DatabaseReference myRef;
 
@@ -62,10 +76,44 @@ public class MainActivity extends Activity {
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
         refresh = (TextView) findViewById(R.id.refresh_textView);
-        filter_spinner = (Spinner) findViewById(R.id.filter_spinner);
-        filter_button = (Button) findViewById(R.id.filter_button);
+
+        name_checkBox = (CheckBox) findViewById(R.id.name_checkBox);
+        name_editText = (EditText) findViewById(R.id.name_editText);
+
+        age_checkBox = (CheckBox) findViewById(R.id.age_checkBox);
+        age_newborn = (CheckBox) findViewById(R.id.age_newborn);
+        age_child = (CheckBox) findViewById(R.id.age_child);
+        age_youngAdult = (CheckBox) findViewById(R.id.age_youngAdult);
+
+        gender_checkBox = (CheckBox) findViewById(R.id.gender_checkBox);
+        gender_male = (CheckBox) findViewById(R.id.gender_male);
+        gender_female = (CheckBox) findViewById(R.id.gender_female);
+
+        done_textView = (TextView) findViewById(R.id.done_textView);
+
+        filter = (TextView) findViewById(R.id.filter_textView);
         recyclerView = (RecyclerView) findViewById(R.id.shelterList);
         logout = (Button) findViewById(R.id.logout_btn);
+
+        name_checkBox.setVisibility(View.GONE);
+        name_editText.setVisibility(View.GONE);
+        age_checkBox.setVisibility(View.GONE);
+        age_newborn.setVisibility(View.GONE);
+        age_child.setVisibility(View.GONE);
+        age_youngAdult.setVisibility(View.GONE);
+        gender_checkBox.setVisibility(View.GONE);
+        gender_male.setVisibility(View.GONE);
+        gender_female.setVisibility(View.GONE);
+        done_textView.setVisibility(View.GONE);
+
+        name_checkBox.setChecked(false);
+        age_checkBox.setChecked(false);
+        age_newborn.setChecked(false);
+        age_child.setChecked(false);
+        age_youngAdult.setChecked(false);
+        gender_checkBox.setChecked(false);
+        gender_male.setChecked(false);
+        gender_female.setChecked(false);
 
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference().child("shelters");
@@ -75,16 +123,17 @@ public class MainActivity extends Activity {
 //        DataReader reader = new DataReader(csvfile);
 //        reader.read();
 //
-//                System.out.println(reader.getCount());
-//                for(int i = 0; i < reader.getCount(); i++) {
-//                    for (int j = 0; j < 9; j++)
-//                        System.out.print(reader.getContent()[i][j]);
-//                    System.out.println();
-//                }
+////                System.out.println(reader.getCount());
+////                for(int i = 0; i < reader.getCount(); i++) {
+////                    for (int j = 0; j < 9; j++)
+////                        System.out.print(reader.getContent()[i][j]);
+////                    System.out.println();
+////                }
 //
 //
 //        shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
 //        loadShelters(shelterManager.getShelterArray());
+//        fetchedShelterArray = shelterManager.getShelterArray();
 
         final ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
 
@@ -103,8 +152,9 @@ public class MainActivity extends Activity {
                     }
                 }
 
-                shelterArray = new Shelter[shelterList.size()];
-                shelterArray = shelterList.toArray(shelterArray);
+                fetchedShelterArray = new Shelter[shelterList.size()];
+                fetchedShelterArray = shelterList.toArray(fetchedShelterArray);
+                shelterArray = fetchedShelterArray;
 
                 loadShelters(shelterArray);
                 shelterManager.setShelterArray(shelterArray);
@@ -134,108 +184,147 @@ public class MainActivity extends Activity {
 //                System.out.println("Hell this is annoying");
                 System.out.println(search);
 
-                if(selectedItems.isEmpty()) {
-                    loadShelters(shelterArray);
-                } else if(nameSearch) {
-                    loadShelters(shelterManager.searchName(selectedItems));
+
+            }
+        });
+
+        filter.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                name_checkBox.setVisibility(View.VISIBLE);
+                if (name_checkBox.isChecked()) {
+                    name_editText.setVisibility(View.VISIBLE);
+                }
+                age_checkBox.setVisibility(View.VISIBLE);
+                if (age_checkBox.isChecked()) {
+                    age_newborn.setVisibility(View.VISIBLE);
+                    age_child.setVisibility(View.VISIBLE);
+                    age_youngAdult.setVisibility(View.VISIBLE);
+                }
+                gender_checkBox.setVisibility(View.VISIBLE);
+                if (gender_checkBox.isChecked()) {
+                    gender_male.setVisibility(View.VISIBLE);
+                    gender_female.setVisibility(View.VISIBLE);
+                }
+                done_textView.setVisibility(View.VISIBLE);
+
+
+            }
+        });
+
+        name_checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (name_checkBox.isChecked()) {
+                    name_editText.setVisibility(View.VISIBLE);
                 } else {
-                    loadShelters(shelterManager.search(selectedItems));
+                    name_editText.setVisibility(View.GONE);
+                    name_editText.setText("");
+                    selectedName.clear();
+                    refresh();
                 }
             }
         });
 
-        filter_button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                selectedItems = new ArrayList<>();
-                AlertDialog dialog;
-                String select = filter_spinner.getSelectedItem().toString().toLowerCase();
-                switch(select) {
-                    case "age":
-                        nameSearch = false;
-                        final String[] ageItems = {" NEWBORN "," CHILD "," YOUNG ADULT "};// arraylist to keep the selected items
-                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
-                                .setTitle("SELECT AGE")
-                                .setMultiChoiceItems(ageItems, null, new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                                        if (isChecked) {
-                                            // If the user checked the item, add it to the selected items
-                                            selectedItems.add(ageItems[indexSelected]);
-                                        } else if (selectedItems.contains(ageItems[indexSelected])) {
-                                            // Else, if the item is already in the array, remove it
-                                            selectedItems.remove(ageItems[Integer.valueOf(indexSelected)]);
-                                        }
-                                    }
-                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on OK
-                                        //  You can write the code  to save the selected item here
-                                    }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on Cancel
-                                    }
-                                }).create();
-                        dialog.show();
-                        search = "age";
-                        break;
-                    case "gender":
-                        nameSearch = false;
-                        search = "gender";
-                        final String[] genderItems = {" MEN ", " WOMEN "};// arraylist to keep the selected items
-                        dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
-                                .setTitle("SELECT GENDER")
-                                .setMultiChoiceItems(genderItems, null, new DialogInterface.OnMultiChoiceClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) {
-                                        if (isChecked) {
-                                            // If the user checked the item, add it to the selected items
-                                            selectedItems.add(genderItems[indexSelected]);
-                                        } else if (selectedItems.contains(genderItems[indexSelected])) {
-                                            // Else, if the item is already in the array, remove it
-                                            selectedItems.remove(genderItems[Integer.valueOf(indexSelected)]);
-                                        }
-                                    }
-                                }).setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on OK
-                                        //  You can write the code  to save the selected item here
-                                    }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on Cancel
-                                    }
-                                }).create();
-                        dialog.show();
-                        search = "gender";
-                        break;
-                    case "name":
-                        nameSearch = true;
-                        final EditText input = new EditText(getApplicationContext());
-                        input.setInputType(InputType.TYPE_CLASS_TEXT);
-                       dialog = new AlertDialog.Builder(MainActivity.this, R.style.Theme_AppCompat_Dialog_Alert)
-                                .setTitle("SELECT SHELTER")
-                                .setView(input)
-                                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        selectedItems.add(input.getText().toString());
-                                    }
-                                }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int id) {
-                                        //  Your code when user clicked on Cancel
-                                    }
-                                }).create();
-                        dialog.show();
-                        search = "name";
-                        break;
-                }
+        name_editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                //
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                refresh();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //
+            }
+        });
+
+        age_checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (age_checkBox.isChecked()) {
+                    age_newborn.setVisibility(View.VISIBLE);
+                    age_child.setVisibility(View.VISIBLE);
+                    age_youngAdult.setVisibility(View.VISIBLE);
+                } else {
+                    age_newborn.setVisibility(View.GONE);
+                    age_child.setVisibility(View.GONE);
+                    age_youngAdult.setVisibility(View.GONE);
+                    age_newborn.setChecked(false);
+                    age_child.setChecked(false);
+                    age_youngAdult.setChecked(false);
+                }
+                refresh();
+            }
+        });
+
+        age_newborn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        age_child.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        age_youngAdult.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        gender_checkBox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (gender_checkBox.isChecked()) {
+                    gender_male.setVisibility(View.VISIBLE);
+                    gender_female.setVisibility(View.VISIBLE);
+                } else {
+                    gender_male.setVisibility(View.GONE);
+                    gender_female.setVisibility(View.GONE);
+                    gender_male.setChecked(false);
+                    gender_female.setChecked(false);
+                }
+                refresh();
+            }
+        });
+
+        gender_male.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        gender_female.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                refresh();
+            }
+        });
+
+        done_textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                name_checkBox.setVisibility(View.GONE);
+                name_editText.setVisibility(View.GONE);
+                age_checkBox.setVisibility(View.GONE);
+                age_newborn.setVisibility(View.GONE);
+                age_child.setVisibility(View.GONE);
+                age_youngAdult.setVisibility(View.GONE);
+                gender_checkBox.setVisibility(View.GONE);
+                gender_male.setVisibility(View.GONE);
+                gender_female.setVisibility(View.GONE);
+                done_textView.setVisibility(View.GONE);
             }
         });
 
@@ -259,9 +348,9 @@ public class MainActivity extends Activity {
     public void loadShelters(Shelter[] array){
 
         // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
-        for (Shelter s : array) {
-            myRef.child(s.getKey()).setValue(s);
-        }
+//        for (Shelter s : array) {
+//            myRef.child(s.getKey()).setValue(s);
+//        }
 
         shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();
@@ -278,5 +367,100 @@ public class MainActivity extends Activity {
     @Override
     public void onBackPressed() {
         //do nothing
+    }
+
+    public void refresh() {
+        selectedItems = new ArrayList<>();
+        nameSearch = name_checkBox.isChecked();
+        AlertDialog dialog;
+        String select = "";//filter_spinner.getSelectedItem().toString().toLowerCase();
+        search = "";
+
+        if (age_checkBox.isChecked()) {
+
+            final String[] ageItems = {" NEWBORN ", " CHILD ", " YOUNG ADULT "};// arraylist to keep the selected items
+
+            if (age_newborn.isChecked()) {
+                selectedItems.add(ageItems[0]);
+            } else {
+                selectedItems.remove(ageItems[0]);
+            }
+            if (age_child.isChecked()) {
+                selectedItems.add(ageItems[1]);
+            } else {
+                System.out.println("REMOVED");
+                selectedItems.remove(ageItems[1]);
+            }
+            if (age_youngAdult.isChecked()) {
+                selectedItems.add(ageItems[2]);
+            } else {
+                selectedItems.remove(ageItems[2]);
+            }
+            search = search + "age ";
+        }
+
+        if (gender_checkBox.isChecked()) {
+
+            final String[] genderItems = {" MEN ", " WOMEN "};// arraylist to keep the selected items
+
+            if (gender_male.isChecked()) {
+                selectedItems.add(genderItems[0]);
+            } else {
+                selectedItems.remove(genderItems[0]);
+            }
+            if (gender_female.isChecked()) {
+                selectedItems.add(genderItems[1]);
+            } else {
+                selectedItems.remove(genderItems[1]);
+            }
+
+            search = search + "gender ";
+
+        }
+
+        if (name_checkBox.isChecked()) {
+
+            System.out.println(name_editText.getText().toString());
+
+            if (!(name_editText.getText().toString().equals(""))) {
+                selectedName.clear();
+                selectedName.add(name_editText.getText().toString());
+            } else {
+                selectedName.clear();
+            }
+
+            search = search + "name ";
+
+        }
+
+        System.out.println(search);
+
+        if(selectedItems.isEmpty() && selectedName.isEmpty()) {
+            loadShelters(fetchedShelterArray);
+        } else {
+            Shelter[] temp = fetchedShelterArray;
+            ShelterManager tempManager = new ShelterManager();
+            tempManager.setShelterArray(temp);
+            System.out.println("BEFORE");
+            for (Shelter s : temp) {
+                System.out.println(s.getName());
+            }
+            System.out.println("-");
+            if (name_checkBox.isChecked() && !selectedName.isEmpty()) {
+                temp = tempManager.searchName(selectedName);
+                tempManager.setShelterArray(temp);
+                System.out.println("AFTER");
+                for (Shelter s : temp) {
+                    System.out.println(s.getName());
+                }
+                System.out.println("-");
+            }
+
+            if (!selectedItems.isEmpty()) {
+                temp = tempManager.search(selectedItems);
+            }
+
+            loadShelters(temp);
+        }
     }
 }

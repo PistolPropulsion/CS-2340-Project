@@ -30,7 +30,7 @@ public class ShelterManager {
             Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4],
                     data[i][5], data[i][6], data[i][7], data[i][8]);
             shelterArray[i] = newShelter;
-            mDatabase.child("shelters").setValue(newShelter);
+            mDatabase.child("shelters").child(newShelter.getKey()).setValue(newShelter);
         }
     }
 
