@@ -17,7 +17,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="36dp"
         android:clickable="false"
-        android:onClick="onClick"
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
