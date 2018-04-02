@@ -30,6 +30,9 @@ public class DataReader {
         try {
             CSVReader reader = new CSVReader(file);
             String[] tempArray;
+            //noinspection NestedAssignment
+            //it is used though, in the else statement
+            //also this method isn't being used after we started Firebase
             while ((tempArray = reader.readNext()) != null) {
                 if(count == 0) {
                     count++;

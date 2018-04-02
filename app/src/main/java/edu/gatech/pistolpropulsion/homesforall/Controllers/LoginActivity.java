@@ -32,10 +32,6 @@ public class LoginActivity extends Activity {
 
     private EditText editUser;
     private EditText editPass;
-    private TextView enter;
-    private TextView cancel;
-    private TextView register;
-    private FirebaseAuth mAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     @Override
@@ -45,18 +41,18 @@ public class LoginActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        enter = (TextView) findViewById(R.id.textView_login_enterButton);
-        cancel = (TextView) findViewById(R.id.textView_login_cancelButton);
-        register = (TextView) findViewById(R.id.textView_welcome_registerButton);
-        mAuth = FirebaseAuth.getInstance();
+        TextView  enter = findViewById(R.id.textView_login_enterButton);
+        TextView cancel = findViewById(R.id.textView_login_cancelButton);
+        TextView register = findViewById(R.id.textView_welcome_registerButton);
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editUser = (EditText) findViewById(R.id.editText_login_username);
-                editPass = (EditText) findViewById(R.id.editText_login_password);
+                editUser = findViewById(R.id.editText_login_username);
+                editPass = findViewById(R.id.editText_login_password);
                 if (editUser.getText() == null || editUser.getText().length() <= 0
                         || editPass.getText() == null || editPass.getText().length() <= 0) {
                     Toast.makeText(getApplicationContext(), "Authentication failed.",

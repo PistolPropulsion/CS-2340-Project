@@ -35,14 +35,6 @@ public class ShelterDetailsActivity extends Activity {
     private Intent callShelterIntent;
 
     private Shelter currentShelter;
-    private TextView nameDisplay;
-    private TextView addressDisplay;
-    private TextView phoneDisplay;
-    private TextView capacityDisplay;
-    private TextView notesDisplay;
-    private TextView restrictDisplay;
-    private Button reserveButton;
-    private TextView vacancyDisplay;
     private DatabaseReference mData;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +42,14 @@ public class ShelterDetailsActivity extends Activity {
         setContentView(R.layout.activity_shelter_details);
 
         currentShelter = (Shelter) getIntent().getSerializableExtra("name");
-        nameDisplay = (TextView) findViewById(R.id.textview_shelterDetails_nameHeader);
-        addressDisplay = (TextView) findViewById(R.id.textview_shelterDetails_address);
-        phoneDisplay = (TextView) findViewById(R.id.textview_shelterDetails_phone);
-        capacityDisplay = (TextView) findViewById(R.id.textview_shelterDetails_capacity);
-        notesDisplay = (TextView) findViewById(R.id.textview_shelterDetails_special);
-        restrictDisplay = (TextView) findViewById(R.id.textview_shelterDetails_restrict);
-        reserveButton = (Button) findViewById(R.id.reserve_button);
-        vacancyDisplay = (TextView) findViewById(R.id.vacancies);
+        TextView nameDisplay = findViewById(R.id.textview_shelterDetails_nameHeader);
+        TextView addressDisplay = findViewById(R.id.textview_shelterDetails_address);
+        TextView phoneDisplay = findViewById(R.id.textview_shelterDetails_phone);
+        TextView capacityDisplay = findViewById(R.id.textview_shelterDetails_capacity);
+        TextView notesDisplay = findViewById(R.id.textview_shelterDetails_special);
+        TextView restrictDisplay = findViewById(R.id.textview_shelterDetails_restrict);
+        Button reserveButton = findViewById(R.id.reserve_button);
+        TextView vacancyDisplay = findViewById(R.id.vacancies);
 
         nameDisplay.setText(currentShelter.getName());
         addressDisplay.setText("Address: " + currentShelter.getAddress());

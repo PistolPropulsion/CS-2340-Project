@@ -43,8 +43,6 @@ import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
  */
 public class MainActivity extends Activity {
 
-    private TextView refresh;
-    private Button logout;
     private CheckBox name_checkBox;
     private EditText name_editText;
     private CheckBox age_checkBox;
@@ -55,18 +53,12 @@ public class MainActivity extends Activity {
     private CheckBox gender_male;
     private CheckBox gender_female;
     private TextView done_textView;
-    private TextView filter;
     private RecyclerView recyclerView;
-    private RecyclerView.LayoutManager mLayoutManager;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
     private Shelter[] fetchedShelterArray;
-    private boolean nameSearch = false;
     private String search;
-    private ArrayList<String> selectedItems=new ArrayList<>();
     private ArrayList<String> selectedName = new ArrayList<>();
-    private FirebaseDatabase database;
-    private DatabaseReference myRef;
 
 
 
@@ -78,25 +70,25 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        refresh = (TextView) findViewById(R.id.refresh_textView);
+        TextView refresh = findViewById(R.id.refresh_textView);
 
-        name_checkBox = (CheckBox) findViewById(R.id.name_checkBox);
-        name_editText = (EditText) findViewById(R.id.name_editText);
+        name_checkBox = findViewById(R.id.name_checkBox);
+        name_editText = findViewById(R.id.name_editText);
 
-        age_checkBox = (CheckBox) findViewById(R.id.age_checkBox);
-        age_newborn = (CheckBox) findViewById(R.id.age_newborn);
-        age_child = (CheckBox) findViewById(R.id.age_child);
-        age_youngAdult = (CheckBox) findViewById(R.id.age_youngAdult);
+        age_checkBox = findViewById(R.id.age_checkBox);
+        age_newborn = findViewById(R.id.age_newborn);
+        age_child = findViewById(R.id.age_child);
+        age_youngAdult = findViewById(R.id.age_youngAdult);
 
-        gender_checkBox = (CheckBox) findViewById(R.id.gender_checkBox);
-        gender_male = (CheckBox) findViewById(R.id.gender_male);
-        gender_female = (CheckBox) findViewById(R.id.gender_female);
+        gender_checkBox = findViewById(R.id.gender_checkBox);
+        gender_male = findViewById(R.id.gender_male);
+        gender_female = findViewById(R.id.gender_female);
 
-        done_textView = (TextView) findViewById(R.id.done_textView);
+        done_textView = findViewById(R.id.done_textView);
 
-        filter = (TextView) findViewById(R.id.filter_textView);
-        recyclerView = (RecyclerView) findViewById(R.id.shelterList);
-        logout = (Button) findViewById(R.id.logout_btn);
+        TextView filter = findViewById(R.id.filter_textView);
+        recyclerView = findViewById(R.id.shelterList);
+        Button logout = findViewById(R.id.logout_btn);
 
         name_checkBox.setVisibility(View.GONE);
         name_editText.setVisibility(View.GONE);
@@ -118,8 +110,8 @@ public class MainActivity extends Activity {
         gender_male.setChecked(false);
         gender_female.setChecked(false);
 
-        database = FirebaseDatabase.getInstance();
-        myRef = database.getReference().child("shelters");
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference().child("shelters");
         shelterManager = new ShelterManager();
 
 //        InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
@@ -144,11 +136,13 @@ public class MainActivity extends Activity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
+                //noinspection EmptyClass must be empty or breaks the entire program
                 GenericTypeIndicator<ArrayList<Shelter>> t = new GenericTypeIndicator<ArrayList<Shelter>>() {};
                 ArrayList<Shelter> fetch = dataSnapshot.getValue(t);
 
                 shelterList.clear();
 
+                assert fetch != null;
                 for (Shelter s : fetch) {
                     if (s != null) {
                         shelterList.add(s);
@@ -355,12 +349,13 @@ public class MainActivity extends Activity {
 //            myRef.child(s.getKey()).setValue(s);
 //        }
 
+        //noinspection AssignmentToCollectionOrArrayFieldFromParameter
         shelterArray = array;
 //                String[] namesArray = shelterManager.getNamesArray();
 //                for(int i = 0; i < 13; i++) {
 //                    System.out.println(namesArray[i]);
 //                }
-        mLayoutManager = new LinearLayoutManager(getApplicationContext());
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 //
         RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterArray);
@@ -373,10 +368,8 @@ public class MainActivity extends Activity {
     }
 
     public void refresh() {
+        ArrayList<String> selectedItems;
         selectedItems = new ArrayList<>();
-        nameSearch = name_checkBox.isChecked();
-        AlertDialog dialog;
-        String select = "";//filter_spinner.getSelectedItem().toString().toLowerCase();
         search = "";
 
         if (age_checkBox.isChecked()) {

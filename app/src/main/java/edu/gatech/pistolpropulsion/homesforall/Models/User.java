@@ -1,12 +1,11 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
-/**
- * Created by Yuan Zhang on 2/11/2018.
- */
+
 
 /**
  * the user class
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class User {
     private String email; //also username
     private String pwd;

@@ -1,12 +1,10 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
-/**
- * Created by joelj on 2/19/2018.
- */
 
 /**
  * Administrator class
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class Administrator {
     private String email; //also username
     private String name;

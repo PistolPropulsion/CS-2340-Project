@@ -29,8 +29,6 @@ public class RegisterActivity extends Activity {
 
     private EditText editUser;
     private EditText editPass;
-    private TextView enter;
-    private TextView cancel;
     private Spinner userSpinner;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -42,9 +40,9 @@ public class RegisterActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        enter = (TextView) findViewById(R.id.textView_login_enterButton);
-        cancel = (TextView) findViewById(R.id.textView_login_cancelButton);
-        userSpinner = (Spinner) findViewById(R.id.user_spinner);
+        TextView enter = findViewById(R.id.textView_login_enterButton);
+        TextView cancel = findViewById(R.id.textView_login_cancelButton);
+        userSpinner = findViewById(R.id.user_spinner);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
@@ -55,8 +53,8 @@ public class RegisterActivity extends Activity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editUser = (EditText) findViewById(R.id.editText_login_username);
-                editPass = (EditText) findViewById(R.id.editText_login_password);
+                editUser = findViewById(R.id.editText_login_username);
+                editPass = findViewById(R.id.editText_login_password);
                 final String username = editUser.getText().toString();
                 final String pass = editPass.getText().toString();
                 final int type = userSpinner.getSelectedItemPosition();
@@ -74,13 +72,13 @@ public class RegisterActivity extends Activity {
 
                                         if (type == 2) {
                                             Administrator userObject = new Administrator(username, pass);
-                                            mDatabase.child("users").child("administrators").child(user.getUid()).setValue(userObject);
+                                            mDatabase.child("users").child("administrators").child(user != null ? user.getUid() : null).setValue(userObject);
                                         } else if (type == 1) {
                                             StoreEmployee userObject = new StoreEmployee(username, pass);
-                                            mDatabase.child("users").child("storeEmployees").child(user.getUid()).setValue(userObject);
+                                            mDatabase.child("users").child("storeEmployees").child(user != null ? user.getUid() : null).setValue(userObject);
                                         } else {
                                             User userObject = new User(username, pass);
-                                            mDatabase.child("users").child("standardUsers").child(user.getUid()).setValue(userObject);
+                                            mDatabase.child("users").child("standardUsers").child(user != null ? user.getUid() : null).setValue(userObject);
                                         }
 
                                         Toast.makeText(getApplicationContext(), "You can now login with this user.",

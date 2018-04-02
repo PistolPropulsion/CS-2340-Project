@@ -2,10 +2,8 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 
-/**
- * Created by Yuan Zhang on 3/13/2018.
- */
 
 /**
  * class that represents search categories
@@ -36,9 +34,7 @@ public class Category implements Serializable {
         String[] restrictions = rest.split(",");
         for(int i = 0; i < restrictions.length; i++) {
             if(restrictions[i].toLowerCase().contains("anyone")){
-                for(int j = 0; j < searchItems.length; j++) {
-                    list.add(searchItems[j]);
-                }
+                Collections.addAll(list, searchItems);
                 return;
             }
             if(restrictions[i].toLowerCase().contains("men") && !restrictions[i].toLowerCase().contains("women"))

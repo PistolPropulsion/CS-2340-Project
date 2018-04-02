@@ -30,8 +30,8 @@ public class Welcome extends Activity {
 
         overridePendingTransition(R.anim.slide_from_left, R.anim.slide_to_right);
 
-        loginView = (TextView) findViewById(R.id.textView_welcome_loginButton);
-        register = (TextView) findViewById(R.id.textView_welcome_registerButton);
+        loginView = findViewById(R.id.textView_welcome_loginButton);
+        register = findViewById(R.id.textView_welcome_registerButton);
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user != null) {

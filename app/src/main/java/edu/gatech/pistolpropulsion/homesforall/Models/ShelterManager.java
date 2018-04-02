@@ -80,6 +80,9 @@ public class ShelterManager {
      * @param array what to set manager's data to
      */
     public void setShelterArray(Shelter[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("array can't be null");
+        }
         this.shelterArray = array;
         count = array.length;
     }

@@ -8,13 +8,11 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Yuan Zhang on 3/7/2018.
- */
 
 /**
  * adapter for the spinner
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class SpinnerMultiAdapter extends ArrayAdapter<CheckboxValues> {
 
     private Context mContext;

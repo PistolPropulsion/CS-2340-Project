@@ -1,12 +1,9 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
 /**
- * Created by joelj on 2/19/2018.
- */
-
-/**
  * Store employee class
  */
+@SuppressWarnings("FieldCanBeLocal")
 public class StoreEmployee {
     private String email; //also username
     private String name;
