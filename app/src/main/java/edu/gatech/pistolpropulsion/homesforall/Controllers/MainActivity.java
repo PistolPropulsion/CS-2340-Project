@@ -28,11 +28,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.Models.ShelterManager;
 import edu.gatech.pistolpropulsion.homesforall.R;
