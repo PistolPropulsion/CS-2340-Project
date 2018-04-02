@@ -17,7 +17,7 @@ public enum AgeGroup {
 
         public static AgeGroup getGroup(int age) {
 
-            AgeGroup group = NEWBORN;
+            AgeGroup group = INVALID;
             for (AgeGroup ag : values()) {
                 if (ag.age <= age) {
                     group = ag;

@@ -27,7 +27,7 @@ public class ExampleUnitTest {
 
     @Test
     public void ageGroup() throws Exception {
-        //assertEquals(AgeGroup.getGroup(-46), AgeGroup.INVALID);
+        assertEquals(AgeGroup.getGroup(-46), AgeGroup.INVALID);
         assertEquals(AgeGroup.getGroup(3), AgeGroup.NEWBORN);
         assertEquals(AgeGroup.getGroup(13), AgeGroup.CHILD);
         assertEquals(AgeGroup.getGroup(21), AgeGroup.YOUNGADULT);
