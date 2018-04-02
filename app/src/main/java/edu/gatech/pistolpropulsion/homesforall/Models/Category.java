@@ -7,16 +7,30 @@ import java.util.ArrayList;
  * Created by Yuan Zhang on 3/13/2018.
  */
 
+/**
+ * class that represents search categories
+ */
 public class Category implements Serializable {
     private ArrayList<String> list;
     private String[] searchItems = {" MEN ", " WOMEN ", " NEWBORN ", " CHILD ", " YOUNG ADULT "};;
 
+    /**
+     * default constructor
+     */
     public Category(){
         list = new ArrayList<>();
     }
 
+    /**
+     * constructor given a list already
+     * @param l list of categories
+     */
     public Category(ArrayList<String> l) { list = l; }
 
+    /**
+     * add items to the list of categories
+     * @param str string to search for categories within
+     */
     public void addItems(String str){
         String rest = str.replaceAll("/", ",");
         String[] restrictions = rest.split(",");
@@ -40,10 +54,18 @@ public class Category implements Serializable {
         }
     }
 
+    /**
+     * add names to the search categories
+     * @param str name of a shelter
+     */
     public void addName(String str) {
         list.add(str);
     }
 
+    /**
+     * gets list of categories
+     * @return an ArrayList containing all the categories
+     */
     public ArrayList<String> getList() {
         return this.list;
     }

@@ -25,6 +25,9 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * login activity, controls the login screen
+ */
 public class LoginActivity extends Activity {
 
     private EditText editUser;

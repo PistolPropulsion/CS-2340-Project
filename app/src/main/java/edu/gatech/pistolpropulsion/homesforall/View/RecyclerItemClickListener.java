@@ -6,11 +6,18 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-
+/**
+ * listener for RecyclerView that's used to list shelters
+ */
 public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListener {
     private OnItemClickListener mListener;
 
     public interface OnItemClickListener {
+        /**
+         * mando thing we don't need
+         * @param view view
+         * @param position position
+         */
         public void onItemClick(View view, int position);
 
         public void onLongItemClick(View view, int position);
@@ -18,6 +25,12 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
     GestureDetector mGestureDetector;
 
+    /**
+     *
+     * @param context
+     * @param recyclerView
+     * @param listener
+     */
     public RecyclerItemClickListener(Context context, final RecyclerView recyclerView, OnItemClickListener listener) {
         mListener = listener;
         mGestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener() {

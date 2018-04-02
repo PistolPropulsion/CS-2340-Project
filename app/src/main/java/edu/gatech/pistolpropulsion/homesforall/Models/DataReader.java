@@ -4,17 +4,28 @@ import com.opencsv.CSVReader;
 
 import java.io.InputStreamReader;
 
+/**
+ * class to read CSV files
+ * defunct after we finished firebase
+ */
 public class DataReader {
 
     private InputStreamReader file;
     private String[][] content;
     private int count = 0;
 
+    /**
+     * constructor for this DataReader
+     * @param reader InputStreamReader
+     */
     public DataReader(InputStreamReader reader) {
         this.file = reader;
         content = new String [50][9];
     }
 
+    /**
+     * reads a file
+     */
     public void read(){
         try {
             CSVReader reader = new CSVReader(file);
@@ -32,10 +43,18 @@ public class DataReader {
         }
     }
 
+    /**
+     * gets content of the file read
+     * @return 2D String array of CSV file
+     */
     public String[][] getContent(){
         return this.content;
     }
 
+    /**
+     * counts how many lines were read
+     * @return int number of lines in CSV file
+     */
     public int getCount() {
         return this.count - 1;
     }

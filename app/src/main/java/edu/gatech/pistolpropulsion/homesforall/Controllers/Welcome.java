@@ -14,6 +14,9 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 
 import static android.content.ContentValues.TAG;
 
+/**
+ * welcome activity - it's the first screen upon opening the app
+ */
 public class Welcome extends Activity {
 
     TextView loginView;

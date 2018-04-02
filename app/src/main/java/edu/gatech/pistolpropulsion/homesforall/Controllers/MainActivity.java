@@ -38,6 +38,9 @@ import edu.gatech.pistolpropulsion.homesforall.R;
 import edu.gatech.pistolpropulsion.homesforall.View.RecyclerViewAdapter;
 import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 
+/**
+ * main activity screen, it's the giant list of shelters
+ */
 public class MainActivity extends Activity {
 
     private TextView refresh;

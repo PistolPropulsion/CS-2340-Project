@@ -3,14 +3,18 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -21,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -43,36 +46,55 @@ public class ShelterDetailsActivity extends Activity {
     private TextView restrictDisplay;
     private Button reserveButton;
     private TextView vacancyDisplay;
+    private ListView list;
     private DatabaseReference mData;
+    private ArrayAdapter<String> adapter;
+    private ArrayList<String> listItems;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
 
         currentShelter = (Shelter) getIntent().getSerializableExtra("name");
-        nameDisplay = (TextView) findViewById(R.id.textview_shelterDetails_nameHeader);
-        addressDisplay = (TextView) findViewById(R.id.textview_shelterDetails_address);
-        phoneDisplay = (TextView) findViewById(R.id.textview_shelterDetails_phone);
-        capacityDisplay = (TextView) findViewById(R.id.textview_shelterDetails_capacity);
-        notesDisplay = (TextView) findViewById(R.id.textview_shelterDetails_special);
-        restrictDisplay = (TextView) findViewById(R.id.textview_shelterDetails_restrict);
-        reserveButton = (Button) findViewById(R.id.reserve_button);
-        vacancyDisplay = (TextView) findViewById(R.id.vacancies);
+        list = (ListView) findViewById(R.id.list);
+        listItems = new ArrayList<>();
+        listItems.add(currentShelter.getName());
+        listItems.add(currentShelter.getAddress());
+        listItems.add(currentShelter.getPhone());
+        listItems.add("Capacity: " + currentShelter.getCapacity() + "");
+        listItems.add("Vacancies: " + currentShelter.getVacancy() + "");
+        listItems.add("Special Notes " + currentShelter.getSpecialNotes());
+        listItems.add("Restrictions " + currentShelter.getRestrictions());
 
-        nameDisplay.setText(currentShelter.getName());
-        addressDisplay.setText("Address: " + currentShelter.getAddress());
-        phoneDisplay.setText("Phone Number: " + currentShelter.getPhone());
-        capacityDisplay.setText("Capacity: " + currentShelter.getCapacity());
-        notesDisplay.setText("Special Notes: " + currentShelter.getSpecialNotes());
-        restrictDisplay.setText("Restrictions: " + currentShelter.getRestrictions());
-        vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
+        adapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, listItems);
+        list.setAdapter(adapter);
+
+
+//        nameDisplay = (TextView) findViewById(R.id.textview_shelterDetails_nameHeader);
+//        addressDisplay = (TextView) findViewById(R.id.textview_shelterDetails_address);
+//        phoneDisplay = (TextView) findViewById(R.id.textview_shelterDetails_phone);
+//        capacityDisplay = (TextView) findViewById(R.id.textview_shelterDetails_capacity);
+//        notesDisplay = (TextView) findViewById(R.id.textview_shelterDetails_special);
+//        restrictDisplay = (TextView) findViewById(R.id.textview_shelterDetails_restrict);
+        reserveButton = (Button) findViewById(R.id.reserve_button);
+//        vacancyDisplay = (TextView) findViewById(R.id.vacancies);
+//
+//        nameDisplay.setText(currentShelter.getName());
+//        addressDisplay.setText("Address: " + currentShelter.getAddress());
+//        phoneDisplay.setText("Phone Number: " + currentShelter.getPhone());
+//        capacityDisplay.setText("Capacity: " + currentShelter.getCapacity());
+//        notesDisplay.setText("Special Notes: " + currentShelter.getSpecialNotes());
+//        restrictDisplay.setText("Restrictions: " + currentShelter.getRestrictions());
+//        vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
 
         mData = FirebaseDatabase.getInstance().getReference().child("shelters");
 
         mData.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                vacancyDisplay.setText("Vacancies: " + currentShelter.getVacancy());
+                listItems.set(4, "Vacancies: " + currentShelter.getVacancy());
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -81,7 +103,7 @@ public class ShelterDetailsActivity extends Activity {
         });
 
         reserveButton.setOnClickListener(new View.OnClickListener() {
-
+            @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View view) {
                 final String items[] = {"1", "2", "3"};
@@ -108,32 +130,32 @@ public class ShelterDetailsActivity extends Activity {
             }
         });
 
-        phoneDisplay.setOnClickListener((v) -> {
-            callShelterIntent = new Intent(Intent.ACTION_CALL);
-            callShelterIntent.setData(Uri.parse("tel:" + currentShelter.getPhone()));
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
-                startActivity(callShelterIntent);
-            } else {
-
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
-                    Toast.makeText(this, "Phone calling permission needed to call the shelter.", Toast.LENGTH_SHORT).show();
-                }
-
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
-            }
-        });
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if (requestCode == REQUEST_CALL) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                startActivity(callShelterIntent);
-            } else {
-                Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
-            }
-        } else {
-            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+//        phoneDisplay.setOnClickListener((v) -> {
+//            callShelterIntent = new Intent(Intent.ACTION_CALL);
+//            callShelterIntent.setData(Uri.parse("tel:" + currentShelter.getPhone()));
+//            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+//                startActivity(callShelterIntent);
+//            } else {
+//
+//                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
+//                    Toast.makeText(this, "Phone calling permission needed to call the shelter.", Toast.LENGTH_SHORT).show();
+//                }
+//
+//                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+//            }
+//        });
+//    }
+//
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        if (requestCode == REQUEST_CALL) {
+//            if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                startActivity(callShelterIntent);
+//            } else {
+//                Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
+//            }
+//        } else {
+//            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        }
     }
 }

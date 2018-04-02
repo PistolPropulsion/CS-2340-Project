@@ -12,6 +12,9 @@ import java.util.List;
  * Created by Yuan Zhang on 3/7/2018.
  */
 
+/**
+ * adapter for the spinner
+ */
 public class SpinnerMultiAdapter extends ArrayAdapter<CheckboxValues> {
 
     private Context mContext;
@@ -19,15 +22,16 @@ public class SpinnerMultiAdapter extends ArrayAdapter<CheckboxValues> {
     private SpinnerMultiAdapter myAdapter;
     private boolean isFromView = false;
 
+    /**
+     * constructor
+     * @param context context
+     * @param resource resource
+     * @param objects objects
+     */
     public SpinnerMultiAdapter(Context context, int resource, List<CheckboxValues> objects) {
         super(context, resource, objects);
         this.mContext = context;
         this.checkedList = (ArrayList<CheckboxValues>) objects;
         this.myAdapter = this;
-    }
-
-    private class ViewHolder {
-        private TextView mTextView;
-        private CheckBox mCheckBox;
     }
 }

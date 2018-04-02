@@ -4,6 +4,9 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
  * Created by Yuan Zhang on 2/11/2018.
  */
 
+/**
+ * the user class
+ */
 public class User {
     private String email; //also username
     private String pwd;
@@ -12,9 +15,23 @@ public class User {
     private boolean isVeteran;
     private Gender gender;
 
+    /**
+     * constructor
+     * @param email email
+     * @param pwd password
+     */
     public User(String email, String pwd) {
         this(email, pwd, "", false, null);
     }
+
+    /**
+     * constructor
+     * @param email email
+     * @param pass password
+     * @param name name
+     * @param isVet boolean is veteran or not
+     * @param gen gender
+     */
     public User(String email, String pass, String name, boolean isVet, Gender gen){
         this.email = email;
         this.pwd = pass;
@@ -24,43 +41,42 @@ public class User {
         this.gender = gen;
     }
 
+    /**
+     * empty constructor
+     */
     public User() {
         this("", "");
     }
+
+    /**
+     * gets email
+     * @return String email
+     */
     public String getEmail() {
         return this.email;
     }
+
+    /**
+     * sets email
+     * @param email String email
+     */
     public void setEmail(String email) {
         this.email = email;
     }
-    public String getPass() {
-        return this.pwd;
-    }
-    public void setPass(String pwd) {
-        this.pwd = pwd;
-    }
+
+    /**
+     * gets name
+     * @return String name
+     */
     public String getName() {
         return this.name;
     }
+
+    /**
+     * sets name
+     * @param email email
+     */
     public void setName(String email) {
         this.name = email;
-    }
-    public boolean isLocked() {
-        return this.locked;
-    }
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-    public boolean getVeteran() {
-        return this.isVeteran;
-    }
-    public void setVeteran(boolean vet) {
-        this.isVeteran = vet;
-    }
-    public Gender getGender() {
-        return this.gender;
-    }
-    public void setGender(Gender gen) {
-        this.gender = gen;
     }
 }

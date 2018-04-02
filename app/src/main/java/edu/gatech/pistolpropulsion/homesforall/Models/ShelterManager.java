@@ -6,24 +6,29 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * manager for shelters
+ */
 public class ShelterManager {
     private Shelter[] shelterArray;
     private int count;
     private DatabaseReference mDatabase;
 
+    /**
+     * creates shelter manager given number of shelters
+     * @param count number of shelters
+     */
     public ShelterManager(int count) {
         shelterArray = new Shelter[count];
         this.count = count;
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
-    public ShelterManager(Map<String, String> shelters) {
-        System.out.println("1ABCDEFG");
-        for (Map.Entry<String, String> entry : shelters.entrySet()) {
-            System.out.println(entry.getValue());
-        }
-    }
-
+    /**
+     *  constructor given 2D string array and number of shelters
+     * @param data what was read in from CSV file
+     * @param count number of shelters
+     */
     public ShelterManager(String[][] data, int count) {
         this(count);
         for(int i = 0; i < count; i++) {
@@ -34,10 +39,18 @@ public class ShelterManager {
         }
     }
 
+    /**
+     * empty constructor
+     */
     public ShelterManager() {
         this(null, 0);
     }
 
+    /**
+     * gets an array of all the shelter names
+     * @param count number of shelters
+     * @return String array of all shelter names
+     */
     private String[] makeNamesArray(int count) {
         String [] names = new String[count];
         for(int i = 0; i < count; i++){
@@ -46,19 +59,36 @@ public class ShelterManager {
         return names;
     }
 
+    /**
+     * getter for names array
+     * @return String array of all shelter names
+     */
     public String[] getNamesArray() {
         return makeNamesArray(count);
     }
 
+    /**
+     * gets all the data in this in manager in a Shelter array
+     * @return an array of shelters
+     */
     public Shelter[] getShelterArray() {
         return this.shelterArray;
     }
 
+    /**
+     * given a shelter array, set manager data to that array
+     * @param array what to set manager's data to
+     */
     public void setShelterArray(Shelter[] array) {
         this.shelterArray = array;
         count = array.length;
     }
 
+    /**
+     * searches all shelters given options
+     * @param options list of strings representing search options
+     * @return all the shelters that correspond to given options
+     */
     public Shelter[] search(ArrayList<String> options) {
         for (String items: options){
             System.out.println(items);
@@ -80,6 +110,11 @@ public class ShelterManager {
         return searchList.toArray(new Shelter[searchList.size()]);
     }
 
+    /**
+     * searches all shelters for a name
+     * @param options a list of strings
+     * @return an array of shelters containing those strings
+     */
     public Shelter[] searchName(ArrayList<String> options) {
         ArrayList<Shelter> searchList = new ArrayList<>();
         for(int i = 0; i < shelterArray.length; i++){
