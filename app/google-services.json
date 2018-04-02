@@ -8,18 +8,18 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:553533451272:android:fa637c887d18b60b",
+        "mobilesdk_app_id": "1:553533451272:android:eaacabae1cd23ada",
         "android_client_info": {
-          "package_name": "edu.gatech.pistolpropulsion.homesforall"
+          "package_name": "com.example.vauda.testfirebase"
         }
       },
       "oauth_client": [
         {
-          "client_id": "553533451272-q558ngd5aldur562eet7sbvmi1mhj60s.apps.googleusercontent.com",
+          "client_id": "553533451272-k6jalkvb8tu40964qrvq92d7nilsrhrk.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "edu.gatech.pistolpropulsion.homesforall",
-            "certificate_hash": "9db24e8016e6dd1f956fb64e4fb75b6ec78e21b3"
+            "package_name": "com.example.vauda.testfirebase",
+            "certificate_hash": "a479b47572e082cc9362471d3b3b0b6d1b0fc43f"
           }
         },
         {
@@ -52,18 +52,26 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:553533451272:android:eaacabae1cd23ada",
+        "mobilesdk_app_id": "1:553533451272:android:fa637c887d18b60b",
         "android_client_info": {
-          "package_name": "com.example.vauda.testfirebase"
+          "package_name": "edu.gatech.pistolpropulsion.homesforall"
         }
       },
       "oauth_client": [
         {
-          "client_id": "553533451272-k6jalkvb8tu40964qrvq92d7nilsrhrk.apps.googleusercontent.com",
+          "client_id": "553533451272-539cuou9pn69p9gouiqnbatj026nk01h.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.vauda.testfirebase",
-            "certificate_hash": "a479b47572e082cc9362471d3b3b0b6d1b0fc43f"
+            "package_name": "edu.gatech.pistolpropulsion.homesforall",
+            "certificate_hash": "f76ee22ba282cd62febbca4b1fa9c04622e9c5c6"
+          }
+        },
+        {
+          "client_id": "553533451272-q558ngd5aldur562eet7sbvmi1mhj60s.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "edu.gatech.pistolpropulsion.homesforall",
+            "certificate_hash": "9db24e8016e6dd1f956fb64e4fb75b6ec78e21b3"
           }
         },
         {

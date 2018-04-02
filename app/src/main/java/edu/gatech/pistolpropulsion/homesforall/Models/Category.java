@@ -8,9 +8,9 @@ import java.util.Collections;
 /**
  * class that represents search categories
  */
-public class Category implements Serializable {
+class Category implements Serializable {
     private ArrayList<String> list;
-    private String[] searchItems = {" MEN ", " WOMEN ", " NEWBORN ", " CHILD ", " YOUNG ADULT "};;
+    private final String[] searchItems = {" MEN ", " WOMEN ", " NEWBORN ", " CHILD ", " YOUNG ADULT "};
 
     /**
      * default constructor
@@ -37,16 +37,21 @@ public class Category implements Serializable {
                 Collections.addAll(list, searchItems);
                 return;
             }
-            if(restrictions[i].toLowerCase().contains("men") && !restrictions[i].toLowerCase().contains("women"))
+            if(restrictions[i].toLowerCase().contains("men") && !restrictions[i].toLowerCase().contains("women")) {
                 list.add(searchItems[0]);
-            if(restrictions[i].toLowerCase().contains("women"))
+            }
+            if(restrictions[i].toLowerCase().contains("women")) {
                 list.add(searchItems[1]);
-            if(restrictions[i].toLowerCase().contains("newborn"))
+            }
+            if(restrictions[i].toLowerCase().contains("newborn")) {
                 list.add(searchItems[2]);
-            if(restrictions[i].toLowerCase().contains("child"))
+            }
+            if(restrictions[i].toLowerCase().contains("child")) {
                 list.add(searchItems[3]);
-            if(restrictions[i].toLowerCase().contains("young adult"))
+            }
+            if(restrictions[i].toLowerCase().contains("young adult")) {
                 list.add(searchItems[4]);
+            }
         }
     }
 

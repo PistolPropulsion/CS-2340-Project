@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
@@ -57,8 +58,9 @@ public class MainActivity extends Activity {
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
     private Shelter[] fetchedShelterArray;
-    private String search;
-    private ArrayList<String> selectedName = new ArrayList<>();
+    @SuppressWarnings("FieldMayBeFinal")
+    //selectedName gets modified multiple times in file, why final?
+    private List<String> selectedName = new ArrayList<>();
 
 
 
@@ -138,7 +140,7 @@ public class MainActivity extends Activity {
 
                 //noinspection EmptyClass must be empty or breaks the entire program
                 GenericTypeIndicator<ArrayList<Shelter>> t = new GenericTypeIndicator<ArrayList<Shelter>>() {};
-                ArrayList<Shelter> fetch = dataSnapshot.getValue(t);
+                Iterable<Shelter> fetch = dataSnapshot.getValue(t);
 
                 shelterList.clear();
 
@@ -175,13 +177,6 @@ public class MainActivity extends Activity {
         refresh.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                for(String i: selectedItems) {
-//                    System.out.println(i);
-//                }
-//                System.out.println("Hell this is annoying");
-                System.out.println(search);
-
-
             }
         });
 
@@ -368,9 +363,9 @@ public class MainActivity extends Activity {
     }
 
     public void refresh() {
-        ArrayList<String> selectedItems;
+        List<String> selectedItems;
         selectedItems = new ArrayList<>();
-        search = "";
+        String search = "";
 
         if (age_checkBox.isChecked()) {
 
@@ -384,7 +379,7 @@ public class MainActivity extends Activity {
             if (age_child.isChecked()) {
                 selectedItems.add(ageItems[1]);
             } else {
-                System.out.println("REMOVED");
+                //System.out.println("REMOVED");
                 selectedItems.remove(ageItems[1]);
             }
             if (age_youngAdult.isChecked()) {
@@ -416,9 +411,9 @@ public class MainActivity extends Activity {
 
         if (name_checkBox.isChecked()) {
 
-            System.out.println(name_editText.getText().toString());
+            //System.out.println(name_editText.getText().toString());
 
-            if (!(name_editText.getText().toString().equals(""))) {
+            if (!("".equals(name_editText.getText().toString()))) {
                 selectedName.clear();
                 selectedName.add(name_editText.getText().toString());
             } else {
@@ -429,7 +424,7 @@ public class MainActivity extends Activity {
 
         }
 
-        System.out.println(search);
+        //System.out.println(search);
 
         if(selectedItems.isEmpty() && selectedName.isEmpty()) {
             loadShelters(fetchedShelterArray);
@@ -437,19 +432,19 @@ public class MainActivity extends Activity {
             Shelter[] temp = fetchedShelterArray;
             ShelterManager tempManager = new ShelterManager();
             tempManager.setShelterArray(temp);
-            System.out.println("BEFORE");
+            //System.out.println("BEFORE");
             for (Shelter s : temp) {
-                System.out.println(s.getName());
+                //System.out.println(s.getName());
             }
-            System.out.println("-");
+            //System.out.println("-");
             if (name_checkBox.isChecked() && !selectedName.isEmpty()) {
                 temp = tempManager.searchName(selectedName);
                 tempManager.setShelterArray(temp);
-                System.out.println("AFTER");
-                for (Shelter s : temp) {
-                    System.out.println(s.getName());
-                }
-                System.out.println("-");
+                //System.out.println("AFTER");
+                //for (Shelter s : temp) {
+                    //System.out.println(s.getName());
+                //}
+                //System.out.println("-");
             }
 
             if (!selectedItems.isEmpty()) {

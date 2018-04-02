@@ -72,13 +72,13 @@ public class RegisterActivity extends Activity {
 
                                         if (type == 2) {
                                             Administrator userObject = new Administrator(username, pass);
-                                            mDatabase.child("users").child("administrators").child(user != null ? user.getUid() : null).setValue(userObject);
+                                            mDatabase.child("users").child("administrators").child((user != null) ? user.getUid() : null).setValue(userObject);
                                         } else if (type == 1) {
                                             StoreEmployee userObject = new StoreEmployee(username, pass);
-                                            mDatabase.child("users").child("storeEmployees").child(user != null ? user.getUid() : null).setValue(userObject);
+                                            mDatabase.child("users").child("storeEmployees").child((user != null) ? user.getUid() : null).setValue(userObject);
                                         } else {
                                             User userObject = new User(username, pass);
-                                            mDatabase.child("users").child("standardUsers").child(user != null ? user.getUid() : null).setValue(userObject);
+                                            mDatabase.child("users").child("standardUsers").child((user != null) ? user.getUid() : null).setValue(userObject);
                                         }
 
                                         Toast.makeText(getApplicationContext(), "You can now login with this user.",

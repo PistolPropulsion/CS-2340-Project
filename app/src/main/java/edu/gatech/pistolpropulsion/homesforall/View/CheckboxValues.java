@@ -4,7 +4,7 @@ package edu.gatech.pistolpropulsion.homesforall.View;
  * Created by Yuan Zhang on 3/7/2018.
  * An thing used by adapter and other stuff? i honestly don't recall writing this lol
  */
-public class CheckboxValues<T> {
+class CheckboxValues<T> {
     private T value;
     private boolean selected;
 

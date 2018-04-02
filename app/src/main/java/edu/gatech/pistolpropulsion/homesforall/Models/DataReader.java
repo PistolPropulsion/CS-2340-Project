@@ -10,8 +10,8 @@ import java.io.InputStreamReader;
  */
 public class DataReader {
 
-    private InputStreamReader file;
-    private String[][] content;
+    private final InputStreamReader file;
+    private final String[][] content;
     private int count = 0;
 
     /**

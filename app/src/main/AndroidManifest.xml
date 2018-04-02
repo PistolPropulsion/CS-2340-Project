@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="edu.gatech.pistolpropulsion.homesforall">
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
@@ -15,7 +16,9 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/NoActionBar">
+        android:theme="@style/NoActionBar"
+        android:fullBackupContent="@xml/backup_descriptor"
+        tools:ignore="GoogleAppIndexingWarning">
         <activity android:name=".Controllers.Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,12 +27,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".Controllers.LoginActivity" />
-        <activity
-            android:name=".Controllers.MainActivity"
-            android:theme="@style/NoActionBar" />
+        <activity android:name=".Controllers.MainActivity"/>
         <activity android:name=".Controllers.ShelterDetailsActivity" />
         <activity android:name=".Controllers.RegisterActivity" />
-        <activity android:name=".Controllers.SearchScreenActivity"></activity>
     </application>
 
 </manifest>

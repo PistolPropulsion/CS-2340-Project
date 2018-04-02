@@ -5,14 +5,14 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
 /**
  * the user class
  */
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "FieldMayBeFinal"})
 public class User {
     private String email; //also username
     private String pwd;
     private boolean locked;
     private String name;
     private boolean isVeteran;
-    private Gender gender;
+    private final Gender gender;
 
     /**
      * constructor

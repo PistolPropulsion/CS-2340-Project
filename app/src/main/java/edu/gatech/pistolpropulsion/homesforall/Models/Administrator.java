@@ -6,8 +6,10 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
  */
 @SuppressWarnings("FieldCanBeLocal")
 public class Administrator {
-    private String email; //also username
-    private String name;
+    private final String email; //also username
+    private final String name;
+    //passwords can change
+    @SuppressWarnings("FieldMayBeFinal")
     private String pwd;
 
     /**
