@@ -70,8 +70,6 @@ public class MainActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        TextView refresh = findViewById(R.id.refresh_textView);
-
         name_checkBox = findViewById(R.id.name_checkBox);
         name_editText = findViewById(R.id.name_editText);
 
@@ -169,12 +167,6 @@ public class MainActivity extends Activity {
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, Welcome.class));
-            }
-        });
-
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
             }
         });
 

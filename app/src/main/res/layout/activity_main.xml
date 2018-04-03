@@ -10,18 +10,6 @@
 
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.MainActivity">
 
-    <TextView
-        android:id="@+id/refresh_textView"
-        android:layout_width="wrap_content"
-        android:layout_height="35dp"
-
-        android:layout_marginEnd="24dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/refresh"
-        android:textAppearance="@android:style/TextAppearance.Material.Menu"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/shelterList"
         android:layout_width="361dp"
@@ -40,11 +28,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="25dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="8dp"
         android:text="@string/logout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
