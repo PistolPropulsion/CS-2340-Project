@@ -369,7 +369,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                     LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
                     map.addMarker(new MarkerOptions()
                             .position(location)
-                            .title(s.getName()));
+                            .title(s.getName())
+                            .snippet(s.getAddress())
+                    );
                     builder.include(location);
                 }
 
