@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -20,6 +21,13 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -40,7 +48,7 @@ import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 /**
  * main activity screen, it's the giant list of shelters
  */
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private CheckBox name_checkBox;
     private EditText name_editText;
@@ -52,6 +60,7 @@ public class MainActivity extends Activity {
     private CheckBox gender_male;
     private CheckBox gender_female;
     private TextView done_textView;
+    private SupportMapFragment mapFragment;
     private RecyclerView recyclerView;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
@@ -83,6 +92,10 @@ public class MainActivity extends Activity {
         gender_female = findViewById(R.id.gender_female);
 
         done_textView = findViewById(R.id.done_textView);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
 
         TextView filter = findViewById(R.id.filter_textView);
         recyclerView = findViewById(R.id.shelterList);
@@ -172,6 +185,8 @@ public class MainActivity extends Activity {
 
         filter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                mapFragment.getView().setVisibility(View.GONE);
+
                 name_checkBox.setVisibility(View.VISIBLE);
                 if (name_checkBox.isChecked()) {
                     name_editText.setVisibility(View.VISIBLE);
@@ -307,6 +322,7 @@ public class MainActivity extends Activity {
                 gender_male.setVisibility(View.GONE);
                 gender_female.setVisibility(View.GONE);
                 done_textView.setVisibility(View.GONE);
+                mapFragment.getView().setVisibility(View.VISIBLE);
             }
         });
 
@@ -325,6 +341,15 @@ public class MainActivity extends Activity {
                     }
                 })
         );
+    }
+
+    public void onMapReady(GoogleMap googleMap) {
+        // Add a marker in Sydney, Australia,
+        // and move the map's camera to the same location.
+        LatLng sydney = new LatLng(-33.852, 151.211);
+        googleMap.addMarker(new MarkerOptions().position(sydney)
+                .title("Marker in Sydney"));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
     public void loadShelters(Shelter[] array){
