@@ -325,7 +325,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 done_textView.setVisibility(View.GONE);
 
                 setUpMapMarkers();
-                
+
                 mapFragment.getView().setVisibility(View.VISIBLE);
             }
         });
@@ -378,7 +378,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         LatLngBounds bounds = builder.build();
-        int padding = 5; // offset from edges of the map in pixels
+        int padding = (int) (getResources().getDisplayMetrics().widthPixels * 0.10); // offset from edges of the map in pixels
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         map.moveCamera(cu);
 
