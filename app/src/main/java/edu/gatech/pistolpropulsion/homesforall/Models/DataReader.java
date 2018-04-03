@@ -20,6 +20,7 @@ public class DataReader {
      */
     public DataReader(InputStreamReader reader) {
         this.file = reader;
+        // Do these need to be hard coded?
         content = new String [50][9];
     }
 
