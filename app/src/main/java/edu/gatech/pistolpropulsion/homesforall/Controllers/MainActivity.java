@@ -1,25 +1,31 @@
 package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.support.v7.app.AlertDialog;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapView;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -28,10 +34,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
-import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.Models.ShelterManager;
 import edu.gatech.pistolpropulsion.homesforall.R;
@@ -41,7 +47,7 @@ import edu.gatech.pistolpropulsion.homesforall.View.RecyclerItemClickListener;
 /**
  * main activity screen, it's the giant list of shelters
  */
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private CheckBox name_checkBox;
     private EditText name_editText;
@@ -53,12 +59,15 @@ public class MainActivity extends Activity {
     private CheckBox gender_male;
     private CheckBox gender_female;
     private TextView done_textView;
+    private SupportMapFragment mapFragment;
     private RecyclerView recyclerView;
     private ShelterManager shelterManager;
     private Shelter[] shelterArray;
     private Shelter[] fetchedShelterArray;
-    private String search;
-    private ArrayList<String> selectedName = new ArrayList<>();
+    @SuppressWarnings("FieldMayBeFinal")
+    //selectedName gets modified multiple times in file, why final?
+    private List<String> selectedName = new ArrayList<>();
+    private GoogleMap map;
 
 
 
@@ -69,8 +78,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-
-        TextView refresh = findViewById(R.id.refresh_textView);
 
         name_checkBox = findViewById(R.id.name_checkBox);
         name_editText = findViewById(R.id.name_editText);
@@ -85,6 +92,10 @@ public class MainActivity extends Activity {
         gender_female = findViewById(R.id.gender_female);
 
         done_textView = findViewById(R.id.done_textView);
+
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.mapFragment);
+        mapFragment.getMapAsync(this);
 
         TextView filter = findViewById(R.id.filter_textView);
         recyclerView = findViewById(R.id.shelterList);
@@ -111,7 +122,7 @@ public class MainActivity extends Activity {
         gender_female.setChecked(false);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference().child("shelters");
+        DatabaseReference dbRef = database.getReference().child("shelters");
         shelterManager = new ShelterManager();
 
 //        InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
@@ -130,15 +141,15 @@ public class MainActivity extends Activity {
 //        loadShelters(shelterManager.getShelterArray());
 //        fetchedShelterArray = shelterManager.getShelterArray();
 
-        final ArrayList<Shelter> shelterList = new ArrayList<Shelter>();
+        final ArrayList<Shelter> shelterList = new ArrayList<>();
 
-        myRef.addValueEventListener(new ValueEventListener() {
+        dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //noinspection EmptyClass must be empty or breaks the entire program
                 GenericTypeIndicator<ArrayList<Shelter>> t = new GenericTypeIndicator<ArrayList<Shelter>>() {};
-                ArrayList<Shelter> fetch = dataSnapshot.getValue(t);
+                Iterable<Shelter> fetch = dataSnapshot.getValue(t);
 
                 shelterList.clear();
 
@@ -149,11 +160,12 @@ public class MainActivity extends Activity {
                     }
                 }
 
-                fetchedShelterArray = new Shelter[shelterList.size()];
+                fetchedShelterArray = new Shelter[shelterList.size()];  // May not need this line
                 fetchedShelterArray = shelterList.toArray(fetchedShelterArray);
                 shelterArray = fetchedShelterArray;
 
                 loadShelters(shelterArray);
+                setUpMapMarkers();
                 shelterManager.setShelterArray(shelterArray);
 
             }
@@ -172,21 +184,10 @@ public class MainActivity extends Activity {
             }
         });
 
-        refresh.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                for(String i: selectedItems) {
-//                    System.out.println(i);
-//                }
-//                System.out.println("Hell this is annoying");
-                System.out.println(search);
-
-
-            }
-        });
-
         filter.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                mapFragment.getView().setVisibility(View.GONE);
+
                 name_checkBox.setVisibility(View.VISIBLE);
                 if (name_checkBox.isChecked()) {
                     name_editText.setVisibility(View.VISIBLE);
@@ -322,6 +323,10 @@ public class MainActivity extends Activity {
                 gender_male.setVisibility(View.GONE);
                 gender_female.setVisibility(View.GONE);
                 done_textView.setVisibility(View.GONE);
+
+                setUpMapMarkers();
+
+                mapFragment.getView().setVisibility(View.VISIBLE);
             }
         });
 
@@ -342,11 +347,50 @@ public class MainActivity extends Activity {
         );
     }
 
+    public void onMapReady(GoogleMap googleMap) {
+        map = googleMap;
+        setUpMapMarkers();
+    }
+
+    private void setUpMapMarkers() {
+        // TODO: clear markers, set markers to addresses of shelterArray, zoom to right place
+        if (map == null || shelterArray == null) {
+            return;
+        }
+        map.clear();
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        for (Shelter s : shelterArray) {
+            try {
+                Geocoder selected_place_geocoder = new Geocoder(this, Locale.getDefault());
+                List<Address> addresses = selected_place_geocoder.getFromLocationName(s.getAddress(), 1);
+
+                if (addresses != null) {
+                    Address address = addresses.get(0);
+                    LatLng location = new LatLng(address.getLatitude(), address.getLongitude());
+                    map.addMarker(new MarkerOptions()
+                            .position(location)
+                            .title(s.getName())
+                            .snippet(s.getAddress())
+                    );
+                    builder.include(location);
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        LatLngBounds bounds = builder.build();
+        int padding = (int) (getResources().getDisplayMetrics().widthPixels * 0.10); // offset from edges of the map in pixels
+        CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
+        map.moveCamera(cu);
+
+    }
+
     public void loadShelters(Shelter[] array){
 
         // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
 //        for (Shelter s : array) {
-//            myRef.child(s.getKey()).setValue(s);
+//            dbRef.child(s.getKey()).setValue(s);
 //        }
 
         //noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -368,9 +412,9 @@ public class MainActivity extends Activity {
     }
 
     public void refresh() {
-        ArrayList<String> selectedItems;
+        List<String> selectedItems;
         selectedItems = new ArrayList<>();
-        search = "";
+        String search = "";
 
         if (age_checkBox.isChecked()) {
 
@@ -384,7 +428,7 @@ public class MainActivity extends Activity {
             if (age_child.isChecked()) {
                 selectedItems.add(ageItems[1]);
             } else {
-                System.out.println("REMOVED");
+                //System.out.println("REMOVED");
                 selectedItems.remove(ageItems[1]);
             }
             if (age_youngAdult.isChecked()) {
@@ -416,9 +460,9 @@ public class MainActivity extends Activity {
 
         if (name_checkBox.isChecked()) {
 
-            System.out.println(name_editText.getText().toString());
+            //System.out.println(name_editText.getText().toString());
 
-            if (!(name_editText.getText().toString().equals(""))) {
+            if (!("".equals(name_editText.getText().toString()))) {
                 selectedName.clear();
                 selectedName.add(name_editText.getText().toString());
             } else {
@@ -429,7 +473,7 @@ public class MainActivity extends Activity {
 
         }
 
-        System.out.println(search);
+        //System.out.println(search);
 
         if(selectedItems.isEmpty() && selectedName.isEmpty()) {
             loadShelters(fetchedShelterArray);
@@ -437,19 +481,19 @@ public class MainActivity extends Activity {
             Shelter[] temp = fetchedShelterArray;
             ShelterManager tempManager = new ShelterManager();
             tempManager.setShelterArray(temp);
-            System.out.println("BEFORE");
-            for (Shelter s : temp) {
-                System.out.println(s.getName());
-            }
-            System.out.println("-");
+            //System.out.println("BEFORE");
+//            for (Shelter s : temp) {
+//                System.out.println(s.getName());
+//            }
+            //System.out.println("-");
             if (name_checkBox.isChecked() && !selectedName.isEmpty()) {
                 temp = tempManager.searchName(selectedName);
                 tempManager.setShelterArray(temp);
-                System.out.println("AFTER");
-                for (Shelter s : temp) {
-                    System.out.println(s.getName());
-                }
-                System.out.println("-");
+                //System.out.println("AFTER");
+                //for (Shelter s : temp) {
+                    //System.out.println(s.getName());
+                //}
+                //System.out.println("-");
             }
 
             if (!selectedItems.isEmpty()) {

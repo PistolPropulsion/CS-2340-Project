@@ -8,10 +8,10 @@ import java.io.InputStreamReader;
  * class to read CSV files
  * defunct after we finished firebase
  */
-public class DataReader {
+class DataReader {
 
-    private InputStreamReader file;
-    private String[][] content;
+    private final InputStreamReader file;
+    private final String[][] content;
     private int count = 0;
 
     /**

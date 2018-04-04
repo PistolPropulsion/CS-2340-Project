@@ -16,7 +16,7 @@ import java.util.List;
 public class SpinnerMultiAdapter extends ArrayAdapter<CheckboxValues> {
 
     private Context mContext;
-    private ArrayList<CheckboxValues> checkedList;
+    private List<CheckboxValues> checkedList;
     private SpinnerMultiAdapter myAdapter;
     private boolean isFromView = false;
 

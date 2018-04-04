@@ -4,6 +4,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -92,10 +93,10 @@ public class ShelterManager {
      * @param options list of strings representing search options
      * @return all the shelters that correspond to given options
      */
-    public Shelter[] search(ArrayList<String> options) {
-        for (String items: options){
-            System.out.println(items);
-        }
+    public Shelter[] search(List<String> options) {
+//        for (String items: options){
+//            System.out.println(items);
+//        }
         ArrayList<Shelter> searchList = new ArrayList<>();
         for(int i = 0; i < shelterArray.length; i++){
             for(int j = 0; j < options.size(); j++) {
@@ -106,10 +107,10 @@ public class ShelterManager {
                 }
             }
         }
-        for(Shelter item: searchList){
-            System.out.println(item.getName());
-        }
-        System.out.println(searchList.size());
+//        for(Shelter item: searchList){
+//            System.out.println(item.getName());
+//        }
+        //System.out.println(searchList.size());
         return searchList.toArray(new Shelter[searchList.size()]);
     }
 
@@ -118,7 +119,7 @@ public class ShelterManager {
      * @param options a list of strings
      * @return an array of shelters containing those strings
      */
-    public Shelter[] searchName(ArrayList<String> options) {
+    public Shelter[] searchName(List<String> options) {
         ArrayList<Shelter> searchList = new ArrayList<>();
         for(int i = 0; i < shelterArray.length; i++){
             for(int j = 0; j < options.size(); j++) {

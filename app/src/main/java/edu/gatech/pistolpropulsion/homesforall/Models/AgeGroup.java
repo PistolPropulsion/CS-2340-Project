@@ -10,7 +10,7 @@ public enum AgeGroup {
 
         private final int age;
 
-        private AgeGroup(int age) {
+        AgeGroup(int age) {
             this.age = age;
         }
 

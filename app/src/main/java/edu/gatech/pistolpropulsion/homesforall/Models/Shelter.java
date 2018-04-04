@@ -60,9 +60,9 @@ public class Shelter implements Serializable{
         search.addItems(restrictions);
         search.addItems(specialNotes);
         search.addName(name);
-        for(String item: search.getList()) {
-            System.out.println(name + " " + item);
-        }
+//        for(String item: search.getList()) {
+//            System.out.println(name + " " + item);
+//        }
     }
 
     /**
@@ -256,11 +256,12 @@ public class Shelter implements Serializable{
      * @return true or false shelter is ok
      */
     public boolean canAccommodate(String str) {
-        System.out.println(str);
+        //System.out.println(str);
         for(int i = 0; i < search.getList().size(); i++){
-            System.out.println(search.getList().get(i));
-            if(search.getList().get(i).equals(str))
+            //System.out.println(search.getList().get(i));
+            if(search.getList().get(i).equals(str)) {
                 return true;
+            }
         }
         return false;
     }
