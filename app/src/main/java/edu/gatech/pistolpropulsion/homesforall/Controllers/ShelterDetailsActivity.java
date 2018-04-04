@@ -21,10 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.R;
@@ -42,14 +39,14 @@ public class ShelterDetailsActivity extends Activity {
         setContentView(R.layout.activity_shelter_details);
 
         currentShelter = (Shelter) getIntent().getSerializableExtra("name");
-        TextView nameDisplay = findViewById(R.id.textview_shelterDetails_nameHeader);
-        TextView addressDisplay = findViewById(R.id.textview_shelterDetails_address);
-        TextView phoneDisplay = findViewById(R.id.textview_shelterDetails_phone);
-        TextView capacityDisplay = findViewById(R.id.textview_shelterDetails_capacity);
-        TextView notesDisplay = findViewById(R.id.textview_shelterDetails_special);
-        TextView restrictDisplay = findViewById(R.id.textview_shelterDetails_restrict);
-        Button reserveButton = findViewById(R.id.reserve_button);
-        TextView vacancyDisplay = findViewById(R.id.vacancies);
+        TextView nameDisplay = findViewById(R.id.textView_shelterDetails_nameHeader);
+        TextView addressDisplay = findViewById(R.id.textView_shelterDetails_address);
+        TextView phoneDisplay = findViewById(R.id.textView_shelterDetails_phone);
+        TextView capacityDisplay = findViewById(R.id.textView_shelterDetails_capacity);
+        TextView notesDisplay = findViewById(R.id.textView_shelterDetails_special);
+        TextView restrictDisplay = findViewById(R.id.textView_shelterDetails_restrict);
+        Button reserveButton = findViewById(R.id.button_shelterDetails_reserve);
+        TextView vacancyDisplay = findViewById(R.id.textView_shelter_Details_vacancies);
 
         nameDisplay.setText(currentShelter.getName());
         addressDisplay.setText("Address: " + currentShelter.getAddress());

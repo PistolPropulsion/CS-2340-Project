@@ -20,7 +20,6 @@ import android.widget.TextView;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -129,13 +128,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //        DataReader reader = new DataReader(csvfile);
 //        reader.read();
 //
-////                System.out.println(reader.getCount());
-////                for(int i = 0; i < reader.getCount(); i++) {
-////                    for (int j = 0; j < 9; j++)
-////                        System.out.print(reader.getContent()[i][j]);
-////                    System.out.println();
-////                }
-//
+//        System.out.println(reader.getCount());
+//        for(int i = 0; i < reader.getCount(); i++) {
+//            for (int j = 0; j < 9; j++)
+//                System.out.print(reader.getContent()[i][j]);
+//            System.out.println();
+//        }
 //
 //        shelterManager = new ShelterManager(reader.getContent(), reader.getCount());
 //        loadShelters(shelterManager.getShelterArray());
@@ -353,7 +351,6 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void setUpMapMarkers() {
-        // TODO: clear markers, set markers to addresses of shelterArray, zoom to right place
         if (map == null || shelterArray == null) {
             return;
         }
@@ -381,6 +378,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         }
         LatLngBounds bounds = builder.build();
         int padding = (int) (getResources().getDisplayMetrics().widthPixels * 0.10); // offset from edges of the map in pixels
+
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         map.moveCamera(cu);
 
@@ -395,20 +393,20 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         //noinspection AssignmentToCollectionOrArrayFieldFromParameter
         shelterArray = array;
-//                String[] namesArray = shelterManager.getNamesArray();
-//                for(int i = 0; i < 13; i++) {
-//                    System.out.println(namesArray[i]);
-//                }
+//        String[] namesArray = shelterManager.getNamesArray();
+//        for(int i = 0; i < 13; i++) {
+//            System.out.println(namesArray[i]);
+//        }
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
-//
+
         RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterArray);
         recyclerView.setAdapter(namesAdapter);
     }
 
     @Override
     public void onBackPressed() {
-        //do nothing
+        // do nothing
     }
 
     public void refresh() {
@@ -428,7 +426,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             if (age_child.isChecked()) {
                 selectedItems.add(ageItems[1]);
             } else {
-                //System.out.println("REMOVED");
+//                System.out.println("REMOVED");
                 selectedItems.remove(ageItems[1]);
             }
             if (age_youngAdult.isChecked()) {
@@ -460,7 +458,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (name_checkBox.isChecked()) {
 
-            //System.out.println(name_editText.getText().toString());
+//            System.out.println(name_editText.getText().toString());
 
             if (!("".equals(name_editText.getText().toString()))) {
                 selectedName.clear();
@@ -473,7 +471,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         }
 
-        //System.out.println(search);
+//        System.out.println(search);
 
         if(selectedItems.isEmpty() && selectedName.isEmpty()) {
             loadShelters(fetchedShelterArray);
@@ -481,19 +479,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             Shelter[] temp = fetchedShelterArray;
             ShelterManager tempManager = new ShelterManager();
             tempManager.setShelterArray(temp);
-            //System.out.println("BEFORE");
+//            System.out.println("BEFORE");
 //            for (Shelter s : temp) {
 //                System.out.println(s.getName());
 //            }
-            //System.out.println("-");
+//            System.out.println("-");
             if (name_checkBox.isChecked() && !selectedName.isEmpty()) {
                 temp = tempManager.searchName(selectedName);
                 tempManager.setShelterArray(temp);
-                //System.out.println("AFTER");
-                //for (Shelter s : temp) {
-                    //System.out.println(s.getName());
-                //}
-                //System.out.println("-");
+//                System.out.println("AFTER");
+//                for (Shelter s : temp) {
+//                    System.out.println(s.getName());
+//                }
+//                System.out.println("-");
             }
 
             if (!selectedItems.isEmpty()) {

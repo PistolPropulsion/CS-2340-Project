@@ -10,7 +10,7 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.Welcome">
 
     <TextView
-        android:id="@+id/textview_shelterDetails_address"
+        android:id="@+id/textView_shelterDetails_address"
         android:layout_width="336dp"
         android:layout_height="52dp"
         android:layout_marginEnd="8dp"
@@ -23,10 +23,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.26"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_nameHeader" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_shelterDetails_nameHeader" />
 
     <TextView
-        android:id="@+id/textview_shelterDetails_nameHeader"
+        android:id="@+id/textView_shelterDetails_nameHeader"
         android:layout_width="315dp"
         android:layout_height="75dp"
         android:layout_marginEnd="8dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textview_shelterDetails_phone"
+        android:id="@+id/textView_shelterDetails_phone"
         android:layout_width="319dp"
         android:layout_height="29dp"
         android:layout_marginEnd="8dp"
@@ -55,10 +55,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.15"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_address" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_shelterDetails_address" />
 
     <TextView
-        android:id="@+id/textview_shelterDetails_capacity"
+        android:id="@+id/textView_shelterDetails_capacity"
         android:layout_width="332dp"
         android:layout_height="32dp"
         android:layout_marginEnd="8dp"
@@ -70,10 +70,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_phone" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_shelterDetails_phone" />
 
     <TextView
-        android:id="@+id/textview_shelterDetails_special"
+        android:id="@+id/textView_shelterDetails_special"
         android:layout_width="319dp"
         android:layout_height="73dp"
         android:layout_marginEnd="16dp"
@@ -85,10 +85,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_capacity" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_shelterDetails_capacity" />
 
     <TextView
-        android:id="@+id/textview_shelterDetails_restrict"
+        android:id="@+id/textView_shelterDetails_restrict"
         android:layout_width="291dp"
         android:layout_height="49dp"
         android:layout_marginBottom="8dp"
@@ -98,33 +98,33 @@
         android:textAppearance="@android:style/TextAppearance.Material.Headline"
         android:textColor="@android:color/white"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/vacancies"
+        app:layout_constraintBottom_toTopOf="@+id/textView_shelter_Details_vacancies"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.222"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textview_shelterDetails_special"
+        app:layout_constraintTop_toBottomOf="@+id/textView_shelterDetails_special"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/reserve_button"
+        android:id="@+id/button_shelterDetails_reserve"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:text="RESERVE SPOT"
+        android:text="@string/reserve_spot"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/vacancies"
+        android:id="@+id/textView_shelter_Details_vacancies"
         android:layout_width="123dp"
         android:layout_height="24dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/reserve_button"
+        app:layout_constraintBottom_toTopOf="@+id/button_shelterDetails_reserve"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.54"
         app:layout_constraintStart_toStartOf="parent" />

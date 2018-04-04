@@ -40,6 +40,9 @@
     <string name="search_by_keyword">Search by keyword</string>
     <string name="done">DONE</string>
 
+    <!-- Strings related to shelter details activity -->
+    <string name="reserve_spot">RESERVE SPOT</string>
+
     <string-array name="user_types">
         <item>Standard User</item>
         <item>Shelter Employee</item>
