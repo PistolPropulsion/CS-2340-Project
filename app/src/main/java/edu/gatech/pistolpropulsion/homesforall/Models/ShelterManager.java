@@ -5,7 +5,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * manager for shelters
@@ -33,7 +32,8 @@ public class ShelterManager {
     public ShelterManager(String[][] data, int count) {
         this(count);
         for(int i = 0; i < count; i++) {
-            Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2], data[i][3], data[i][4],
+            Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2],
+                    data[i][3], data[i][4],
                     data[i][5], data[i][6], data[i][7], data[i][8]);
             shelterArray[i] = newShelter;
             mDatabase.child("shelters").child(newShelter.getKey()).setValue(newShelter);
@@ -98,11 +98,11 @@ public class ShelterManager {
 //            System.out.println(items);
 //        }
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for(int i = 0; i < shelterArray.length; i++){
-            for(int j = 0; j < options.size(); j++) {
-                if (shelterArray[i].canAccommodate(options.get(j))) {
-                    if (!searchList.contains(shelterArray[i])) {
-                        searchList.add(shelterArray[i]);
+        for (Shelter aShelterArray : shelterArray) {
+            for (int j = 0; j < options.size(); j++) {
+                if (aShelterArray.canAccommodate(options.get(j))) {
+                    if (!searchList.contains(aShelterArray)) {
+                        searchList.add(aShelterArray);
                     }
                 }
             }
@@ -121,11 +121,12 @@ public class ShelterManager {
      */
     public Shelter[] searchName(List<String> options) {
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for(int i = 0; i < shelterArray.length; i++){
-            for(int j = 0; j < options.size(); j++) {
-                if (shelterArray[i].getName().toLowerCase().contains(options.get(j).toLowerCase())) {
-                    if (!searchList.contains(shelterArray[i])) {
-                        searchList.add(shelterArray[i]);
+        for (Shelter aShelterArray : shelterArray) {
+            for (int j = 0; j < options.size(); j++) {
+                if (aShelterArray.getName().toLowerCase().
+                        contains(options.get(j).toLowerCase())) {
+                    if (!searchList.contains(aShelterArray)) {
+                        searchList.add(aShelterArray);
                     }
                 }
             }

@@ -2,12 +2,8 @@ package edu.gatech.pistolpropulsion.homesforall;
 
 import org.junit.Test;
 
-import java.io.InputStreamReader;
-import java.util.Date;
-
 import edu.gatech.pistolpropulsion.homesforall.Models.Administrator;
 import edu.gatech.pistolpropulsion.homesforall.Models.AgeGroup;
-import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 
 import static org.junit.Assert.*;
 
@@ -42,6 +38,6 @@ public class ExampleUnitTest {
     @Test
     public void shelter() throws Exception {
         //InputStreamReader csvfile = new InputStreamReader(new FileInputStream(R.raw.file));
-        DataReader reader = new DataReader(csvfile);
+        //DataReader reader = new DataReader(csvfile);
     }
 }

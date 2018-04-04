@@ -124,7 +124,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         DatabaseReference dbRef = database.getReference().child("shelters");
         shelterManager = new ShelterManager();
 
-//        InputStreamReader csvfile = new InputStreamReader(getResources().openRawResource(R.raw.file));
+//        InputStreamReader csvfile = new InputStreamReader(getResources().
+//                  openRawResource(R.raw.file));
 //        DataReader reader = new DataReader(csvfile);
 //        reader.read();
 //
@@ -146,7 +147,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 //noinspection EmptyClass must be empty or breaks the entire program
-                GenericTypeIndicator<ArrayList<Shelter>> t = new GenericTypeIndicator<ArrayList<Shelter>>() {};
+                GenericTypeIndicator<ArrayList<Shelter>> t =
+                        new GenericTypeIndicator<ArrayList<Shelter>>() {};
                 Iterable<Shelter> fetch = dataSnapshot.getValue(t);
 
                 shelterList.clear();
@@ -163,7 +165,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 shelterArray = fetchedShelterArray;
 
                 loadShelters(shelterArray);
-                setUpMapMarkers();
+                try {
+                    setUpMapMarkers();
+                } catch (IllegalStateException e) {
+
+                }
                 shelterManager.setShelterArray(shelterArray);
 
             }
@@ -183,6 +189,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         });
 
         filter.setOnClickListener(new View.OnClickListener() {
+            @Override
             public void onClick(View v) {
                 mapFragment.getView().setVisibility(View.GONE);
 
@@ -322,18 +329,24 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 gender_female.setVisibility(View.GONE);
                 done_textView.setVisibility(View.GONE);
 
-                setUpMapMarkers();
+                try {
+                    setUpMapMarkers();
+                } catch (IllegalStateException e) {
+
+                }
 
                 mapFragment.getView().setVisibility(View.VISIBLE);
             }
         });
 
         recyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(getApplicationContext(), recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
+                new RecyclerItemClickListener(getApplicationContext(),
+                        recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
                         Shelter item = shelterArray[position];
 
-                        Intent myIntent = new Intent(MainActivity.this, ShelterDetailsActivity.class);
+                        Intent myIntent = new Intent(MainActivity.this,
+                                ShelterDetailsActivity.class);
                         myIntent.putExtra("name", item);
                         startActivity(myIntent);
                     }
@@ -345,12 +358,18 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         );
     }
 
+    @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        setUpMapMarkers();
+        try {
+            setUpMapMarkers();
+        } catch (IllegalStateException e) {
+
+        }
     }
 
     private void setUpMapMarkers() {
+        // clear markers, set markers to addresses of shelterArray, zoom to right place
         if (map == null || shelterArray == null) {
             return;
         }
@@ -359,7 +378,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         for (Shelter s : shelterArray) {
             try {
                 Geocoder selected_place_geocoder = new Geocoder(this, Locale.getDefault());
-                List<Address> addresses = selected_place_geocoder.getFromLocationName(s.getAddress(), 1);
+                List<Address> addresses =
+                        selected_place_geocoder.getFromLocationName(s.getAddress(), 1);
 
                 if (addresses != null) {
                     Address address = addresses.get(0);
@@ -377,8 +397,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         }
         LatLngBounds bounds = builder.build();
-        int padding = (int) (getResources().getDisplayMetrics().widthPixels * 0.10); // offset from edges of the map in pixels
-
+        //noinspection MagicNumber just GUI stuff?
+        int padding = (int) (getResources().getDisplayMetrics().widthPixels * 0.10);
+        // offset from edges of the map in pixels
         CameraUpdate cu = CameraUpdateFactory.newLatLngBounds(bounds, padding);
         map.moveCamera(cu);
 
@@ -386,18 +407,19 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     public void loadShelters(Shelter[] array){
 
-        // THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
-//        for (Shelter s : array) {
-//            dbRef.child(s.getKey()).setValue(s);
-//        }
+//  THIS WAS FOR CORRECTLY UPLOADING TO SERVER - CAN BE USED LATER FOR EMPLOYEES ADDING SHELTERS
+//       for (Shelter s : array) {
+//           dbRef.child(s.getKey()).setValue(s);
+//       }
 
         //noinspection AssignmentToCollectionOrArrayFieldFromParameter
         shelterArray = array;
-//        String[] namesArray = shelterManager.getNamesArray();
-//        for(int i = 0; i < 13; i++) {
-//            System.out.println(namesArray[i]);
-//        }
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getApplicationContext());
+//                String[] namesArray = shelterManager.getNamesArray();
+//                for(int i = 0; i < 13; i++) {
+//                    System.out.println(namesArray[i]);
+//                }
+        RecyclerView.LayoutManager mLayoutManager =
+                new LinearLayoutManager(getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
 
         RecyclerViewAdapter namesAdapter = new RecyclerViewAdapter(shelterArray);
@@ -416,7 +438,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (age_checkBox.isChecked()) {
 
-            final String[] ageItems = {" NEWBORN ", " CHILD ", " YOUNG ADULT "};// arraylist to keep the selected items
+            final String[] ageItems = {" NEWBORN ", " CHILD ", " YOUNG ADULT "};
+            // arraylist to keep the selected items
 
             if (age_newborn.isChecked()) {
                 selectedItems.add(ageItems[0]);
@@ -439,7 +462,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         if (gender_checkBox.isChecked()) {
 
-            final String[] genderItems = {" MEN ", " WOMEN "};// arraylist to keep the selected items
+            final String[] genderItems = {" MEN ", " WOMEN "};
+            // arraylist to keep the selected items
 
             if (gender_male.isChecked()) {
                 selectedItems.add(genderItems[0]);
