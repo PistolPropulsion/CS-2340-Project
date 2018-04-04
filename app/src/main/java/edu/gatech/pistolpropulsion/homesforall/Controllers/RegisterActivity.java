@@ -11,7 +11,9 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.google.android.gms.tasks.*;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,7 +48,8 @@ public class RegisterActivity extends Activity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.user_types, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.user_types, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         userSpinner.setAdapter(adapter);
 
@@ -60,34 +63,50 @@ public class RegisterActivity extends Activity {
                 final int type = userSpinner.getSelectedItemPosition();
                 try {
                     mAuth.createUserWithEmailAndPassword(username, pass)
-                            .addOnCompleteListener(RegisterActivity.this, new OnCompleteListener<AuthResult>() {
+                            .addOnCompleteListener(RegisterActivity.this,
+                                    new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
                                     if (task.isSuccessful()) {
-                                        // Sign in success, update UI with the signed-in user's information
+                                        // Sign in success
+                                        // update UI with the signed-in user's information
                                         final String userKey = username.replaceAll(".", "");
 
                                         Log.d(TAG, "createUserWithEmail:success");
                                         FirebaseUser user = mAuth.getCurrentUser();
 
                                         if (type == 2) {
-                                            Administrator userObject = new Administrator(username, pass);
-                                            mDatabase.child("users").child("administrators").child((user != null) ? user.getUid() : null).setValue(userObject);
+                                            Administrator userObject =
+                                                    new Administrator(username, pass);
+                                            mDatabase.child("users").child("administrators").child(
+                                                    (user != null) ? user.getUid() : null).
+                                                    setValue(userObject);
                                         } else if (type == 1) {
-                                            StoreEmployee userObject = new StoreEmployee(username, pass);
-                                            mDatabase.child("users").child("storeEmployees").child((user != null) ? user.getUid() : null).setValue(userObject);
+                                            StoreEmployee userObject =
+                                                    new StoreEmployee(username, pass);
+                                            mDatabase.child("users").child("storeEmployees").child(
+                                                    (user != null) ? user.getUid() : null).
+                                                    setValue(userObject);
                                         } else {
                                             User userObject = new User(username, pass);
-                                            mDatabase.child("users").child("standardUsers").child((user != null) ? user.getUid() : null).setValue(userObject);
+                                            mDatabase.child("users").child("standardUsers").
+                                                    child((user != null) ? user.getUid() : null).
+                                                    setValue(userObject);
                                         }
 
-                                        Toast.makeText(getApplicationContext(), "You can now login with this user.",
+                                        Toast.makeText(getApplicationContext(),
+                                                "You can now login with this user.",
                                                 Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                                        startActivity(new Intent(
+                                                RegisterActivity.this,
+                                                LoginActivity.class)
+                                        );
                                     } else {
                                         // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure", task.getException());
-                                        Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                        Log.w(TAG, "createUserWithEmail:failure",
+                                                task.getException());
+                                        Toast.makeText(getApplicationContext(),
+                                                "Authentication failed.",
                                                 Toast.LENGTH_SHORT).show();
                                     }
 

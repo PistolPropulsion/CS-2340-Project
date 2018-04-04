@@ -21,10 +21,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.ArrayList;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
 import edu.gatech.pistolpropulsion.homesforall.R;
@@ -37,6 +34,7 @@ public class ShelterDetailsActivity extends Activity {
     private Shelter currentShelter;
     private DatabaseReference mData;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shelter_details);
@@ -77,18 +75,21 @@ public class ShelterDetailsActivity extends Activity {
             @Override
             public void onClick(View view) {
                 final String items[] = {"1", "2", "3"};
-                AlertDialog dialog = new AlertDialog.Builder(ShelterDetailsActivity.this, R.style.Theme_AppCompat_DayNight_Dialog_Alert)
+                AlertDialog dialog = new AlertDialog.Builder(ShelterDetailsActivity.this,
+                        R.style.Theme_AppCompat_DayNight_Dialog_Alert)
                         .setTitle("SELECT ROOMS")
                         .setSingleChoiceItems(items, 0, null)
                         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int id) {
                                 ListView lw = ((AlertDialog) dialog).getListView();
-                                String item = (String) lw.getAdapter().getItem(lw.getCheckedItemPosition());
+                                String item = (String) lw.getAdapter().
+                                        getItem(lw.getCheckedItemPosition());
                                 currentShelter.reserveSpots(Integer.parseInt(item));
                                 mData.child(currentShelter.getKey()).setValue(currentShelter);
                                 //maybe database stuff as well
-                                Toast.makeText(getApplicationContext(), "Rooms Reserved", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Rooms Reserved",
+                                        Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                             @Override
@@ -103,26 +104,33 @@ public class ShelterDetailsActivity extends Activity {
         phoneDisplay.setOnClickListener((v) -> {
             callShelterIntent = new Intent(Intent.ACTION_CALL);
             callShelterIntent.setData(Uri.parse("tel:" + currentShelter.getPhone()));
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this,
+                    Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) {
                 startActivity(callShelterIntent);
             } else {
 
-                if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.CALL_PHONE)) {
-                    Toast.makeText(this, "Phone calling permission needed to call the shelter.", Toast.LENGTH_SHORT).show();
+                if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                        Manifest.permission.CALL_PHONE)) {
+                    Toast.makeText(this,
+                            "Phone calling permission needed to call the shelter.",
+                            Toast.LENGTH_SHORT).show();
                 }
 
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
             }
         });
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CALL) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED){
                 startActivity(callShelterIntent);
             } else {
-                Toast.makeText(this, "Permission was not granted", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Permission was not granted",
+                        Toast.LENGTH_SHORT).show();
             }
         } else {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);

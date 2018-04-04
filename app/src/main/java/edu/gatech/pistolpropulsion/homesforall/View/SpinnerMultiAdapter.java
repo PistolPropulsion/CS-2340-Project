@@ -2,8 +2,6 @@ package edu.gatech.pistolpropulsion.homesforall.View;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
