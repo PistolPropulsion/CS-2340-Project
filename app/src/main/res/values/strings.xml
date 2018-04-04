@@ -1,4 +1,7 @@
 <resources>
+    <string name="google_maps_key">AIzaSyBcThzj-yRMLc8NkNP4ZwjiG163hOzRNII</string>
+
+
     <string name="app_name">Sheltr</string>
     <string name="title_activity_login">Login</string>
 
