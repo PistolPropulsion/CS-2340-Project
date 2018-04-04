@@ -39,8 +39,7 @@ class Category implements Serializable {
             }
             if(restrictions[i].toLowerCase().contains("men") && !restrictions[i].toLowerCase().contains("women")) {
                 list.add(searchItems[0]);
-            }
-            if(restrictions[i].toLowerCase().contains("women")) {
+            } else if(restrictions[i].toLowerCase().contains("women")) {
                 list.add(searchItems[1]);
             }
             if(restrictions[i].toLowerCase().contains("newborn")) {
@@ -52,6 +51,7 @@ class Category implements Serializable {
             if(restrictions[i].toLowerCase().contains("young adult")) {
                 list.add(searchItems[4]);
             }
+            list.add(restrictions[i].toUpperCase());
         }
     }
 
