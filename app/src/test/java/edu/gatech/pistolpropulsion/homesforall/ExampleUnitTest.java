@@ -2,12 +2,8 @@ package edu.gatech.pistolpropulsion.homesforall;
 
 import org.junit.Test;
 
-import java.io.InputStreamReader;
-import java.util.Date;
-
 import edu.gatech.pistolpropulsion.homesforall.Models.Administrator;
 import edu.gatech.pistolpropulsion.homesforall.Models.AgeGroup;
-import edu.gatech.pistolpropulsion.homesforall.Models.DataReader;
 
 import static org.junit.Assert.*;
 

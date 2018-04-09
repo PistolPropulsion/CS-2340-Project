@@ -10,7 +10,8 @@ import java.util.Collections;
  */
 class Category implements Serializable {
     private ArrayList<String> list;
-    private final String[] searchItems = {" MEN ", " WOMEN ", " NEWBORN ", " CHILD ", " YOUNG ADULT "};
+    private final String[] searchItems = {" MEN ", " WOMEN ",
+            " NEWBORN ", " CHILD ", " YOUNG ADULT "};
 
     /**
      * default constructor
@@ -32,26 +33,27 @@ class Category implements Serializable {
     public void addItems(String str){
         String rest = str.replaceAll("/", ",");
         String[] restrictions = rest.split(",");
-        for(int i = 0; i < restrictions.length; i++) {
-            if(restrictions[i].toLowerCase().contains("anyone")){
+        for (String restriction : restrictions) {
+            if (restriction.toLowerCase().contains("anyone")) {
                 Collections.addAll(list, searchItems);
                 return;
             }
-            if(restrictions[i].toLowerCase().contains("men") && !restrictions[i].toLowerCase().contains("women")) {
+            if (restriction.toLowerCase().contains("men") && !restriction.
+                    toLowerCase().contains("women")) {
                 list.add(searchItems[0]);
-            } else if(restrictions[i].toLowerCase().contains("women")) {
+            } else if (restriction.toLowerCase().contains("women")) {
                 list.add(searchItems[1]);
             }
-            if(restrictions[i].toLowerCase().contains("newborn")) {
+            if (restriction.toLowerCase().contains("newborn")) {
                 list.add(searchItems[2]);
             }
-            if(restrictions[i].toLowerCase().contains("child")) {
+            if (restriction.toLowerCase().contains("child")) {
                 list.add(searchItems[3]);
             }
-            if(restrictions[i].toLowerCase().contains("young adult")) {
+            if (restriction.toLowerCase().contains("young adult")) {
                 list.add(searchItems[4]);
             }
-            list.add(restrictions[i].toUpperCase());
+            list.add(restriction.toUpperCase());
         }
     }
 

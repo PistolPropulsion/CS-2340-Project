@@ -1,8 +1,5 @@
 package edu.gatech.pistolpropulsion.homesforall.Models;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -34,7 +31,8 @@ public class Shelter implements Serializable{
      * @param specialNotes special notes
      * @param phone phone number
      */
-    public Shelter(String key, String name, String capacity, String restrictions, String longitude, String latitude,
+    public Shelter(String key, String name, String capacity, String restrictions,
+                   String longitude, String latitude,
                    String address, String specialNotes, String phone) {
         this.name = name;
         this.restrictions = restrictions;
@@ -47,9 +45,9 @@ public class Shelter implements Serializable{
 
         String[] array = capacity.split(",");
         int sum = 0;
-        for (int i = 0; i < array.length; i++) {
+        for (String anArray : array) {
             try {
-                sum += Integer.parseInt(array[i].replaceAll("[\\D]", ""));
+                sum += Integer.parseInt(anArray.replaceAll("[\\D]", ""));
             } catch (Exception e) {
             }
         }

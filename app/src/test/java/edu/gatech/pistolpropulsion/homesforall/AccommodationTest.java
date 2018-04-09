@@ -1,7 +1,5 @@
 package edu.gatech.pistolpropulsion.homesforall;
 
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
 
 import edu.gatech.pistolpropulsion.homesforall.Models.Shelter;
@@ -37,7 +35,8 @@ public class AccommodationTest {
 
     @Test
     public void testSpeciaNotes() {
-        testShelter = new Shelter("", "Hope Atlanta", "", "WOMEN/CHILDREN", "", "", "", "VETERAN", "");
+        testShelter = new Shelter("", "Hope Atlanta", "",
+                "WOMEN/CHILDREN", "", "", "", "VETERAN", "");
         assertEquals("Veteran status", true, testShelter.canAccommodate("VETERAN"));
     }
 
@@ -49,7 +48,8 @@ public class AccommodationTest {
 
     @Test
     public void testRandomString() {
-        testShelter = new Shelter("", "Hope Atlanta", "", "WOMEN/CHILDREN", "", "", "", "VETERAN", "");
+        testShelter = new Shelter("", "Hope Atlanta", "", "WOMEN/CHILDREN", "", "",
+                "", "VETERAN", "");
         assertEquals("Random string", false, testShelter.canAccommodate("ASDAFSLKJAHSDOIUHASJKD"));
     }
 }
