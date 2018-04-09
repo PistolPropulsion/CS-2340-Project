@@ -42,6 +42,6 @@ public class ExampleUnitTest {
     @Test
     public void shelter() throws Exception {
         //InputStreamReader csvfile = new InputStreamReader(new FileInputStream(R.raw.file));
-        DataReader reader = new DataReader(csvfile);
+        //DataReader reader = new DataReader(csvfile);
     }
 }
