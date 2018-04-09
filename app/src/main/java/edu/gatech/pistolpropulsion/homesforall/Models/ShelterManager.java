@@ -115,20 +115,16 @@ public class ShelterManager {
     }
 
     /**
-     * searches all shelters for a name
-     * @param options a list of strings
-     * @return an array of shelters containing those strings
+     * searches for all shelters if their name contains the srearch string
+     * @param search string you're searching for
+     * @return an array of shelters containing the search string
      */
-    public Shelter[] searchName(List<String> options) {
+    public Shelter[] searchName(String search) {
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter aShelterArray : shelterArray) {
-            for (int j = 0; j < options.size(); j++) {
-                if (aShelterArray.getName().toLowerCase().
-                        contains(options.get(j).toLowerCase())) {
-                    if (!searchList.contains(aShelterArray)) {
-                        searchList.add(aShelterArray);
-                    }
-                }
+        for (Shelter shelter : shelterArray) {
+            if (shelter.getName().toLowerCase().contains(search.toLowerCase())
+                    && !searchList.contains(shelter)) {
+                searchList.add(shelter);
             }
         }
         return searchList.toArray(new Shelter[searchList.size()]);

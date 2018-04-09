@@ -65,7 +65,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     private Shelter[] fetchedShelterArray;
     @SuppressWarnings("FieldMayBeFinal")
     //selectedName gets modified multiple times in file, why final?
-    private List<String> selectedName = new ArrayList<>();
+    private String selectedName = "";
     private GoogleMap map;
 
 
@@ -179,53 +179,46 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        logout.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
+        logout.setOnClickListener((view) -> {
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(MainActivity.this, Welcome.class));
             }
-        });
+        );
 
-        filter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        filter.setOnClickListener(view -> {
                 mapFragment.getView().setVisibility(View.GONE);
 
                 name_checkBox.setVisibility(View.VISIBLE);
                 if (name_checkBox.isChecked()) {
                     name_editText.setVisibility(View.VISIBLE);
                 }
+
                 age_checkBox.setVisibility(View.VISIBLE);
                 if (age_checkBox.isChecked()) {
                     age_newborn.setVisibility(View.VISIBLE);
                     age_child.setVisibility(View.VISIBLE);
                     age_youngAdult.setVisibility(View.VISIBLE);
                 }
+
                 gender_checkBox.setVisibility(View.VISIBLE);
                 if (gender_checkBox.isChecked()) {
                     gender_male.setVisibility(View.VISIBLE);
                     gender_female.setVisibility(View.VISIBLE);
                 }
+
                 done_textView.setVisibility(View.VISIBLE);
-
-
             }
-        });
+        );
 
-        name_checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        name_checkBox.setOnClickListener(view -> {
                 if (name_checkBox.isChecked()) {
                     name_editText.setVisibility(View.VISIBLE);
                 } else {
                     name_editText.setVisibility(View.GONE);
                     name_editText.setText("");
-                    selectedName.clear();
+                    selectedName = "";
                     refresh();
                 }
-            }
         });
 
         name_editText.addTextChangedListener(new TextWatcher() {
@@ -245,9 +238,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        age_checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        age_checkBox.setOnClickListener(view -> {
                 if (age_checkBox.isChecked()) {
                     age_newborn.setVisibility(View.VISIBLE);
                     age_child.setVisibility(View.VISIBLE);
@@ -262,32 +253,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 refresh();
             }
-        });
+        );
 
-        age_newborn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        age_newborn.setOnClickListener(view -> refresh());
 
-        age_child.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        age_child.setOnClickListener(view -> refresh());
 
-        age_youngAdult.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        age_youngAdult.setOnClickListener(view -> refresh());
 
-        gender_checkBox.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        gender_checkBox.setOnClickListener(view -> {
                 if (gender_checkBox.isChecked()) {
                     gender_male.setVisibility(View.VISIBLE);
                     gender_female.setVisibility(View.VISIBLE);
@@ -299,25 +273,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 }
                 refresh();
             }
-        });
+        );
 
-        gender_male.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        gender_male.setOnClickListener(view -> refresh());
 
-        gender_female.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                refresh();
-            }
-        });
+        gender_female.setOnClickListener(view -> refresh());
 
-        done_textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        done_textView.setOnClickListener(view -> {
                 name_checkBox.setVisibility(View.GONE);
                 name_editText.setVisibility(View.GONE);
                 age_checkBox.setVisibility(View.GONE);
@@ -337,7 +299,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
                 mapFragment.getView().setVisibility(View.VISIBLE);
             }
-        });
+        );
 
         recyclerView.addOnItemTouchListener(
                 new RecyclerItemClickListener(getApplicationContext(),
@@ -434,12 +396,11 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     public void refresh() {
         List<String> selectedItems;
         selectedItems = new ArrayList<>();
-        String search = "";
 
         if (age_checkBox.isChecked()) {
 
-            final String[] ageItems = {" NEWBORN ", " CHILD ", " YOUNG ADULT "};
             // arraylist to keep the selected items
+            final String[] ageItems = {" NEWBORN ", " CHILD ", " YOUNG ADULT "};
 
             if (age_newborn.isChecked()) {
                 selectedItems.add(ageItems[0]);
@@ -457,13 +418,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 selectedItems.remove(ageItems[2]);
             }
-            search = search + "age ";
         }
 
         if (gender_checkBox.isChecked()) {
 
-            final String[] genderItems = {" MEN ", " WOMEN "};
             // arraylist to keep the selected items
+            final String[] genderItems = {" MEN ", " WOMEN "};
 
             if (gender_male.isChecked()) {
                 selectedItems.add(genderItems[0]);
@@ -475,29 +435,17 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             } else {
                 selectedItems.remove(genderItems[1]);
             }
-
-            search = search + "gender ";
-
         }
 
         if (name_checkBox.isChecked()) {
-
-//            System.out.println(name_editText.getText().toString());
-
             if (!("".equals(name_editText.getText().toString()))) {
-                selectedName.clear();
-                selectedName.add(name_editText.getText().toString());
+                selectedName = name_editText.getText().toString();
             } else {
-                selectedName.clear();
+                selectedName = "";
             }
-
-            search = search + "name ";
-
         }
 
-//        System.out.println(search);
-
-        if(selectedItems.isEmpty() && selectedName.isEmpty()) {
+        if(selectedItems.isEmpty() && selectedName.length() == 0) {
             loadShelters(fetchedShelterArray);
         } else {
             Shelter[] temp = fetchedShelterArray;
@@ -508,7 +456,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //                System.out.println(s.getName());
 //            }
 //            System.out.println("-");
-            if (name_checkBox.isChecked() && !selectedName.isEmpty()) {
+            if (name_checkBox.isChecked() && selectedName.length() > 0) {
                 temp = tempManager.searchName(selectedName);
                 tempManager.setShelterArray(temp);
 //                System.out.println("AFTER");
