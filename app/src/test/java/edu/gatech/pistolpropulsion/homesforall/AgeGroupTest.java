@@ -46,4 +46,3 @@ public class AgeGroupTest {
         assertEquals(AgeGroup.getGroup(2147483647), AgeGroup.SENIOR);
     }
 }
-
