@@ -4,6 +4,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -27,11 +28,10 @@ public class ShelterManager {
     /**
      *  constructor given 2D string array and number of shelters
      * @param data what was read in from CSV file
-     * @param count number of shelters
      */
-    public ShelterManager(String[][] data, int count) {
-        this(count);
-        for(int i = 0; i < count; i++) {
+    public  ShelterManager(String[][] data) {
+        this(data.length);
+        for(int i = 0; i < data.length; i++) {
             Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2],
                     data[i][3], data[i][4],
                     data[i][5], data[i][6], data[i][7], data[i][8]);
@@ -44,7 +44,7 @@ public class ShelterManager {
      * empty constructor
      */
     public ShelterManager() {
-        this(null, 0);
+        this(0);
     }
 
     /**
@@ -120,6 +120,12 @@ public class ShelterManager {
      * @return an array of shelters containing the search string
      */
     public Shelter[] searchName(String search) {
+        if (search == null) {
+            throw new IllegalArgumentException(
+                    "Cannot search shelters with a null string.");
+        } else if (search.equals("")) {
+            return Arrays.copyOf(shelterArray, shelterArray.length);
+        }
         ArrayList<Shelter> searchList = new ArrayList<>();
         for (Shelter shelter : shelterArray) {
             if (shelter.getName().toLowerCase().contains(search.toLowerCase())
