@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * manager for shelters
@@ -94,23 +95,16 @@ public class ShelterManager {
      * @return all the shelters that correspond to given options
      */
     public Shelter[] search(List<String> options) {
-//        for (String items: options){
-//            System.out.println(items);
-//        }
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter aShelterArray : shelterArray) {
+        for (Shelter shelter : shelterArray) {
             for (int j = 0; j < options.size(); j++) {
-                if (aShelterArray.canAccommodate(options.get(j))) {
-                    if (!searchList.contains(aShelterArray)) {
-                        searchList.add(aShelterArray);
+                if (shelter.canAccommodate(options.get(j))) {
+                    if (!searchList.contains(shelter)) {
+                        searchList.add(shelter);
                     }
                 }
             }
         }
-//        for(Shelter item: searchList){
-//            System.out.println(item.getName());
-//        }
-        //System.out.println(searchList.size());
         return searchList.toArray(new Shelter[searchList.size()]);
     }
 
@@ -128,7 +122,8 @@ public class ShelterManager {
         }
         ArrayList<Shelter> searchList = new ArrayList<>();
         for (Shelter shelter : shelterArray) {
-            if (shelter.getName().toLowerCase().contains(search.toLowerCase())
+            if (shelter.getName().toLowerCase(Locale.getDefault())
+                    .contains(search.toLowerCase(Locale.getDefault()))
                     && !searchList.contains(shelter)) {
                 searchList.add(shelter);
             }

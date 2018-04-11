@@ -42,8 +42,8 @@ public class RegisterActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        TextView enter = findViewById(R.id.textView_login_enterButton);
-        TextView cancel = findViewById(R.id.textView_login_cancelButton);
+        TextView enter = findViewById(R.id.textView_register_enterButton);
+        TextView cancel = findViewById(R.id.textView_register_cancelButton);
         userSpinner = findViewById(R.id.user_spinner);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -56,8 +56,8 @@ public class RegisterActivity extends Activity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editUser = findViewById(R.id.editText_login_username);
-                editPass = findViewById(R.id.editText_login_password);
+                editUser = findViewById(R.id.editText_register_email);
+                editPass = findViewById(R.id.editText_register_password);
                 final String username = editUser.getText().toString();
                 final String pass = editPass.getText().toString();
                 final int type = userSpinner.getSelectedItemPosition();

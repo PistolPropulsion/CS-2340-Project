@@ -10,29 +10,31 @@
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.RegisterActivity">
 
     <EditText
-        android:id="@+id/editText_login_username"
+        android:id="@+id/editText_register_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="365dp"
         android:layout_marginStart="120dp"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="textEmailAddress"
+        android:hint="@string/email"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editText_login_password"
+        android:id="@+id/editText_register_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="300dp"
         android:layout_marginStart="120dp"
         android:ems="10"
         android:inputType="textPassword"
+        android:hint="@string/password"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView_login_loginHeader"
+        android:id="@+id/textView_register_registerHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -42,13 +44,13 @@
         android:text="@string/register"
         android:textAppearance="@android:style/TextAppearance.Material.Display1"
         android:textColor="@android:color/white"
-        app:layout_constraintBottom_toTopOf="@+id/editText_login_username"
+        app:layout_constraintBottom_toTopOf="@+id/editText_register_email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView_login_enterButton"
+        android:id="@+id/textView_register_enterButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"
@@ -62,7 +64,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView_login_username"
+        android:id="@+id/textView_register_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="373dp"
@@ -74,7 +76,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView_login_password"
+        android:id="@+id/textView_register_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="308dp"
@@ -86,7 +88,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView_login_cancelButton"
+        android:id="@+id/textView_register_cancelButton"
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="148dp"

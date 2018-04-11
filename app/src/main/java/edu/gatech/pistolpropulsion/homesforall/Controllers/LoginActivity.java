@@ -48,7 +48,7 @@ public class LoginActivity extends Activity {
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                editUser = findViewById(R.id.editText_login_username);
+                editUser = findViewById(R.id.editText_login_email);
                 editPass = findViewById(R.id.editText_login_password);
                 if ((editUser.getText() == null) || (editUser.getText().length() <= 0)
                         || (editPass.getText() == null) || (editPass.getText().length() <= 0)) {

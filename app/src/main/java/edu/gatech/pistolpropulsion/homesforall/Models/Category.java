@@ -3,6 +3,7 @@ package edu.gatech.pistolpropulsion.homesforall.Models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Locale;
 
 
 /**
@@ -34,26 +35,27 @@ class Category implements Serializable {
         String rest = str.replaceAll("/", ",");
         String[] restrictions = rest.split(",");
         for (String restriction : restrictions) {
-            if (restriction.toLowerCase().contains("anyone")) {
+            if (restriction.toLowerCase(Locale.getDefault()).contains("anyone")) {
                 Collections.addAll(list, searchItems);
                 return;
             }
-            if (restriction.toLowerCase().contains("men") && !restriction.
-                    toLowerCase().contains("women")) {
+            String tempRestriction = restriction.toLowerCase(Locale.getDefault());
+            if (tempRestriction.contains("men")
+                    && !tempRestriction.contains("women")) {
                 list.add(searchItems[0]);
-            } else if (restriction.toLowerCase().contains("women")) {
+            } else if (tempRestriction.contains("women")) {
                 list.add(searchItems[1]);
             }
-            if (restriction.toLowerCase().contains("newborn")) {
+            if (tempRestriction.contains("newborn")) {
                 list.add(searchItems[2]);
             }
-            if (restriction.toLowerCase().contains("child")) {
+            if (tempRestriction.contains("child")) {
                 list.add(searchItems[3]);
             }
-            if (restriction.toLowerCase().contains("young adult")) {
+            if (tempRestriction.contains("young adult")) {
                 list.add(searchItems[4]);
             }
-            list.add(restriction.toUpperCase());
+            list.add(restriction.toUpperCase(Locale.getDefault()));
         }
     }
 
