@@ -13,7 +13,7 @@ import java.util.List;
 public class ShelterManager {
     private Shelter[] shelterArray;
     private int count;
-    private DatabaseReference mDatabase;
+    //private DatabaseReference mDatabase;
 
     /**
      * creates shelter manager given number of shelters
@@ -22,7 +22,7 @@ public class ShelterManager {
     public ShelterManager(int count) {
         shelterArray = new Shelter[count];
         this.count = count;
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        //mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
     /**
@@ -36,7 +36,7 @@ public class ShelterManager {
                     data[i][3], data[i][4],
                     data[i][5], data[i][6], data[i][7], data[i][8]);
             shelterArray[i] = newShelter;
-            mDatabase.child("shelters").child(newShelter.getKey()).setValue(newShelter);
+            //mDatabase.child("shelters").child(newShelter.getKey()).setValue(newShelter);
         }
     }
 
