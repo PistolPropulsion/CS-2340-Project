@@ -2,55 +2,94 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/placeholder_ConstraintLayout"
     android:layout_width="match_parent"
+
     android:layout_height="match_parent"
 
     android:background="@drawable/gradient_background"
-
-    tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.Welcome">
-
-    <TextView
-        android:id="@+id/textView_welcome_loginButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="100dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/login"
-        android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        android:textColor="@android:color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_welcome_welcomeHeader" />
+    tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.Welcome"
+    tools:layout_editor_absoluteY="25dp">
 
     <TextView
         android:id="@+id/textView_welcome_welcomeHeader"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="188dp"
+        android:layout_height="109dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
-        android:text="@string/welcome"
+        android:layout_marginTop="68dp"
+        android:text="@string/app_name"
         android:textAppearance="@android:style/TextAppearance.Material.Display3"
         android:textColor="@android:color/white"
+        android:textSize="70sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:contentDescription="@string/content_description"
+        android:layout_width="335dp"
+        android:layout_height="345dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="124dp"
+        android:fadingEdge="horizontal|vertical"
+        android:src="@drawable/logo"
+        android:visibility="visible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button_welcome_login"
+        android:layout_width="324dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_background"
+        android:text="@string/login"
+        app:layout_constraintBottom_toTopOf="@+id/button_welcome_register"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/placeholder_textView"
+        app:layout_constraintVertical_bias="0.761" />
+
+    <Button
+        android:id="@+id/button_welcome_register"
+        android:layout_width="324dp"
+        android:layout_height="55dp"
+        android:layout_marginBottom="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/button_background"
+        android:text="@string/register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <TextView
-        android:id="@+id/textView_welcome_registerButton"
+        android:id="@+id/placeholder_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="30dp"
-        android:text="@string/register"
-        android:textAppearance="@android:style/TextAppearance.Material.Headline"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:layout_marginTop="184dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView_welcome_loginButton" />
+        app:layout_constraintTop_toBottomOf="@+id/textView_welcome_welcomeHeader" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="354dp" />
+
+
 </android.support.constraint.ConstraintLayout>

@@ -36,7 +36,10 @@
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
                                       <entry key="backgroundColor" value="1c93e6" />
-                                      <entry key="foregroundImage" value="$USER_HOME$/Desktop/@0.5xplay/ic_launcher_APP.png" />
+                                      <entry key="backgroundLayerName" value="ic_launcher_background" />
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/@0.5xplay/logo.png" />
+                                      <entry key="foregroundLayerName" value="logo_layers" />
+                                      <entry key="outputName" value="logo_layer" />
                                     </map>
                                   </option>
                                 </PersistentState>
