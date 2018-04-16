@@ -28,17 +28,16 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:contentDescription="@string/content_description"
-        android:layout_width="335dp"
-        android:layout_height="345dp"
+        android:layout_width="400dp"
+        android:layout_height="388dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="124dp"
+        android:layout_marginTop="144dp"
+        android:contentDescription="@string/content_description"
         android:fadingEdge="horizontal|vertical"
         android:src="@drawable/logo"
         android:visibility="visible"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
