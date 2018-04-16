@@ -41,6 +41,7 @@ public class LoginActivity extends Activity {
         TextView  enter = findViewById(R.id.textView_login_enterButton);
         TextView cancel = findViewById(R.id.textView_login_cancelButton);
         TextView register = findViewById(R.id.textView_welcome_registerButton);
+        TextView resetPass = findViewById(R.id.textView_login_resetPassButton);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
 
@@ -112,6 +113,27 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        resetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editUser = findViewById(R.id.editText_login_email);
+                FirebaseAuth.getInstance().sendPasswordResetEmail(editUser.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    Log.d(TAG, "Email sent.");
+                                    Toast.makeText(getApplicationContext(),
+                                            "Reset password email sent.", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(getApplicationContext(),
+                                            "Please enter a valid email.", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
             }
         });
 
