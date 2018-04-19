@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:animateLayoutChanges="true"
 
-    android:background="@drawable/gradient_background"
+    android:background="#ffcdd2"
 
     tools:context="edu.gatech.pistolpropulsion.homesforall.Controllers.MainActivity">
 
@@ -14,8 +14,7 @@
         android:id="@+id/shelterList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/gradient_background"
+        android:background="@android:color/background_light"
         app:layout_constraintBottom_toTopOf="@+id/logout_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +24,9 @@
         android:id="@+id/logout_btn"
         android:layout_width="0dp"
         android:layout_height="65dp"
-        android:background="@drawable/button_background"
+        android:background="@color/colorPrimary"
         android:text="@string/logout"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -141,7 +141,7 @@
     <TextView
         android:id="@+id/done_textView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="32dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
@@ -156,8 +156,6 @@
         class="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="0dp"
         android:layout_height="200dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
