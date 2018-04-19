@@ -9,20 +9,39 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * manager for shelters
+ * A singleton manager for shelters
  */
 public class ShelterManager {
+
+    /**
+     * Instance variables
+     */
     private Shelter[] shelterArray;
+    private Shelter[] tempShelterArray;
     private int count;
+    private int tempCount;
     private DatabaseReference mDatabase;
+
+    private static ShelterManager shelterManager = null;
+
+    public static ShelterManager getInstance() {
+        if (shelterManager == null) {
+            shelterManager = new ShelterManager();
+            return shelterManager;
+        } else {
+            return shelterManager;
+        }
+    }
 
     /**
      * creates shelter manager given number of shelters
      * @param count number of shelters
      */
-    public ShelterManager(int count) {
+    private ShelterManager(int count, int tempCount) {
         shelterArray = new Shelter[count];
+        tempShelterArray = new Shelter[tempCount];
         this.count = count;
+        this.tempCount = tempCount;
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -30,8 +49,8 @@ public class ShelterManager {
      *  constructor given 2D string array and number of shelters
      * @param data what was read in from CSV file
      */
-    public  ShelterManager(String[][] data) {
-        this(data.length);
+    private ShelterManager(String[][] data) {
+        this(data.length, 0);
         for(int i = 0; i < data.length; i++) {
             Shelter newShelter = new Shelter(data[i][0], data[i][1], data[i][2],
                     data[i][3], data[i][4],
@@ -44,8 +63,8 @@ public class ShelterManager {
     /**
      * empty constructor
      */
-    public ShelterManager() {
-        this(0);
+    private ShelterManager() {
+        this(0, 0);
     }
 
     /**
@@ -70,12 +89,18 @@ public class ShelterManager {
     }
 
     /**
-     * gets all the data in this in manager in a Shelter array
+     * gets the data in this in the primary array in this manager in a Shelter array
      * @return an array of shelters
      */
     public Shelter[] getShelterArray() {
         return this.shelterArray;
     }
+
+    /**
+     * gets the data in this in the primary array in this manager in a Shelter array
+     * @return an array of shelters
+     */
+    public Shelter[] getTempShelterArray() { return this.tempShelterArray; }
 
     /**
      * given a shelter array, set manager data to that array
@@ -87,6 +112,18 @@ public class ShelterManager {
         }
         this.shelterArray = array;
         count = array.length;
+    }
+
+    /**
+     * given a shelter array, set manager's temp data to that array
+     * @param array what to set manager's data to
+     */
+    public void setTempShelterArray(Shelter[] array) {
+        if (array == null) {
+            throw new IllegalArgumentException("array can't be null");
+        }
+        this.tempShelterArray = array;
+        tempCount = array.length;
     }
 
     /**
@@ -109,7 +146,26 @@ public class ShelterManager {
     }
 
     /**
-     * searches for all shelters if their name contains the srearch string
+     * searches the reduced temp shelters with options
+     * @param options list of strings representing search options
+     * @return all the shelters that correspond to given options
+     */
+    public Shelter[] searchTemp(List<String> options) {
+        ArrayList<Shelter> searchList = new ArrayList<>();
+        for (Shelter shelter : tempShelterArray) {
+            for (int j = 0; j < options.size(); j++) {
+                if (shelter.canAccommodate(options.get(j))) {
+                    if (!searchList.contains(shelter)) {
+                        searchList.add(shelter);
+                    }
+                }
+            }
+        }
+        return searchList.toArray(new Shelter[searchList.size()]);
+    }
+
+    /**
+     * searches for all shelters if their name contains the search string
      * @param search string you're searching for
      * @return an array of shelters containing the search string
      */
@@ -122,6 +178,29 @@ public class ShelterManager {
         }
         ArrayList<Shelter> searchList = new ArrayList<>();
         for (Shelter shelter : shelterArray) {
+            if (shelter.getName().toLowerCase(Locale.getDefault())
+                    .contains(search.toLowerCase(Locale.getDefault()))
+                    && !searchList.contains(shelter)) {
+                searchList.add(shelter);
+            }
+        }
+        return searchList.toArray(new Shelter[searchList.size()]);
+    }
+
+    /**
+     * searches temp shelters for if their name contains the search string
+     * @param search string you're searching for
+     * @return an array of shelters containing the search string
+     */
+    public Shelter[] searchTempName(String search) {
+        if (search == null) {
+            throw new IllegalArgumentException(
+                    "Cannot search shelters with a null string.");
+        } else if (search.equals("")) {
+            return Arrays.copyOf(tempShelterArray, tempShelterArray.length);
+        }
+        ArrayList<Shelter> searchList = new ArrayList<>();
+        for (Shelter shelter : tempShelterArray) {
             if (shelter.getName().toLowerCase(Locale.getDefault())
                     .contains(search.toLowerCase(Locale.getDefault()))
                     && !searchList.contains(shelter)) {

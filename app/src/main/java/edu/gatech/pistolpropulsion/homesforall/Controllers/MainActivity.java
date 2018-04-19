@@ -122,7 +122,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference().child("shelters");
-        shelterManager = new ShelterManager();
+        shelterManager = ShelterManager.getInstance();
 
 //        InputStreamReader csvfile = new InputStreamReader(getResources().
 //                  openRawResource(R.raw.file));
@@ -449,16 +449,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             loadShelters(fetchedShelterArray);
         } else {
             Shelter[] temp = fetchedShelterArray;
-            ShelterManager tempManager = new ShelterManager();
-            tempManager.setShelterArray(temp);
+            shelterManager.setTempShelterArray(temp);
 //            System.out.println("BEFORE");
 //            for (Shelter s : temp) {
 //                System.out.println(s.getName());
 //            }
 //            System.out.println("-");
             if (name_checkBox.isChecked() && selectedName.length() > 0) {
-                temp = tempManager.searchName(selectedName);
-                tempManager.setShelterArray(temp);
+                temp = shelterManager.searchTempName(selectedName);
+                shelterManager.setTempShelterArray(temp);
 //                System.out.println("AFTER");
 //                for (Shelter s : temp) {
 //                    System.out.println(s.getName());
@@ -467,7 +466,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             if (!selectedItems.isEmpty()) {
-                temp = tempManager.search(selectedItems);
+                temp = shelterManager.searchTemp(selectedItems);
             }
 
             loadShelters(temp);
