@@ -45,6 +45,7 @@
     <!-- Strings related to shelter details activity -->
     <string name="reserve_spot">RESERVE SPOT</string>
     <string name="forgot_password">Forgot Password</string>
+    <string name="exit">x</string>
 
     <string-array name="user_types">
         <item>Standard User</item>

@@ -48,6 +48,7 @@ public class ShelterDetailsActivity extends Activity {
         TextView restrictDisplay = findViewById(R.id.textView_shelterDetails_restrict);
         Button reserveButton = findViewById(R.id.button_shelterDetails_reserve);
         TextView vacancyDisplay = findViewById(R.id.textView_shelter_Details_vacancies);
+        Button exitButton =  findViewById(R.id.button_shelterdetails_exit);
 
         nameDisplay.setText(currentShelter.getName());
         addressDisplay.setText("Address: " + currentShelter.getAddress());
@@ -118,6 +119,12 @@ public class ShelterDetailsActivity extends Activity {
 
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.CALL_PHONE}, REQUEST_CALL);
+            }
+        });
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
             }
         });
     }
