@@ -47,6 +47,8 @@
         android:layout_height="65dp"
         android:background="@drawable/button_background"
         android:text="@string/login"
+        android:textAllCaps="false"
+        android:textSize="24sp"
         app:layout_constraintBottom_toTopOf="@+id/button_welcome_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -57,6 +59,8 @@
         android:layout_height="65dp"
         android:background="@drawable/button_background"
         android:text="@string/register"
+        android:textAllCaps="false"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.388"

@@ -11,6 +11,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -67,6 +69,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     //selectedName gets modified multiple times in file, why final?
     private String selectedName = "";
     private GoogleMap map;
+
 
 
 
@@ -181,6 +184,9 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
         logout.setOnClickListener((view) -> {
                 FirebaseAuth.getInstance().signOut();
+                Animation animBlink = AnimationUtils.loadAnimation(this,
+                    R.anim.blink);
+                view.startAnimation(animBlink);
                 startActivity(new Intent(MainActivity.this, Welcome.class));
             }
         );
