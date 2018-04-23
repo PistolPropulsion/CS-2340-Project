@@ -13,6 +13,7 @@ public class User {
     private String name;
     private boolean isVeteran;
     private final Gender gender;
+    private int attempts;
 
     /**
      * constructor
@@ -38,6 +39,7 @@ public class User {
         this.name = name;
         this.isVeteran = isVet;
         this.gender = gen;
+        this.attempts = 3;
     }
 
     /**
@@ -77,5 +79,17 @@ public class User {
      */
     public void setName(String email) {
         this.name = email;
+    }
+
+    public int getAttempts() {
+        return this.attempts;
+    }
+
+    public void setAttempts() {
+        this.attempts = 3;
+    }
+
+    public void failedAttempt() {
+        this.attempts--;
     }
 }
