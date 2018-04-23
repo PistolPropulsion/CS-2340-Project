@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -43,7 +44,7 @@ public class RegisterActivity extends Activity {
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
         TextView enter = findViewById(R.id.textView_register_enterButton);
-        TextView cancel = findViewById(R.id.textView_register_cancelButton);
+        ImageView cancel = findViewById(R.id.imageView_register_back_arrow);
         userSpinner = findViewById(R.id.user_spinner);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();

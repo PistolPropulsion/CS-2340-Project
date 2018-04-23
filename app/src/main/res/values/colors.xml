@@ -3,5 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#2d4466</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorHint">#A4A4A4</color>
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert" />
 </resources>

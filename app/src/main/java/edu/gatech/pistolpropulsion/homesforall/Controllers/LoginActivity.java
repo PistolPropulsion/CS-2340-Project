@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ImageView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,7 +40,7 @@ public class LoginActivity extends Activity {
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
         TextView  enter = findViewById(R.id.textView_login_enterButton);
-        TextView cancel = findViewById(R.id.textView_login_cancelButton);
+        ImageView cancel = findViewById(R.id.imageView_login_back_arrow);
         TextView register = findViewById(R.id.textView_welcome_registerButton);
         TextView resetPass = findViewById(R.id.textView_login_resetPassButton);
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
