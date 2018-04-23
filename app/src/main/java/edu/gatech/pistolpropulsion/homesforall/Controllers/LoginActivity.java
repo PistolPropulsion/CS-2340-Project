@@ -118,6 +118,61 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {}
                 });
+
+                DatabaseReference usersReference1 = mRef.getReference().child("users").child("administrators");
+                usersReference1.orderByChild("email").equalTo(editUser.getText().toString()).addChildEventListener(new ChildEventListener() {
+                    @Override
+                    public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                        Map<String, Object> userUpdates = new HashMap<>();
+                        user1[0] = dataSnapshot.getValue(User.class);
+
+                        if ((editUser.getText() == null) || (editUser.getText().length() <= 0)
+                                || (editPass.getText() == null) || (editPass.getText().length() <= 0)) {
+                            Toast.makeText(getApplicationContext(), "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        mAuth.signInWithEmailAndPassword(editUser.getText().
+                                toString(), editPass.getText().toString())
+                                .addOnCompleteListener(LoginActivity.this,
+                                        new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if (user1[0] != null && user1[0].getAttempts() <= 0) {
+                                                    Log.d(TAG, "signInWithEmail:locked out");
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "Account locked. Please contact Admin", Toast.LENGTH_SHORT).show();
+                                                }else if (task.isSuccessful()) {
+                                                    // Sign in success
+                                                    // update UI with the signed-in user's information
+                                                    Log.d(TAG, "signInWithEmail:success");
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    startActivity(new Intent(LoginActivity.this,
+                                                            MainActivity.class));
+                                                } else {
+                                                    // If sign in fails, display a message to the user.
+                                                    Log.w(TAG,
+                                                            "signInWithEmail:failure", task.getException());
+                                                    Toast.makeText(getApplicationContext(),
+                                                            "Authentication failed.", Toast.LENGTH_SHORT).show();
+                                                    user1[0].failedAttempt();
+                                                    System.out.println(user1[0].getEmail() + " " + user1[0].getAttempts());
+                                                    userUpdates.put(dataSnapshot.getKey(), user1[0]);
+                                                    usersReference1.updateChildren(userUpdates);
+                                                }
+                                            }
+                                        });
+                    }
+
+                    @Override
+                    public void onChildChanged(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onChildRemoved(DataSnapshot dataSnapshot) {}
+                    @Override
+                    public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {}
+                });
             }
         });
 
