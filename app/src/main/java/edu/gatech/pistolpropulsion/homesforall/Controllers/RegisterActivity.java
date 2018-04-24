@@ -3,6 +3,7 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
@@ -35,6 +36,9 @@ public class RegisterActivity extends Activity {
     private EditText editPass;
     private Spinner userSpinner;
     private FirebaseAuth mAuth;
+    private MorphingButton enter;
+    private ImageView cancel;
+    private TextView member;
     private DatabaseReference mDatabase;
 
     @Override
@@ -44,8 +48,9 @@ public class RegisterActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        MorphingButton enter =  findViewById(R.id.btnMorph_register_enter);
-        ImageView cancel = findViewById(R.id.imageView_register_back_arrow);
+        enter =  findViewById(R.id.btnMorph_register_enter);
+        cancel = findViewById(R.id.imageView_register_back_arrow);
+        member = findViewById(R.id.textView_register_member);
         userSpinner = findViewById(R.id.user_spinner);
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -95,21 +100,57 @@ public class RegisterActivity extends Activity {
                                                     child((user != null) ? user.getUid() : null).
                                                     setValue(userObject);
                                         }
-
-                                        Toast.makeText(getApplicationContext(),
-                                                "You can now login with this user.",
-                                                Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(
-                                                RegisterActivity.this,
-                                                LoginActivity.class)
-                                        );
+                                        enter.blockTouch();
+                                        MorphingButton.Params check = MorphingButton.Params.create()
+                                                .duration(500)
+                                                .height(96)
+                                                .width(56)
+                                                .cornerRadius(96)
+                                                .color(R.color.green)
+                                                .colorPressed(R.color.darkerGreen)
+                                                .icon(R.drawable.ic_action_check);
+                                        enter.morph(check);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                Toast.makeText(getApplicationContext(),
+                                                        "You can now login with this user.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(
+                                                        RegisterActivity.this,
+                                                        LoginActivity.class)
+                                                );
+                                            }
+                                        }, 1800);
                                     } else {
-                                        // If sign in fails, display a message to the user.
-                                        Log.w(TAG, "createUserWithEmail:failure",
-                                                task.getException());
-                                        Toast.makeText(getApplicationContext(),
-                                                "Authentication failed.",
-                                                Toast.LENGTH_SHORT).show();
+                                        enter.blockTouch();
+                                        MorphingButton.Params close = MorphingButton.Params.create()
+                                                .duration(500)
+                                                .cornerRadius(96)
+                                                .width(56)
+                                                .height(96)
+                                                .color(R.color.red)
+                                                .colorPressed(R.color.darkerRed)
+                                                .icon(R.drawable.ic_action_close);
+                                        enter.morph(close);
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                // If sign in fails, display a message to the user.
+                                                Log.w(TAG, "createUserWithEmail:failure",
+                                                        task.getException());
+                                                Toast.makeText(getApplicationContext(),
+                                                        "Authentication failed.",
+                                                        Toast.LENGTH_SHORT).show();
+                                                finish();
+                                                overridePendingTransition(0,0);
+                                                Intent intent = getIntent();
+                                                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                startActivityForResult(intent, 0);
+                                                overridePendingTransition(0,0);
+                                            }
+                                        }, 1800);
+
                                     }
 
                                     // ...
@@ -120,6 +161,13 @@ public class RegisterActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "Please enter all fields.",
                             Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        member.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
 

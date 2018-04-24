@@ -2,8 +2,10 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -41,6 +43,11 @@ public class LoginActivity extends Activity {
 
     private EditText editUser;
     private EditText editPass;
+    private MorphingButton enter;
+    private ImageView cancel;
+    private TextView register;
+    private TextView resetPass;
+
 
     @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
     @Override
@@ -50,15 +57,17 @@ public class LoginActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        MorphingButton enter = findViewById(R.id.btnMorph_login_enter);
-        ImageView cancel = findViewById(R.id.imageView_login_back_arrow);
-        TextView register = findViewById(R.id.textView_welcome_registerButton);
-        TextView resetPass = findViewById(R.id.textView_login_resetPassButton);
+        enter = findViewById(R.id.btnMorph_login_enter);
+        cancel = findViewById(R.id.imageView_login_back_arrow);
+        register = findViewById(R.id.textView_welcome_registerButton);
+        resetPass = findViewById(R.id.textView_login_resetPassButton);
 
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         FirebaseDatabase mRef = FirebaseDatabase.getInstance();
         final User[] user1 = new User[1];
+
+
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,7 +83,9 @@ public class LoginActivity extends Activity {
                         user1[0] = dataSnapshot.getValue(User.class);
 
                         if ((editUser.getText() == null) || (editUser.getText().length() <= 0)
-                                || (editPass.getText() == null) || (editPass.getText().length() <= 0)) {
+                                || (editPass.getText() == null) || (editPass.getText().length() <= 0
+                                ||!android.util.Patterns.EMAIL_ADDRESS
+                                    .matcher(editUser.getText()).matches())) {
                             Toast.makeText(getApplicationContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                             return;
@@ -89,23 +100,53 @@ public class LoginActivity extends Activity {
                                                     Log.d(TAG, "signInWithEmail:locked out");
                                                     Toast.makeText(getApplicationContext(),
                                                             "Account locked. Please contact Admin", Toast.LENGTH_SHORT).show();
+                                                    enter.blockTouch();
+                                                    MorphingButton.Params close = MorphingButton.Params.create()
+                                                            .duration(500)
+                                                            .cornerRadius(96)
+                                                            .width(56)
+                                                            .height(96)
+                                                            .color(R.color.red)
+                                                            .colorPressed(R.color.darkerRed)
+                                                            .icon(R.drawable.ic_action_close);
+                                                    enter.morph(close);
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+
+                                                            finish();
+                                                            overridePendingTransition(0,0);
+                                                            Intent intent = getIntent();
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                            startActivityForResult(intent, 0);
+                                                            overridePendingTransition(0,0);
+                                                        }
+                                                    }, 1800);
                                                 }else if (task.isSuccessful()) {
                                                     // Sign in success
                                                     // update UI with the signed-in user's information
+                                                    user1[0].setAttempts();
+                                                    Log.d(TAG, "signInWithEmail:success");
+                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    enter.blockTouch();
                                                     MorphingButton.Params check = MorphingButton.Params.create()
                                                             .duration(500)
-                                                            .height(50)
-                                                            .width(50)
-                                                            .cornerRadius(50)
+                                                            .height(96)
+                                                            .width(56)
+                                                            .cornerRadius(96)
                                                             .color(R.color.green)
                                                             .colorPressed(R.color.darkerGreen)
                                                             .icon(R.drawable.ic_action_check);
                                                     enter.morph(check);
-                                                    Log.d(TAG, "signInWithEmail:success");
-                                                    FirebaseUser user = mAuth.getCurrentUser();
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+                                                            startActivity(new Intent(LoginActivity.this,
+                                                                    MainActivity.class));
+                                                        }
+                                                    }, 1800);
 
-                                                    startActivity(new Intent(LoginActivity.this,
-                                                            MainActivity.class));
+
                                                 } else {
                                                     // If sign in fails, display a message to the user.
                                                     Log.w(TAG,
@@ -116,15 +157,30 @@ public class LoginActivity extends Activity {
                                                     System.out.println(user1[0].getEmail() + " " + user1[0].getAttempts());
                                                     userUpdates.put(dataSnapshot.getKey(), user1[0]);
                                                     usersReference.updateChildren(userUpdates);
-                                                    MorphingButton.Params check = MorphingButton.Params.create()
+                                                    enter.blockTouch();
+                                                    MorphingButton.Params close = MorphingButton.Params.create()
                                                             .duration(500)
-                                                            .cornerRadius(R.dimen.btn_morph)
-                                                            .width(R.dimen.btn_morph)
-                                                            .height(R.dimen.btn_morph)
-                                                            .color(R.color.green)
-                                                            .colorPressed(R.color.darkerGreen)
-                                                            .icon(R.drawable.ic_action_check);
-                                                    enter.morph(check);
+                                                            .cornerRadius(96)
+                                                            .width(56)
+                                                            .height(96)
+                                                            .color(R.color.red)
+                                                            .colorPressed(R.color.darkerRed)
+                                                            .icon(R.drawable.ic_action_close);
+                                                    enter.morph(close);
+                                                    new Handler().postDelayed(new Runnable() {
+                                                        @Override
+                                                        public void run() {
+
+                                                            finish();
+                                                            overridePendingTransition(0,0);
+                                                            Intent intent = getIntent();
+                                                            intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                                                            startActivityForResult(intent, 0);
+                                                            overridePendingTransition(0,0);
+                                                        }
+                                                    }, 1800);
+
+
                                                 }
                                             }
                                         });

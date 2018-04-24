@@ -6,5 +6,7 @@
     <color name="colorHint">#A4A4A4</color>
     <color name="green">#54E500</color>
     <color name="darkerGreen">#3FA703</color>
+    <color name="red">#FC112E</color>
+    <color name="darkerRed">#BD081F</color>
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert" />
 </resources>

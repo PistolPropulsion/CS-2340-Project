@@ -11,6 +11,7 @@
 
     <style name="ActionBar" parent="@android:style/Theme.Material">
         <item name="android:windowActionBar">true</item>
+        <item name="android:windowActivityTransitions">true</item>
         <item name="android:windowNoTitle">false</item>
         <item name="android:colorPrimary">#ffa292</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
