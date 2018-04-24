@@ -4,5 +4,7 @@
     <color name="colorPrimaryDark">#2d4466</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorHint">#A4A4A4</color>
+    <color name="green">#54E500</color>
+    <color name="darkerGreen">#3FA703</color>
     <style name="MyDialogTheme" parent="Theme.AppCompat.Light.Dialog.Alert" />
 </resources>

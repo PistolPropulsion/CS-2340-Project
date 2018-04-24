@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
 
+import com.dd.morphingbutton.MorphingButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -43,7 +44,7 @@ public class RegisterActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        TextView enter = findViewById(R.id.textView_register_enterButton);
+        MorphingButton enter =  findViewById(R.id.btnMorph_register_enter);
         ImageView cancel = findViewById(R.id.imageView_register_back_arrow);
         userSpinner = findViewById(R.id.user_spinner);
         mAuth = FirebaseAuth.getInstance();

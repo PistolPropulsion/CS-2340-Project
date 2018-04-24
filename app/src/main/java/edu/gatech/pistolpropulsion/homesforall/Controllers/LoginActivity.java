@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView;
 
+import com.dd.morphingbutton.MorphingButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -49,7 +50,7 @@ public class LoginActivity extends Activity {
 
         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
 
-        TextView  enter = findViewById(R.id.textView_login_enterButton);
+        MorphingButton enter = findViewById(R.id.btnMorph_login_enter);
         ImageView cancel = findViewById(R.id.imageView_login_back_arrow);
         TextView register = findViewById(R.id.textView_welcome_registerButton);
         TextView resetPass = findViewById(R.id.textView_login_resetPassButton);
@@ -91,8 +92,18 @@ public class LoginActivity extends Activity {
                                                 }else if (task.isSuccessful()) {
                                                     // Sign in success
                                                     // update UI with the signed-in user's information
+                                                    MorphingButton.Params check = MorphingButton.Params.create()
+                                                            .duration(500)
+                                                            .height(50)
+                                                            .width(50)
+                                                            .cornerRadius(50)
+                                                            .color(R.color.green)
+                                                            .colorPressed(R.color.darkerGreen)
+                                                            .icon(R.drawable.ic_action_check);
+                                                    enter.morph(check);
                                                     Log.d(TAG, "signInWithEmail:success");
                                                     FirebaseUser user = mAuth.getCurrentUser();
+
                                                     startActivity(new Intent(LoginActivity.this,
                                                             MainActivity.class));
                                                 } else {
@@ -105,6 +116,15 @@ public class LoginActivity extends Activity {
                                                     System.out.println(user1[0].getEmail() + " " + user1[0].getAttempts());
                                                     userUpdates.put(dataSnapshot.getKey(), user1[0]);
                                                     usersReference.updateChildren(userUpdates);
+                                                    MorphingButton.Params check = MorphingButton.Params.create()
+                                                            .duration(500)
+                                                            .cornerRadius(R.dimen.btn_morph)
+                                                            .width(R.dimen.btn_morph)
+                                                            .height(R.dimen.btn_morph)
+                                                            .color(R.color.green)
+                                                            .colorPressed(R.color.darkerGreen)
+                                                            .icon(R.drawable.ic_action_check);
+                                                    enter.morph(check);
                                                 }
                                             }
                                         });
