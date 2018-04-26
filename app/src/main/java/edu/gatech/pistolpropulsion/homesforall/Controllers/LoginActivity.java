@@ -121,7 +121,7 @@ public class LoginActivity extends Activity {
                                                             startActivityForResult(intent, 0);
                                                             overridePendingTransition(0,0);
                                                         }
-                                                    }, 1800);
+                                                    }, 1700);
                                                 }else if (task.isSuccessful()) {
                                                     // Sign in success
                                                     // update UI with the signed-in user's information
@@ -144,7 +144,7 @@ public class LoginActivity extends Activity {
                                                             startActivity(new Intent(LoginActivity.this,
                                                                     MainActivity.class));
                                                         }
-                                                    }, 1800);
+                                                    }, 1700);
 
 
                                                 } else {
@@ -178,7 +178,7 @@ public class LoginActivity extends Activity {
                                                             startActivityForResult(intent, 0);
                                                             overridePendingTransition(0,0);
                                                         }
-                                                    }, 1800);
+                                                    }, 1700);
 
 
                                                 }
