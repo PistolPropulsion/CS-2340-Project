@@ -9,6 +9,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +27,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import com.google.android.gms.maps.CameraUpdate;
@@ -78,6 +81,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
     //selectedName gets modified multiple times in file, why final?
     private String selectedName = "";
     private GoogleMap map;
+    private boolean isConnected;
 
 
 
@@ -135,6 +139,21 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = database.getReference().child("shelters");
         shelterManager = ShelterManager.getInstance();
+
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+
+        if (mWifi.isConnected()) {
+            isConnected = true;
+        } else {
+            isConnected = false;
+        }
+
+        if (!isConnected) {
+            Toast.makeText(getApplicationContext(), "You are not connected to the internet",
+                    Toast.LENGTH_SHORT).show();
+            return;
+        }
 
 //        InputStreamReader csvfile = new InputStreamReader(getResources().
 //                  openRawResource(R.raw.file));

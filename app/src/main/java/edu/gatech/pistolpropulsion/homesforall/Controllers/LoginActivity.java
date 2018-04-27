@@ -3,6 +3,8 @@ package edu.gatech.pistolpropulsion.homesforall.Controllers;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -67,7 +69,8 @@ public class LoginActivity extends Activity {
         FirebaseDatabase mRef = FirebaseDatabase.getInstance();
         final User[] user1 = new User[1];
 
-
+        ConnectivityManager connManager = (ConnectivityManager) getSystemService(this.CONNECTIVITY_SERVICE);
+        NetworkInfo mWifi = connManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
 
         enter.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,7 +80,11 @@ public class LoginActivity extends Activity {
 
                 DatabaseReference usersReference = mRef.getReference().child("users").child("standardUsers");
 
-
+                if (!mWifi.isConnected()) {
+                    Toast.makeText(getApplicationContext(), "You are not connected to the internet",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 usersReference.orderByChild("email").equalTo(editUser.getText().toString()).addChildEventListener(new ChildEventListener() {
                     @Override
@@ -197,12 +204,21 @@ public class LoginActivity extends Activity {
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-
+                        if (databaseError.getCode() == DatabaseError.INVALID_TOKEN) {
+                            Toast.makeText(getApplicationContext(), "Cannot find this account",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Connection Failed, please try again later",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                     }
                 });
 
                 DatabaseReference usersReference1 = mRef.getReference().child("users").child("administrators");
                 usersReference1.orderByChild("email").equalTo(editUser.getText().toString()).addChildEventListener(new ChildEventListener() {
+
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                         Map<String, Object> userUpdates = new HashMap<>();
