@@ -76,6 +76,9 @@ public class LoginActivity extends Activity {
                 editPass = findViewById(R.id.editText_login_password);
 
                 DatabaseReference usersReference = mRef.getReference().child("users").child("standardUsers");
+
+
+
                 usersReference.orderByChild("email").equalTo(editUser.getText().toString()).addChildEventListener(new ChildEventListener() {
                     @Override
                     public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -193,7 +196,9 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
                 });
 
                 DatabaseReference usersReference1 = mRef.getReference().child("users").child("administrators");
@@ -248,7 +253,18 @@ public class LoginActivity extends Activity {
                     @Override
                     public void onChildMoved(DataSnapshot dataSnapshot, String s) {}
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {}
+                    public void onCancelled(DatabaseError databaseError) {
+
+                        if (databaseError.getCode() == DatabaseError.INVALID_TOKEN) {
+                            Toast.makeText(getApplicationContext(), "Cannot find this account",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        } else {
+                            Toast.makeText(getApplicationContext(), "Connection Failed, please try again later",
+                                    Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                    }
                 });
             }
         });
