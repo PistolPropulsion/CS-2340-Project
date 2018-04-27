@@ -528,8 +528,8 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         mBuilder.setContentIntent(pendingIntent);
         mBuilder.setSmallIcon(R.drawable.logo);
         mBuilder.setDefaults(Notification.DEFAULT_ALL);
-        mBuilder.setContentTitle("New Shelter Available");
-        mBuilder.setContentText("A new shelter has been made available on Sheltr!");
+        mBuilder.setContentTitle(getString(R.string.new_shelter));
+        mBuilder.setContentText(getString(R.string.new_shelter_text));
         mBuilder.setPriority(Notification.PRIORITY_MAX);
         mBuilder.setAutoCancel(true);
         mBuilder.addAction(action);

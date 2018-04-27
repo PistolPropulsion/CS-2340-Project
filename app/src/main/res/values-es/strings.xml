@@ -55,4 +55,11 @@
         <item>Nombre</item>
     </string-array>
     <string name="welcome">Bienvenido</string>
+    <string name="new_shelter">¡Nuevo refugio disponible!</string>
+    <string name="new_shelter_text">¡Se ha puesto a disposición un nuevo refugio en Shelter!</string>
+    <string name="men">MEN</string>
+    <string name="women">WOMEN</string>
+    <string name="newborn_2">NEWBORN</string>
+    <string name="content_description">Una imagen de nuestro logo</string>
+    <string name="member">¿No es un miembro?</string>
 </resources>

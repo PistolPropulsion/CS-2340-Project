@@ -48,6 +48,11 @@
     <string name="reserve_spot">RESERVE SPOT</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="exit">x</string>
+    <string name="new_shelter">New Shelter Available</string>
+    <string name="new_shelter_text">A new shelter has been made available on Sheltr!</string>
+    <string name="men">MEN</string>
+    <string name="women">WOMEN</string>
+    <string name="newborn_2">NEWBORN</string>
 
     <string-array name="user_types">
         <item>Standard User</item>
