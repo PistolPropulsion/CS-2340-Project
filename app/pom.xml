@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>edu.gatech.pistolpropulsion.homesforall</groupId>
+  <artifactId>test</artifactId>
+  <version>1.0.0</version>
+  <inceptionYear>2018</inceptionYear>
+  <licenses>
+    <license>
+      <name>PistolPropulsion Fake License, Version 1.0</name>
+      <url>http://www.homesforall.pistolpropulsion.gatech.edu</url>
+      <distribution>test</distribution>
+    </license>
+  </licenses>
+</project>
