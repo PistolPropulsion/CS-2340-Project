@@ -53,6 +53,7 @@
     <string name="men">MEN</string>
     <string name="women">WOMEN</string>
     <string name="newborn_2">NEWBORN</string>
+    <string name="beds">Number of beds?</string>
 
     <string-array name="user_types">
         <item>Standard User</item>

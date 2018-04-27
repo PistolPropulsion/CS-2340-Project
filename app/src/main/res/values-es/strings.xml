@@ -62,4 +62,5 @@
     <string name="newborn_2">NEWBORN</string>
     <string name="content_description">Una imagen de nuestro logo</string>
     <string name="member">¿No es un miembro?</string>
+    <string name="beds">¿Número de camas?</string>
 </resources>
