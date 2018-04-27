@@ -131,28 +131,9 @@ public class ShelterManager {
      * @param options list of strings representing search options
      * @return all the shelters that correspond to given options
      */
-    public Shelter[] search(List<String> options) {
+    public Shelter[] search(List<String> options, boolean temp) {
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter shelter : shelterArray) {
-            for (int j = 0; j < options.size(); j++) {
-                if (shelter.canAccommodate(options.get(j))) {
-                    if (!searchList.contains(shelter)) {
-                        searchList.add(shelter);
-                    }
-                }
-            }
-        }
-        return searchList.toArray(new Shelter[searchList.size()]);
-    }
-
-    /**
-     * searches the reduced temp shelters with options
-     * @param options list of strings representing search options
-     * @return all the shelters that correspond to given options
-     */
-    public Shelter[] searchTemp(List<String> options) {
-        ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter shelter : tempShelterArray) {
+        for (Shelter shelter : (temp) ? tempShelterArray : shelterArray) {
             for (int j = 0; j < options.size(); j++) {
                 if (shelter.canAccommodate(options.get(j))) {
                     if (!searchList.contains(shelter)) {
@@ -169,15 +150,15 @@ public class ShelterManager {
      * @param search string you're searching for
      * @return an array of shelters containing the search string
      */
-    public Shelter[] searchName(String search) {
+    public Shelter[] searchName(String search, boolean temp) {
         if (search == null) {
             throw new IllegalArgumentException(
                     "Cannot search shelters with a null string.");
         } else if (search.equals("")) {
-            return Arrays.copyOf(shelterArray, shelterArray.length);
+            return (temp) ? Arrays.copyOf(tempShelterArray, tempShelterArray.length) : Arrays.copyOf(shelterArray, shelterArray.length);
         }
         ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter shelter : shelterArray) {
+        for (Shelter shelter : (temp) ? tempShelterArray : shelterArray) {
             if (shelter.getName().toLowerCase(Locale.getDefault())
                     .contains(search.toLowerCase(Locale.getDefault()))
                     && !searchList.contains(shelter)) {
@@ -187,26 +168,4 @@ public class ShelterManager {
         return searchList.toArray(new Shelter[searchList.size()]);
     }
 
-    /**
-     * searches temp shelters for if their name contains the search string
-     * @param search string you're searching for
-     * @return an array of shelters containing the search string
-     */
-    public Shelter[] searchTempName(String search) {
-        if (search == null) {
-            throw new IllegalArgumentException(
-                    "Cannot search shelters with a null string.");
-        } else if (search.equals("")) {
-            return Arrays.copyOf(tempShelterArray, tempShelterArray.length);
-        }
-        ArrayList<Shelter> searchList = new ArrayList<>();
-        for (Shelter shelter : tempShelterArray) {
-            if (shelter.getName().toLowerCase(Locale.getDefault())
-                    .contains(search.toLowerCase(Locale.getDefault()))
-                    && !searchList.contains(shelter)) {
-                searchList.add(shelter);
-            }
-        }
-        return searchList.toArray(new Shelter[searchList.size()]);
-    }
 }

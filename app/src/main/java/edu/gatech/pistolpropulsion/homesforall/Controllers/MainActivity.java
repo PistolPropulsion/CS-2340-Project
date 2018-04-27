@@ -486,7 +486,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 //            }
 //            System.out.println("-");
             if (name_checkBox.isChecked() && selectedName.length() > 0) {
-                temp = shelterManager.searchTempName(selectedName);
+                temp = shelterManager.searchName(selectedName, true);
                 shelterManager.setTempShelterArray(temp);
 //                System.out.println("AFTER");
 //                for (Shelter s : temp) {
@@ -496,7 +496,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
             }
 
             if (!selectedItems.isEmpty()) {
-                temp = shelterManager.searchTemp(selectedItems);
+                temp = shelterManager.search(selectedItems, true);
             }
 
             loadShelters(temp);
