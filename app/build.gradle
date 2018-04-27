@@ -42,6 +42,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.github.dmytrodanylyk:android-morphing-button:98a4986e56' // commit hash
+    compile "com.android.support:support-v4:27.1.0"
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -1,11 +1,19 @@
 package edu.gatech.pistolpropulsion.homesforall.Controllers;
 
 import android.annotation.SuppressLint;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -28,6 +36,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -152,7 +161,14 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 //noinspection EmptyClass must be empty or breaks the entire program
                 GenericTypeIndicator<ArrayList<Shelter>> t =
                         new GenericTypeIndicator<ArrayList<Shelter>>() {};
-                Iterable<Shelter> fetch = dataSnapshot.getValue(t);
+
+                Iterable<Shelter> fetch;
+                try {
+                    fetch = dataSnapshot.getValue(t);
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
 
                 shelterList.clear();
 
@@ -160,6 +176,12 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 for (Shelter s : fetch) {
                     if (s != null) {
                         shelterList.add(s);
+                    }
+                }
+
+                if (shelterArray != null) {
+                    if (shelterArray.length < shelterList.size()) {
+                        sendNotification(shelterList.get(shelterList.size() - 1));
                     }
                 }
 
@@ -192,6 +214,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         );
 
         filter.setOnClickListener(view -> {
+
                 mapFragment.getView().setVisibility(View.GONE);
 
                 name_checkBox.setVisibility(View.VISIBLE);
@@ -311,6 +334,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
                 new RecyclerItemClickListener(getApplicationContext(),
                         recyclerView ,new RecyclerItemClickListener.OnItemClickListener() {
                     @Override public void onItemClick(View view, int position) {
+
                         Shelter item = shelterArray[position];
 
                         Intent myIntent = new Intent(MainActivity.this,
@@ -477,5 +501,50 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
             loadShelters(temp);
         }
+    }
+
+    public void sendNotification(Shelter s) {
+
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(getApplicationContext(), "notify_001");
+        Intent ii;
+        Intent ii2;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            ii = new Intent(getApplicationContext(), MainActivity.class);
+            ii2 = new Intent(getApplicationContext(), ShelterDetailsActivity.class);
+            ii2.putExtra("name", s);
+        } else {
+            ii = new Intent(getApplicationContext(), LoginActivity.class);
+            ii2 = new Intent(getApplicationContext(), LoginActivity.class);
+        }
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, ii, 0);
+        PendingIntent pendingIntent2 = PendingIntent.getActivity(this, 0, ii2, 0);
+
+        NotificationCompat.Action action = new NotificationCompat.Action(R.drawable.logo, "View", pendingIntent2);
+
+        mBuilder.setContentIntent(pendingIntent);
+        mBuilder.setSmallIcon(R.drawable.logo);
+        mBuilder.setDefaults(Notification.DEFAULT_ALL);
+        mBuilder.setContentTitle("New Shelter Available");
+        mBuilder.setContentText("A new shelter has been made available on Sheltr!");
+        mBuilder.setPriority(Notification.PRIORITY_MAX);
+        mBuilder.setAutoCancel(true);
+        mBuilder.addAction(action);
+
+        NotificationManager mNotificationManager =
+                (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel("notify_001",
+                    "Default",
+                    NotificationManager.IMPORTANCE_HIGH);
+            mNotificationManager.createNotificationChannel(channel);
+        }
+
+        mNotificationManager.notify(0, mBuilder.build());
     }
 }

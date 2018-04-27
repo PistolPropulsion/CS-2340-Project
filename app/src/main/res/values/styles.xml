@@ -5,7 +5,7 @@
     <style name="NoActionBar" parent="@android:style/Theme.Material">
         <item name="android:windowActionBar">false</item>
         <item name="android:windowNoTitle">true</item>
-        <item name="android:colorPrimary">#ffa292</item>
+        <item name="android:colorPrimary">#37474f</item>
         <item name="android:colorPrimaryDark">@color/colorPrimaryDark</item>
     </style>
 
